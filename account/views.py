@@ -14,6 +14,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.urls import reverse
 
+from django.contrib.auth import authenticate, login
+
 User = get_user_model()
 DOMAIN_NAME = "http://127.0.0.1:8000"
 
@@ -51,6 +53,9 @@ def verify_email(request, uidb64, token):
 
 def register(request):
     if request.method == 'POST':
+        company_name = request.POST.get('company_name')
+        trade_license = request.FILES.get('trade_license')
+
         account_type = request.POST.get('account_type')
         profession = request.POST.get('profession')
         first_name = request.POST.get('first_name')
@@ -68,7 +73,15 @@ def register(request):
 
 
         if account_type == 'Individual' and not profession:
-            messages.error(request, 'Profession is required for Individual account type.')
+            messages.error(request, 'Profession is required for Individual account.')
+
+        if account_type == 'Company':
+            if not company_name:
+                messages.error(request, 'Company name is required for company account.')
+                return redirect('account:register')
+            if not trade_license:
+                messages.error(request, 'Trade License is required for company account.')
+                return redirect('account:register')
 
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email already exists. Please use a different email address.')
@@ -115,6 +128,12 @@ def register(request):
                 user=user,
                 profession=profession
             )
+        elif account_type == 'Company':
+            company = Company.objects.create(
+                user=user,
+                company_name=company_name,
+                trade_license=trade_license
+            )
 
         token = default_token_generator.make_token(user)
         user.email_verification_token = token
@@ -139,3 +158,23 @@ def register(request):
         
     return render(request, 'guest/register.html')
 
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=email, password=password)
+        print(user)
+        if user is not None:
+            if user.is_verified:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('core:index')
+                else:
+                    messages.error(request, 'Your account is inactive. Please contact the administrator.')
+            else:
+                messages.error(request, 'Your account is unverified. Please verify your account.')
+        else:
+            messages.error(request, 'Invalid username, email, or password.')
+
+    return redirect('core:index')
