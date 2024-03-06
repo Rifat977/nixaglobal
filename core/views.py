@@ -98,6 +98,7 @@ def profile_settings(request):
 def profile_manage(request, pk):
     user = CustomUser.objects.get(pk=pk)
     documents = DocumentImage.objects.filter(identification_document__user=user)
+    print(user.user_type)
     try:
         company = Company.objects.get(user=user)
         trade_license = company.trade_license
@@ -108,6 +109,7 @@ def profile_manage(request, pk):
         post_code = request.POST.get('post_code')
         is_verified = request.POST.get('is_verified')
         is_active = request.POST.get('is_active')
+        user_type = request.POST.get('user_type')
 
         if is_verified == 'on':
             is_verified = True
@@ -127,6 +129,7 @@ def profile_manage(request, pk):
         else:
             user.is_active = is_active
             user.is_verified = is_verified
+            user.user_type = user_type
             user.save()
             messages.success(request, 'Profile updated successfully.')
     return render(request, 'portal/profile_manage.html', {'user':user, 'documents': documents, 'trade_license': trade_license})
