@@ -1,0 +1,170 @@
+{% extends 'portal/assets/base.html' %}
+
+{% load static %}
+
+{% block title %}Profile Settings{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-8">
+        <h2 class="h3 mb-4 page-title">Manage Agent Profile</h2>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                {% endif %}
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="my-4">
+          <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+            </li>
+          </ul>
+          <form method="POST" action="{% url 'core:profile_manage' user.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mt-5 align-items-center">
+              <div class="col-md-3 mb-3">
+                <div class="avatar avatar-xl" id="avatar-container">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="..." class="avatar-img rounded-circle">
+                    {% else %}
+                        <img src="{% static 'assets/portal/./assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
+                    {% endif %}
+                </div>
+              </div>
+              <div class="col">
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <h4 class="mb-1">Identification Documents</h4>
+                  </div>
+                  {% if user.account_type == 'Company' %}
+                  <div class="col-md-6">
+                    <h4 class="mb-1">Trade License</h4>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <p class="text-muted">
+                      {% for document in documents %}
+                          <a href="{{ document.image.url }}" alt="Document Image">Document {{forloop.counter}}</a>
+                      {% empty %}
+                          <p>No documents found.</p>
+                      {% endfor %}
+                    </p>
+                  </div>
+                  {% if user.account_type == 'Company' %}
+                  <div class="col-6">
+                    <p class="small mb-0 text-muted">
+                      {% if trade_license %}
+                      <a href="{{ trade_license.url }}" alt="Document Image">Trade License</a>
+                      {% endif %}
+                    </p>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <hr class="my-4">
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                  <label for="firstname">Account Type</label>
+                  <input type="text" disabled class="form-control" value="{{user.account_type}}">
+              </div>
+              {% if user.account_type == 'Company' %}
+              <div class="form-group col-md-6">
+                  <label for="firstname">Company Name</label>
+                  <input type="text" disabled class="form-control" value="{{user.company_name}}">
+              </div>
+              {% elif user.account_type == 'Individual' %}
+              <div class="form-group col-md-6">
+                <label for="firstname">Profession</label>
+                <input type="text" disabled name="profession" class="form-control" value="{{user.profession}}">
+              </div>
+              {% endif %}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" disabled id="firstname" name="first_name" class="form-control" value="{{user.first_name}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" disabled id="lastname" name="last_name" class="form-control" value="{{user.last_name}}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" disabled class="form-control" id="inputEmail4" value="{{user.email}}">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress5">Username</label>
+                    <input type="text" disabled class="form-control" id="inputAddress5" value="{{user.username}}">
+                  </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Referral code</label>
+                    <input type="text" disabled class="form-control" id="inputEmail4" value="{{user.referral_code}}">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress5">Referred by</label>
+                    <input type="text" disabled class="form-control" id="inputAddress5" value="{{user.referred_by}}">
+                  </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Phone Number</label>
+                    <input type="text" disabled name="phone_number" class="form-control" id="inputEmail4" value="{{user.phone_number}}">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress5">Address</label>
+                    <input type="text" disabled name="address" class="form-control" id="inputAddress5" value="{{user.address}}">
+                  </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputEmail4">Country</label>
+                    <input type="text" disabled name="country" class="form-control" id="inputEmail4" value="{{user.country}}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAddress5">City</label>
+                    <input type="text" disabled name="city" class="form-control" id="inputAddress5" value="{{user.city}}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAddress5">Post Code</label>
+                    <input type="text" disabled name="post_code" class="form-control" id="inputAddress5" value="{{user.post_code}}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputEmail4">Date Joined</label>
+                    <input type="text" disabled disabled class="form-control" id="inputEmail4" value="{{user.date_joined}}">
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check col-md-6">
+                  <input class="form-check-input" name="is_verified" type="checkbox" {% if user.is_verified %}checked{% endif %} id="isVerifiedCheckbox">
+                  <label class="form-check-label" for="isVerifiedCheckbox">Is Verified</label>
+              </div>
+              <div class="form-check col-md-6">
+                  <input class="form-check-input" name="is_active" type="checkbox" {% if user.is_active %}checked{% endif %} id="isActiveCheckbox">
+                  <label class="form-check-label" for="isActiveCheckbox">Is Approved</label>
+              </div>
+            </div>          
+            <button type="submit" class="btn btn-primary">Save Change</button>
+          </form>
+        </div> 
+      </div> <!-- /.col-12 -->
+    </div> <!-- .row -->
+  </div>
+</div>
+{% endblock %}

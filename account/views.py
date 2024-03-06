@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from .models import *
-from django.contrib import messages
+from django.contrib import auth, messages
 from django.core.files.uploadedfile import UploadedFile
 
 import random, string
@@ -15,6 +15,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.urls import reverse
 
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 DOMAIN_NAME = "http://127.0.0.1:8000"
@@ -52,6 +53,8 @@ def verify_email(request, uidb64, token):
         return redirect('account:register')
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('core:dashboard')
     if request.method == 'POST':
         company_name = request.POST.get('company_name')
         trade_license = request.FILES.get('trade_license')
@@ -71,20 +74,19 @@ def register(request):
         document_type = request.POST.get('document_type')
         identification_documents = request.FILES.getlist('identification_document')
 
+        errors = []
 
         if account_type == 'Individual' and not profession:
-            messages.error(request, 'Profession is required for Individual account.')
+            errors.append('Profession is required for Individual account.')
 
         if account_type == 'Company':
             if not company_name:
-                messages.error(request, 'Company name is required for company account.')
-                return redirect('account:register')
+                errors.append('Company name is required for company account.')
             if not trade_license:
-                messages.error(request, 'Trade License is required for company account.')
-                return redirect('account:register')
+                errors.append('Trade License is required for company account.')
 
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already exists. Please use a different email address.')
+            errors.append('Email already exists. Please use a different email address.')
 
         required_fields = {
             'First Name': first_name,
@@ -100,16 +102,18 @@ def register(request):
             'Document Type': document_type,
             'Identification Document': identification_documents
         }
+        
         missing_fields = [field for field, value in required_fields.items() if value is None or value == '']
         if missing_fields:
-            error_message = "The following fields are required: {}".format(', '.join(missing_fields))
-            messages.error(request, error_message)
-            return redirect('account:register')
-
+            errors.append("The following fields are required: {}".format(', '.join(missing_fields)))
 
         if password != confirm_password:
-            messages.error(request, 'Password and Confirm Password do not match.')
-            return redirect('account:register')
+            errors.append('Password and Confirm Password do not match.')
+
+        if errors:
+            for error_message in errors:
+                messages.error(request, error_message)
+            return render(request, 'guest/register.html')
 
         referral_code = generate_referral_code()
 
@@ -120,18 +124,15 @@ def register(request):
             first_name=first_name,
             last_name=last_name,
             referral_code=referral_code,
+            company_name=company_name,
+            profession=profession,
+            account_type=account_type,
             is_active=False
         )
 
-        if account_type == 'Individual':
-            individual = Individual.objects.create(
-                user=user,
-                profession=profession
-            )
-        elif account_type == 'Company':
+        if account_type == 'Company':
             company = Company.objects.create(
                 user=user,
-                company_name=company_name,
                 trade_license=trade_license
             )
 
@@ -160,16 +161,21 @@ def register(request):
 
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        identifier = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=email, password=password)
+        if '@' in identifier:
+                user = CustomUser.objects.get(email=identifier)
+                identifier = user.username
+
+        user = authenticate(request, username=identifier, password=password)
         print(user)
         if user is not None:
             if user.is_verified:
                 if user.is_active:
+                    print("hello")
                     login(request, user)
-                    return redirect('core:index')
+                    return redirect('core:dashboard')
                 else:
                     messages.error(request, 'Your account is inactive. Please contact the administrator.')
             else:
@@ -178,3 +184,10 @@ def login_view(request):
             messages.error(request, 'Invalid username, email, or password.')
 
     return redirect('core:index')
+
+
+@login_required
+def logout(request):
+    if request.method=="POST":
+        auth.logout(request)
+        return redirect('account:login')

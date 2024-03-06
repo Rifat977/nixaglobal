@@ -27,6 +27,9 @@ class CustomUser(AbstractUser):
     email_verification_token = models.CharField(max_length=100, blank=True, null=True)
     email_verification_sent_at = models.DateTimeField(null=True, blank=True)
     identification_document = models.ForeignKey('IdentificationDocument', on_delete=models.SET_NULL, null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True)
+    company_name = models.CharField(max_length=200, null=True, blank=True)
+    profession = models.CharField(max_length=100, null=True, blank=True)
 
     def is_email_verification_token_expired(self):
         if self.email_verification_sent_at:
@@ -54,17 +57,8 @@ class CustomUser(AbstractUser):
         verbose_name = "User"
         verbose_name_plural = "     Users"
 
-class Individual(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    profession = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name = "Individual"
-        verbose_name_plural = "    Individuals"
-
 class Company(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    company_name = models.CharField(max_length=200)
     trade_license = models.FileField(upload_to='user_docs', blank=True, null=True)
 
     class Meta:
