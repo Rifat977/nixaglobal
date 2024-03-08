@@ -25,6 +25,20 @@
                     <span class="ml-3 item-text">Dashboard</span><span class="sr-only">(current)</span>
                 </a>
             </li>
+            {% if request.user.user_type == 'Admin' %}
+            <li class="nav-item dropdown">
+                <a href="{% url 'core:all_agent' %}" class="nav-link">
+                    <i class="fe fe-users fe-16"></i>
+                    <span class="ml-3 item-text">All Agents</span><span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="{% url 'core:university' %}" class="nav-link">
+                    <i class="fe fe-book fe-16"></i>
+                    <span class="ml-3 item-text">University</span><span class="sr-only">(current)</span>
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 </aside>

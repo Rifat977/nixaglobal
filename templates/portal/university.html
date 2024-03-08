@@ -1,0 +1,113 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Manage University{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-4">
+      <h2 class="page-title">Manage University</h2>
+
+      {% include 'portal/assets/message.html' %}
+
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <strong class="card-title">Add New University</strong>
+        </div>
+        <form action="{% url 'core:university' %}" method="post">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group mb-3">
+                  <label for="simpleinput">University Name</label>
+                  <input type="text" name="name" id="simpleinput" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success text-light">Add New</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-1-">
+      <h6 class="mb-3">University List</h6>
+      <table class="table table-borderless table-striped">
+        <thead>
+          <tr role="row">
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in universitys %}
+          <tr>
+            <th scope="col">{{item.name}}</th>
+            <td>
+              <div>
+                <button type="button" data-toggle="modal" data-target="#verticalModal_{{forloop.counter}}" class="btn btn-sm btn-warning text-light">Edit</button>
+                <button type="button" data-toggle="modal" data-target="#deleteModal_{{forloop.counter}}" class="btn btn-sm btn-danger text-light">Delete</button>
+              </div>
+            </td>
+          </tr>
+
+          <div class="modal fade" id="verticalModal_{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <form action="{% url 'core:university_edit' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="verticalModalTitle">Edit University</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                      <input type="text" name="name" id="simpleinput" class="form-control" value="{{item.name}}">
+                      <input type="hidden" name="un_id" id="simpleinput" class="form-control" value="{{item.id}}">
+                    </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn mb-2 btn-success text-light">Update</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="modal fade" id="deleteModal_{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <form action="{% url 'core:university_delete' item.id %}" method="post">
+                {% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="verticalModalTitle">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>{{item.name}}</p>
+                    </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn mb-2 btn-danger text-light">Confirm</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div> 
+  </div> 
+
+</div>
+{% endblock %}

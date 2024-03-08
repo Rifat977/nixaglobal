@@ -1,0 +1,66 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Home - Nixaglobal{% endblock %}
+
+
+{% block content %}
+
+<!-- ADMIN Part -->
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-12">
+          <h6 class="mb-3">Pending Agents</h6>
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr role="row">
+                    <th>Name</th>
+                    <th>Account Type</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Email Verify</th>
+                    <th>AC Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for agent in agents %}
+                  <tr>
+                    <th scope="col">{{agent.first_name}} {{agent.last_name}}</th>
+                    <td>{{agent.account_type}}</td>
+                    <td>{{agent.email}}</td>
+                    <td>{{agent.phone_number}}</td>
+                    <td>{{agent.country}}</td>
+                    <td>{{agent.city}}</td>
+                    <td><span class="badge badge-pill {% if agent.is_verified %} badge-success {% else %} badge-warning {% endif %}">{% if agent.is_verified %} Verified {% else %} Not Verified {% endif %}</span></td>
+                    <td><span class="badge badge-pill {% if agent.is_active %} badge-success {% else %} badge-warning {% endif %}">{% if agent.is_active %} Approved {% else %} Pending {% endif %}</span></td>
+                    <td>
+                      <div class="dropdown">
+                        <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="text-muted sr-only">Action</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="{% url 'core:profile_manage' agent.id|urlencode %}">Manage Profile</a>
+                          <a class="dropdown-item" href="{% url 'core:comission_manage' agent.id|urlencode %}">Comission Tier</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div> <!-- / .col-md-3 -->
+      </div> <!-- end section -->
+    </div>
+  </div> <!-- .row -->
+</div>
+<!-- END ADMIN part -->
+
+{% endblock %}
