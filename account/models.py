@@ -39,7 +39,7 @@ class CustomUser(AbstractUser):
 
     @property
     def is_agent(self):
-        return self.user_type in [UserType.AGENT, UserType.EXCLUSIVE_AGENT]
+        return self.user_type in [UserType.AGENT]
 
     @property
     def is_sub_agent(self):

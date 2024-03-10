@@ -4,14 +4,12 @@
 
 
 {% block content %}
+{% if user_type == 'Admin' %}
 <div class="container-fluid">
-
   <div class="row justify-content-start">
     <div class="col-12 col-md-4">
       <h2 class="page-title">Manage University</h2>
-
       {% include 'portal/assets/message.html' %}
-
       <div class="card shadow mb-4">
         <div class="card-header">
           <strong class="card-title">Add New University</strong>
@@ -110,4 +108,35 @@
   </div> 
 
 </div>
+{% else %}
+<div class="container-fluid">
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-4">
+      <h2 class="page-title">University List</h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-1-">
+      <table class="table table-borderless table-striped">
+        <thead>
+          <tr role="row">
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in universitys %}
+          <tr>
+            <th scope="col">{{item.name}}</th>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div> 
+  </div> 
+
+</div>
+{% endif %}
+
 {% endblock %}

@@ -13,4 +13,8 @@ urlpatterns = [
     path('university/', views.university, name="university"),
     path('university/delete/<int:pk>', views.university_delete, name="university_delete"),
     path('university/edit/', views.university_edit, name="university_edit"),
+
+    path('application/', views.application, name="application"),
+
+
 ]

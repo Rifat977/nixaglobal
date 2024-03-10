@@ -17,23 +17,46 @@ def index(request):
 @any_user_required
 def dashboard(request):
     user = request.user
+
+    print(user.user_type)
+
+    universities = University.objects.all()
+    commission_tiers = {}
+    for university in universities:
+        try:
+            commission_tier = CommissionTier.objects.get(user=user, university=university)
+            commission_tiers[university.pk] = commission_tier
+        except CommissionTier.DoesNotExist:
+            commission_tiers[university.pk] = None
+
     if user.is_admin:
         pending_agents = CustomUser.objects.filter(is_active=False)
+        total_agent = CustomUser.objects.all().count()
         context = {
             'user_type': UserType.ADMIN,
-            'pending_agents': pending_agents
+            'pending_agents': pending_agents,
+            'total_agent': total_agent
         }
     elif user.is_agent:
         context = {
             'user_type': UserType.AGENT,
+            'commission_tiers': commission_tiers,
+            'universities': universities,
+            'agent': user
         }
     elif user.is_sub_agent:
         context = {
             'user_type': UserType.SUB_AGENT,
+            'commission_tiers': commission_tiers,
+            'universities': universities,
+            'agent': user
         }
     elif user.is_exclusive_agent:
         context = {
             'user_type': UserType.EXCLUSIVE_AGENT,
+            'commission_tiers': commission_tiers,
+            'universities': universities,
+            'agent': user
         }
     return render(request, 'portal/dashboard.html', context)
 
@@ -248,24 +271,45 @@ def comission_manage(request, pk):
 
 
 @login_required
-@admin_required
+@any_user_required
 def university(request):
-    if request.method == "POST":
-        name = request.POST.get('name')
-        if name:
-            try:
-                University.objects.create(name=name)
-                messages.success(request, f"University '{name}' created successfully.")
-            except Exception as e:
-                messages.error(request, f"Failed to create university: {e}")
-            return redirect('core:university')
-        else:
-            messages.error(request, "Name field must be required")
+    user = request.user
+    if user.is_admin:
+        if request.method == "POST":
+            name = request.POST.get('name')
+            if name:
+                try:
+                    University.objects.create(name=name)
+                    messages.success(request, f"University '{name}' created successfully.")
+                except Exception as e:
+                    messages.error(request, f"Failed to create university: {e}")
+                return redirect('core:university')
+            else:
+                messages.error(request, "Name field must be required")
 
-    universitys = University.objects.all().order_by('-id')
-    context = {
-        'universitys': universitys
-    }
+        universitys = University.objects.all().order_by('-id')
+        context = {
+            'user_type': UserType.ADMIN,
+            'universitys': universitys
+        }
+    elif user.is_agent:
+        universitys = University.objects.all().order_by('-id')
+        context = {
+            'user_type': UserType.AGENT,
+            'universitys': universitys
+        }
+    elif user.is_sub_agent:
+        universitys = University.objects.all().order_by('-id')
+        context = {
+            'user_type': UserType.SUB_AGENT,
+            'universitys': universitys
+        }
+    elif user.is_exclusive_agent:
+        universitys = University.objects.all().order_by('-id')
+        context = {
+            'user_type': UserType.EXCLUSIVE_AGENT,
+            'universitys': universitys
+        }
     return render(request, 'portal/university.html', context)
 
 @login_required
@@ -297,3 +341,9 @@ def university_delete(request, pk):
     if university.delete():
         messages.success(request, f"University '{name}' deleted successfully.")
     return redirect('core:university')
+
+@login_required
+def application(request):
+    universitys = University.objects.all()
+    return render(request, 'portal/application.html', {'universitys':universitys})
+

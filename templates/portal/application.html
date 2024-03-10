@@ -1,0 +1,81 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Make Application{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-12">
+      <h2 class="page-title">Applicaiton</h2>
+      {% include 'portal/assets/message.html' %}
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <strong class="card-title">Student Application</strong>
+        </div>
+        <form action="{% url 'core:university' %}" method="post">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group mb-3">
+                  <label for="simpleinput">First Name</label>
+                  <input type="text" name="first_name" id="simpleinput" class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="simpleinput">Passport Number</label>
+                  <input type="text" name="passport_number" id="simpleinput" class="form-control">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group mb-3">
+                  <label for="simpleinput">Last Name</label>
+                  <input type="text" name="last_name" id="simpleinput" class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="simpleinput">Date of Birth</label>
+                  <input type="text" name="dob" id="simpleinput" class="form-control">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group mb-3">
+                  <label for="simpleinput">University</label>
+                  <select name="university" id="" class="form-control">
+                    <option value="">Select University</option>
+                    {% for university in universitys %}
+                      <option value="{{university.id}}">{{university.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="simpleinput">Subject</label>
+                  <input type="text" name="subject" id="simpleinput" class="form-control">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group mb-3">
+                <label for="simpleinput">Program</label>
+                <select name="program" id="" class="form-control">
+                  <option value="">Select Program</option>
+                  <option value="FOUNDATION">FOUNDATION</option>
+                  <option value="DIPLOMA">DIPLOMA</option>
+                  <option value="BACHELOR">BACHELOR</option>
+                  <option value="MASTER">MASTER</option>
+                  <option value="PHD">PHD</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary text-light">Apply Now</button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
