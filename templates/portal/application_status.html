@@ -1,0 +1,76 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Make Application{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-12">
+      <h2 class="page-title">My Applicaiton Status</h2>
+      {% include 'portal/assets/message.html' %}
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <strong class="card-title">Summary</strong>
+        </div>
+          <div class="card-body">
+            <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="form-group mb-3">
+                  <strong class="font-weight-bold" for="simpleinput">Full Name:</strong>
+                  <span>{{application.first_name}} {{application.last_name}}</span>
+                </div>
+                <div class="form-group mb-3">
+                  <strong class="font-weight-bold" for="simpleinput">Passport Number: </strong>
+                  <span>{{application.passport_number}}</span>
+                </div>
+                <div class="form-group mb-3">
+                  <strong class="font-weight-bold" for="simpleinput">Application Number:</strong>
+                  <span>{{application.application_id}}</span>
+                </div>
+                <div class="form-group mb-3">
+                  <strong class="font-weight-bold" for="simpleinput">Passport Number: </strong>
+                  <span>{{application.passport_number}}</span>
+                </div>
+                <div class="form-group mb-3">
+                  <strong class="font-weight-bold" for="simpleinput">Application Status: </strong>
+                  {% for status in latest_status %}
+                    <span>{{status.status}}</span>
+                  {% endfor %}
+                </div>
+            </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <strong class="card-title">Application Progress History</strong>
+        </div>
+        <div class="card-body">
+          <table class="table table-borderless table-striped">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for status in statuses %}
+              <tr>
+                <th>{{status.date}}</th>
+                <td>{{status.status}}</td>
+                <td>{{status.remark}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

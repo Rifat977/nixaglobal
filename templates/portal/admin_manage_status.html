@@ -1,0 +1,104 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Manage Application{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-6">
+      {% include 'portal/assets/message.html' %}
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <strong class="card-title">Application Details</strong>
+        </div>
+        <form action="{% url 'core:university' %}" method="post">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group mb-2">
+                  <strong class="card-title">Agent :</strong>
+                  <span>{{application.user}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Student Name :</strong>
+                    <span>{{application.first_name}} {{application.last_name}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Passport Number :</strong>
+                    <span>{{application.passport_number}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Date of Birth :</strong>
+                    <span>{{application.dob}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Subject :</strong>
+                    <span>{{application.subject}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Program :</strong>
+                    <span>{{application.program}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-header">
+            <strong class="card-title">Add Status</strong>
+          </div>
+          <form action="{% url 'core:admin_manage_status' application.id %}" method="post">
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group mb-3">
+                    <label for="simpleinput">Status</label>
+                    <input type="text" name="status" id="simpleinput" class="form-control">
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="simpleinput">Remark</label>
+                    <input type="text" name="remark" id="simpleinput" class="form-control">
+                  </div>
+                  <button type="submit" class="btn btn-success text-light">Add Status</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-1-">
+      <h6 class="mb-3">Progress History</h6>
+      <table class="table table-borderless table-striped">
+        <thead>
+          <tr role="row">
+            <th>Date</th>
+            <th>Status</th>
+            <th>Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for status in statuses %}
+          <tr>
+            <th scope="col">{{status.date}}</th>
+            <td>{{status.status}}</td>
+            <td>{{status.remark}}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div> 
+  </div> 
+
+</div>
+
+{% endblock %}

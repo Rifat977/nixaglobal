@@ -6,13 +6,13 @@
 <div class="container-fluid">
   <div class="row justify-content-start">
     <div class="col-12 col-md-12">
-      <h2 class="page-title">Applicaiton</h2>
+      <h2 class="page-title">Make Applicaiton</h2>
       {% include 'portal/assets/message.html' %}
       <div class="card shadow mb-4">
         <div class="card-header">
           <strong class="card-title">Student Application</strong>
         </div>
-        <form action="{% url 'core:university' %}" method="post">
+        <form action="{% url 'core:application' %}" method="post">
           {% csrf_token %}
           <div class="card-body">
             <div class="row">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group mb-3">
                   <label for="simpleinput">Date of Birth</label>
-                  <input type="text" name="dob" id="simpleinput" class="form-control">
+                  <input type="date" name="dob" id="simpleinput" class="form-control">
                 </div>
               </div>
               <div class="col-12 col-md-6">
@@ -73,6 +73,42 @@
           </div>
         </form>
       </div>
+
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-borderless table-striped">
+            <thead>
+              <tr role="row">
+                <th>Name</th>
+                <th>Passport Number</th>
+                <th>Date of Birth</th>
+                <th>University</th>
+                <th>Program</th>
+                <th>Subject</th>
+                <th>Actioin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for applicant in applicaitons %}
+              <tr>
+                <th scope="col">{{applicant.first_name}} {{applicant.last_name}}</th>
+                <td>{{applicant.passport_number}}</td>
+                <td>{{applicant.dob}}</td>
+                <td>{{applicant.university}}</td>
+                <td>{{applicant.program}}</td>
+                <td>{{applicant.subject}}</td>
+                <td>
+                  <a href="{% url 'core:application_status' applicant.id %}">
+                    <button class="btn btn-success text-light" type="button">View Status</button>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 

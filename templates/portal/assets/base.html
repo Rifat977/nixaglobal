@@ -23,6 +23,8 @@
     <!-- Date Range Picker CSS -->
     <link rel="stylesheet" href="{% static 'assets/portal/css/daterangepicker.css' %}">
     <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'assets/portal/css/dataTables.bootstrap4.css' %}">
+
     <link rel="stylesheet" href="{% static 'assets/portal/css/app-light.css' %}" id="lightTheme">
     <link rel="stylesheet" href="{% static 'assets/portal/css/app-dark.css' %}" id="darkTheme" disabled>
   </head>
@@ -159,6 +161,9 @@
       </div>
       </main> <!-- main -->
     </div> <!-- .wrapper -->
+
+
+
     <script src="{% static 'assets/portal/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/portal/js/popper.min.js' %}"></script>
     <script src="{% static 'assets/portal/js/moment.min.js' %}"></script>
@@ -407,6 +412,18 @@
       }
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
+    </script>
+    <script src="{% static 'assets/portal/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/portal/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
     </script>
   </body>
 </html>

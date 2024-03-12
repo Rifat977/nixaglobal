@@ -9,6 +9,8 @@ from django.core.validators import DecimalValidator
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.exceptions import ObjectDoesNotExist
 
+import string, random
+
 # Create your views here.
 def index(request):
     return render(request, 'guest/index.html')
@@ -345,5 +347,85 @@ def university_delete(request, pk):
 @login_required
 def application(request):
     universitys = University.objects.all()
-    return render(request, 'portal/application.html', {'universitys':universitys})
+    applications = Applicant.objects.filter(user=request.user).order_by('-id')
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        passport_number = request.POST.get('passport_number')
+        dob = request.POST.get('dob')
+        university_id = request.POST.get('university')
+        subject = request.POST.get('subject')
+        program = request.POST.get('program')
 
+        if not (first_name and last_name and passport_number and dob and university_id and subject and program):
+            messages.error(request, "Please fill in all required fields.")
+            return redirect('core:application')
+            
+        application_id = generate_unique_id()
+
+        try:
+            university_obj = University.objects.get(pk=university_id)
+        except University.DoesNotExist:
+            messages.error(request, "Invalid university selected.")
+            return redirect('core:application')
+
+        applicant = Applicant.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            passport_number=passport_number,
+            dob=dob,
+            university=university_obj,
+            subject=subject,
+            program=program,
+            application_id=application_id,
+            user=request.user
+        )
+        messages.success(request, "Application submitted successfully!")
+
+    return render(request, 'portal/application.html', {'universitys':universitys, 'applicaitons': applications})
+
+def generate_unique_id():
+    length = 8
+    characters = string.ascii_uppercase + string.digits
+    invoice_id = ''.join(random.choice(characters) for _ in range(length))
+    return invoice_id
+
+@login_required
+def application_status(request, pk):
+    application = Applicant.objects.get(id=pk)
+    statuses = ApplicationStatus.objects.filter(application=application).order_by('-id')
+    latest_status = ApplicationStatus.objects.filter(application=application).order_by('-id')[:1]
+    return render(request, 'portal/application_status.html', {'statuses':statuses, 'application':application, 'latest_status':latest_status})
+
+@login_required
+@admin_required
+def admin_application(request):
+    applications = Applicant.objects.all().order_by('-id')
+    context = {
+        'applications':applications
+    }
+    return render(request, 'portal/admin_application.html', context)
+
+
+@login_required
+@admin_required
+def admin_manage_status(request, pk):
+    application = Applicant.objects.get(id=pk)
+    statuses = ApplicationStatus.objects.filter(application=application).order_by('-id')
+    context = {
+        'application':application,
+        'statuses': statuses
+    }
+    if request.method == "POST":
+        status = request.POST.get('status')
+        remark = request.POST.get('remark')
+        if not (status and remark):
+            messages.error(request, "Please fill in all required fields.")
+            return redirect('core:admin_manage_status', application.id)
+        application_status = ApplicationStatus.objects.create(
+            status=status,
+            remark=remark,
+            application=application
+        )
+        messages.success(request, "Status Added successfully!")
+    return render(request, 'portal/admin_manage_status.html', context)

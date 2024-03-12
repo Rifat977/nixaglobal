@@ -15,6 +15,11 @@ urlpatterns = [
     path('university/edit/', views.university_edit, name="university_edit"),
 
     path('application/', views.application, name="application"),
+    path('application/status/<int:pk>', views.application_status, name="application_status"),
+
+    path('admin-application/', views.admin_application, name="admin_application"),
+    path('admin-manage-status/<int:pk>', views.admin_manage_status, name="admin_manage_status"),
+
 
 
 ]
