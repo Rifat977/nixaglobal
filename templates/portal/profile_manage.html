@@ -175,6 +175,41 @@
         </div> 
       </div> <!-- /.col-12 -->
     </div> <!-- .row -->
+
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-header">
+          <strong class="card-title">Sub-Agents of {{user.first_name}} {{user.last_name}}</strong>
+        </div>
+        <div class="col-12 col-md-1-">
+          <table class="table table-borderless table-striped">
+            <thead>
+              <tr role="row">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Profile Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in referrals %}
+              <tr>
+                <th scope="col">{{item.first_name}} {{item.last_name}}</th>
+                <th>{{item.email}}</th>
+                <th>{{item.phone_number}}</th>
+                <th>
+                  <span class="badge badge-pill {% if user.is_active %}badge-success{% else %}badge-danger{% endif %}" >{% if user.is_active %}Active{% else %}Inactive{% endif %}</span>
+                </th>
+              </tr>
+    
+              {% endfor %}
+            </tbody>
+          </table>
+        </div> 
+      </div>
+    </div>
+
   </div>
 </div>
 {% endblock %}

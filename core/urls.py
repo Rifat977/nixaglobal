@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('dashboard/', views.dashboard, name="dashboard"),
     path('all_agent/', views.all_agent, name="all_agent"),
+    path('my_agents/', views.my_agents, name="my_agents"),
     path('profile_settings/', views.profile_settings, name="profile_settings"),
     path('profile_manage/<int:pk>', views.profile_manage, name="profile_manage"),
     path('comission_manage/<int:pk>', views.comission_manage, name="comission_manage"),

@@ -75,6 +75,20 @@ def all_agent(request):
     else:
         return redirect('core:dashboard')
 
+@login_required
+@any_user_required
+def my_agents(request):
+    user = request.user
+    if not user.is_admin:
+        agents = CustomUser.objects.filter(referred_by=request.user).order_by('-date_joined')
+        print(agents)
+        context = {
+            'agents': agents
+        }
+        return render(request, 'portal/my_agents.html', context)
+    else:
+        return redirect('core:dashboard')
+
 
 @login_required
 def profile_settings(request):
@@ -141,12 +155,11 @@ def profile_settings(request):
 @admin_required
 def profile_manage(request, pk):
     user = CustomUser.objects.get(pk=pk)
+    referrals = CustomUser.objects.filter(referred_by=user.id)
     documents = DocumentImage.objects.filter(identification_document__user=user)
-    print(user.user_type)
     try:
         company = Company.objects.get(user=user)
         trade_license = company.trade_license
-        print(trade_license)
     except Company.DoesNotExist:
         trade_license = None
     if request.method == 'POST':
@@ -176,10 +189,10 @@ def profile_manage(request, pk):
             user.user_type = user_type
             user.save()
             messages.success(request, 'Profile updated successfully.')
-    return render(request, 'portal/profile_manage.html', {'user':user, 'documents': documents, 'trade_license': trade_license})
+    return render(request, 'portal/profile_manage.html', {'user':user, 'documents': documents, 'trade_license': trade_license, 'referrals':referrals})
 
 @login_required
-@admin_required
+@admin_exclusive_required
 def comission_manage(request, pk):
     user = CustomUser.objects.get(id=pk)
     if request.method == 'POST':
@@ -238,6 +251,10 @@ def comission_manage(request, pk):
                 DecimalValidator(max_digits=10, decimal_places=2)(research)
 
                 commission_tier, created = CommissionTier.objects.get_or_create(user=user, university=university)
+                if request.user.user_type == 'Admin':
+                    commission_tier.status = True
+                else:
+                    commission_tier.status = False
                 commission_tier.foundation_commission = foundation
                 commission_tier.diploma_commission = diploma
                 commission_tier.bachelor_commission = bachelor

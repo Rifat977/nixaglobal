@@ -73,8 +73,16 @@ def register(request):
         post_code = request.POST.get('post_code')
         document_type = request.POST.get('document_type')
         identification_documents = request.FILES.getlist('identification_document')
+        referred_by = request.POST.get('referred_by', '')
 
         errors = []
+
+
+        if referred_by != "":
+            if not CustomUser.objects.filter(referral_code=referred_by).exists():
+                errors.append('Referral Code not valid')
+            else:
+                referred_by = CustomUser.objects.get(referral_code=referred_by)
 
         if account_type == 'Individual' and not profession:
             errors.append('Profession is required for Individual account.')
@@ -127,6 +135,7 @@ def register(request):
             company_name=company_name,
             profession=profession,
             account_type=account_type,
+            referred_by=referred_by,
             is_active=False
         )
 

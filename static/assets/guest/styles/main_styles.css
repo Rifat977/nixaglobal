@@ -277,7 +277,7 @@ section
 }
 .button_1
 {
-	background: #fd556d;
+	background: #ff7800;
 	border: solid 2px transparent;
 }
 .button_1 a
@@ -286,12 +286,12 @@ section
 }
 .button_1:hover
 {
-	background: transparent;
-	border: solid 2px #fd556d;
+	background-color: #2e3440;
+	border: solid 2px #fff;
 }
 .button_1:hover a
 {
-	color: #fd556d;
+	color: #fff;
 }
 .button_2
 {
@@ -765,7 +765,7 @@ section
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 336px;
+	width: 356px;
 	height: 80px;
 	background: #57ccc3;
 	line-height: 80px;
@@ -874,9 +874,9 @@ section
 }
 .intro_button:hover
 {
-	background: transparent;
-	border: solid 2px #fd556d;
-	color: #fd556d;
+	background-color: #2e3440;
+	border: solid 2px #fff;
+	color: #fff;
 }
 
 /*********************************

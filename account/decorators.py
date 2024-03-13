@@ -48,3 +48,13 @@ def any_user_required(view_func):
         else:
             return redirect('core:index')
     return _wrapped_view
+
+def admin_exclusive_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated and (user.is_admin or user.is_exclusive_agent):
+            return view_func(request, *args, **kwargs)
+        else:
+            return redirect('core:index')
+    return _wrapped_view

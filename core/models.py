@@ -20,6 +20,7 @@ class CommissionTier(models.Model):
     masters_commission = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     phd_commission = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     research_based_commission = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Commission Tier for {self.user.username} at {self.university.name}"

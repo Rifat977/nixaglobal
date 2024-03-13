@@ -286,12 +286,12 @@ section
 }
 .button_1:hover
 {
-	background: transparent;
-	border: solid 2px #fd556d;
+	background-color: #2e3440;
+	border: solid 2px #fff;
 }
 .button_1:hover a
 {
-	color: #fd556d;
+	color: #fff;
 }
 .button_2
 {

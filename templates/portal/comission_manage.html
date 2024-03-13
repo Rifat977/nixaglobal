@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                   {% for university in universities %}
-                      {% with commission_tier=university|get_commission_tier:agent %}
+                      {% with commission_tier=university|get_commission_tier_for_admin:agent %}
                       <tr>
                           <th scope="col">{{ university.name }}</th>
                           <td><input type="number" step="0.01" class="form-control" name="foundation_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.foundation_commission }}{% endif %}" id=""></td>

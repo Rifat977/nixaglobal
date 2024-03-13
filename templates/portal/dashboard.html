@@ -167,6 +167,53 @@
 </div>
 </div>
 
+{% else %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h2 class="h3 mb-4 page-title">Hi {{agent.user_type}}!</h2>
+      {% include 'portal/assets/message.html' %}
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <strong class="card-title">Comission Tier for you</strong>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr role="row">
+                  <th class="text-dark">University Name</th>
+                  <th class="text-dark">FOUNDATION (RM)</th>
+                  <th class="text-dark">DIPLOMA (RM)</th>
+                  <th class="text-dark">BACHELOR (RM)</th>
+                  <th class="text-dark">MASTERS (RM)</th>
+                  <th class="text-dark">PHD (RM)</th>
+                  <th class="text-dark">RESEARCH BASED (RM)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for university in universities %}
+                    {% with commission_tier=university|get_commission_tier:agent %}
+                    <tr>
+                        <th scope="col">{{ university.name }}</th>
+                        <td><input type="number" step="0.01" class="form-control" name="foundation_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.foundation_commission }}{% endif %}" id=""></td>
+                        <td><input type="number" step="0.01" class="form-control" name="diploma_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.diploma_commission }}{% endif %}" id=""></td>
+                        <td><input type="number" step="0.01" class="form-control" name="bachelor_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.bachelor_commission }}{% endif %}" id=""></td>
+                        <td><input type="number" step="0.01" class="form-control" name="masters_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.masters_commission }}{% endif %}" id=""></td>
+                        <td><input type="number" step="0.01" class="form-control" name="phd_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.phd_commission }}{% endif %}" id=""></td>
+                        <td><input type="number" step="0.01" class="form-control" name="research_{{ university.pk }}" value="{% if commission_tier %}{{ commission_tier.research_based_commission }}{% endif %}" id=""></td>
+                    </tr>
+                    {% endwith %}
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+   
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 {% endif %}
 <!-- END ADMIN part -->
 
