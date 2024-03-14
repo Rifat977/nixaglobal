@@ -42,6 +42,14 @@ class Applicant(models.Model):
         ('PHD', 'PhD'),
     ])
     application_id = models.CharField(max_length=10, unique=True)
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('PROCESSING', 'Processing'),
+        ('COMPLETE', 'Complete'),
+        ('REJECT', 'Reject'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

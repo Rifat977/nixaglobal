@@ -47,7 +47,10 @@
                           <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="{% url 'core:comission_manage' agent.id|urlencode %}">View Profile</a>
+                          {% if request.user.user_type == 'Exclusive Agent' %}
                           <a class="dropdown-item" href="{% url 'core:comission_manage' agent.id|urlencode %}">Comission Tier</a>
+                          {% endif %}
                         </div>
                       </div>
                     </td>

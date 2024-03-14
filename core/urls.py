@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin-application/', views.admin_application, name="admin_application"),
     path('admin-manage-status/<int:pk>', views.admin_manage_status, name="admin_manage_status"),
 
+    path('payment_request/', views.payment_request, name="payment_request"),
 
 
 ]

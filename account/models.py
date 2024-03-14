@@ -5,7 +5,7 @@ from django.utils import timezone
 class UserType(models.TextChoices):
     ADMIN = 'Admin', 'Admin'
     AGENT = 'Agent', 'Agent'
-    SUB_AGENT = 'Sub-agent', 'Sub-agent'
+    # SUB_AGENT = 'Sub-agent', 'Sub-agent'
     EXCLUSIVE_AGENT = 'Exclusive Agent', 'Exclusive Agent'
 
 class AccountType(models.TextChoices):

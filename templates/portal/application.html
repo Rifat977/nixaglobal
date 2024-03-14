@@ -85,6 +85,7 @@
                 <th>University</th>
                 <th>Program</th>
                 <th>Subject</th>
+                <th>Status</th>
                 <th>Actioin</th>
               </tr>
             </thead>
@@ -97,6 +98,18 @@
                 <td>{{applicant.university}}</td>
                 <td>{{applicant.program}}</td>
                 <td>{{applicant.subject}}</td>
+                <td>
+                  {% if applicant.status == 'PENDING' %}
+                      <span class="badge badge-warning text-light">{{ applicant.status }}</span>
+                  {% elif applicant.status == 'PROCESSING' %}
+                      <span class="badge badge-primary text-light">{{ applicant.status }}</span>
+                  {% elif applicant.status == 'COMPLETE' %}
+                      <span class="badge badge-success text-light">{{ applicant.status }}</span>
+                  {% elif applicant.status == 'REJECT' %}
+                      <span class="badge badge-danger text-light">{{ applicant.status }}</span>
+                  {% endif %}
+                </td>
+              
                 <td>
                   <a href="{% url 'core:application_status' applicant.id %}">
                     <button class="btn btn-success text-light" type="button">View Status</button>

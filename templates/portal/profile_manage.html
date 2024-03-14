@@ -76,7 +76,6 @@
             <div class="form-group mb-3">
               <label for="custom-select">User Type</label>
               <select name="user_type" class="custom-select" id="custom-select" name="user_type">
-                <option value="Sub-agent" {% if user.user_type == 'Sub-agent' %} selected {% endif %}>Sub-Agent</option>
                 <option value="Exclusive Agent" {% if user.user_type == 'Exclusive Agent' %} selected {% endif %}>Exclusive Agent</option>
                 <option value="Agent" {% if user.user_type == 'Agent' %} selected {% endif %}>Agent</option>
 

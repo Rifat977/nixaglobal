@@ -23,7 +23,7 @@
                       <th>Date of Birth</th>
                       <th>University</th>
                       <th>Subject</th>
-                      <th>Program</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -37,7 +37,17 @@
                       <td>{{application.dob}}</td>
                       <td>{{application.university}}</td>
                       <td>{{application.subject}}</td>
-                      <td>{{application.program}}</td>
+                      <td>
+                        {% if application.status == 'PENDING' %}
+                            <span class="badge badge-warning text-light">{{ application.status }}</span>
+                        {% elif application.status == 'PROCESSING' %}
+                            <span class="badge badge-primary text-light">{{ application.status }}</span>
+                        {% elif application.status == 'COMPLETE' %}
+                            <span class="badge badge-success text-light">{{ application.status }}</span>
+                        {% elif application.status == 'REJECT' %}
+                            <span class="badge badge-danger text-light">{{ application.status }}</span>
+                        {% endif %}
+                      </td>
                       <td>
                         <a href="{% url 'core:admin_manage_status' application.id %}">
                             <button class="btn btn-primary btn-sm">Manage Status</button>

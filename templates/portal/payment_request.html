@@ -1,0 +1,210 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Payment Request{% endblock %}
+
+{% block css %}
+<style>
+  
+</style>
+{% endblock %}
+
+{% block content %}
+{% if user_type != 'Admin' %}
+<div class="container-fluid">
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-12">
+            <h2 class="page-title">Payment Request</h2>
+            {% include 'portal/assets/message.html' %}
+            
+            <div class="row">
+              <div class="col-md-12 mb-4">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="true">New Invoice</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#claimed" role="tab" aria-controls="claimed" aria-selected="false">Claimed Invoice</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved Invoice</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#reject" role="tab" aria-controls="reject" aria-selected="false">Reject Invoice</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#paid" role="tab" aria-controls="paid" aria-selected="false">Paid Invoice</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="home-tab"> 
+                        <form action="{% url 'core:university' %}" method="post">
+                          {% csrf_token %}
+                            <div class="row">
+                              <div class="col-12 col-md-4">
+                                <div class="form-group mb-3">
+                                  <label for="simpleinput">Agent Code</label>
+                                  <input type="text" disabled value="{{user.referral_code}}" id="simpleinput" class="form-control">
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                <div class="form-group mb-3">
+                                  <label for="simpleinput">Name</label>
+                                  <input type="text" disabled value="{{user.first_name}} {{user.last_name}}" id="simpleinput" class="form-control">
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                <div class="form-group mb-3">
+                                  <label for="simpleinput">Address</label>
+                                  <input type="text" disabled value="{{user.address}}" id="simpleinput" class="form-control">
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                <div class="form-group mb-3">
+                                  <label for="simpleinput">Agreed Commission</label>
+                                  <input type="number" name="agreed_commission" id="simpleinput" class="form-control">
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                <div class="form-group mb-3">
+                                  <label for="simpleinput">Currency</label>
+                                  <select name="currency" id="" class="form-control">
+                                    <option value="">Choose Currency</option>
+                                    <option value="">MYR</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                <div class="form-group mb-3">
+                                  <label for="simpleinput">Comment</label>
+                                  <textarea name="comment" class="form-control" id="" cols="30" rows="5"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <table class="table table-borderless table-striped">
+                              <thead>
+                                <tr role="row">
+                                  <th>Name</th>
+                                  <th>Passport Number</th>
+                                  <th>Date of Birth</th>
+                                  <th>University</th>
+                                  <th>Program</th>
+                                  <th>Subject</th>
+                                  <th>Status</th>
+                                  <th>Actioin</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for applicant in applications %}
+                                  {% if applicant.status == "COMPLETE" %}
+                                  <tr>
+                                    <th scope="col">{{applicant.first_name}} {{applicant.last_name}}</th>
+                                    <td>{{applicant.passport_number}}</td>
+                                    <td>{{applicant.dob}}</td>
+                                    <td>{{applicant.university}}</td>
+                                    <td>{{applicant.program}}</td>
+                                    <td>{{applicant.subject}}</td>
+                                    <td>
+                                      {% if applicant.status == 'PENDING' %}
+                                          <span class="badge badge-warning text-light">{{ applicant.status }}</span>
+                                      {% elif applicant.status == 'PROCESSING' %}
+                                          <span class="badge badge-primary text-light">{{ applicant.status }}</span>
+                                      {% elif applicant.status == 'COMPLETE' %}
+                                          <span class="badge badge-success text-light">{{ applicant.status }}</span>
+                                      {% elif applicant.status == 'REJECT' %}
+                                          <span class="badge badge-danger text-light">{{ applicant.status }}</span>
+                                      {% endif %}
+                                    </td>
+                                  
+                                    <td>
+                                      <a href="{% url 'core:application_status' applicant.id %}">
+                                        <button class="btn btn-info btn-sm text-light" type="button">Add For Invoice</button>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                  {% endif %}
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-dark btn-block text-light">Submit</button>
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="claimed" role="tabpanel" aria-labelledby="profile-tab"> 
+
+                      </div>
+                      <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="contact-tab"> 
+                        
+                      </div>
+                      <div class="tab-pane fade" id="reject" role="tabpanel" aria-labelledby="contact-tab"> 
+                        
+                      </div>
+                      <div class="tab-pane fade" id="paid" role="tabpanel" aria-labelledby="contact-tab"> 
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% elif user_type == 'Admin' %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <h2 class="mb-2 page-title">Payment Requests</h2>
+        <div class="row my-4">
+          <!-- Small table -->
+          <div class="col-md-12">
+            <div class="card shadow">
+              <div class="card-body">
+                <!-- table -->
+                <table class="table datatables" id="dataTable-1">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Agent</th>
+                      <th>Student Name</th>
+                      <th>Passport Number</th>
+                      <th>Date of Birth</th>
+                      <th>University</th>
+                      <th>Subject</th>
+                      <th>Program</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for application in applications %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{application.user}}</td>
+                      <td>{{application.first_name}} {{application.last_name}}</td>
+                      <td>{{application.passport_number}}</td>
+                      <td>{{application.dob}}</td>
+                      <td>{{application.university}}</td>
+                      <td>{{application.subject}}</td>
+                      <td>{{application.program}}</td>
+                      <td>
+                        <a href="{% url 'core:admin_manage_status' application.id %}">
+                            <button class="btn btn-primary btn-sm">Manage Status</button>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- simple table -->
+        </div> <!-- end section -->
+      </div> <!-- .col-12 -->
+    </div> <!-- .row -->
+  </div>
+{% endif %}
+
+{% endblock %}

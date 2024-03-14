@@ -46,13 +46,6 @@ def dashboard(request):
             'universities': universities,
             'agent': user
         }
-    elif user.is_sub_agent:
-        context = {
-            'user_type': UserType.SUB_AGENT,
-            'commission_tiers': commission_tiers,
-            'universities': universities,
-            'agent': user
-        }
     elif user.is_exclusive_agent:
         context = {
             'user_type': UserType.EXCLUSIVE_AGENT,
@@ -279,12 +272,12 @@ def comission_manage(request, pk):
         except CommissionTier.DoesNotExist:
             commission_tiers[university.pk] = None
 
-    # print(commission_tiers[1].foundation_commission)
-            
+    user_type = request.user.user_type  
     context = {
         'universities': universities,
         'commission_tiers': commission_tiers,
-        'agent': user
+        'agent': user,
+        'user_type': user_type
     }
     return render(request, 'portal/comission_manage.html', context)
 
@@ -436,6 +429,11 @@ def admin_manage_status(request, pk):
     if request.method == "POST":
         status = request.POST.get('status')
         remark = request.POST.get('remark')
+        overall_status = request.POST.get('overall_status')
+
+        application.status = overall_status
+        application.save()
+
         if not (status and remark):
             messages.error(request, "Please fill in all required fields.")
             return redirect('core:admin_manage_status', application.id)
@@ -446,3 +444,27 @@ def admin_manage_status(request, pk):
         )
         messages.success(request, "Status Added successfully!")
     return render(request, 'portal/admin_manage_status.html', context)
+
+
+@login_required
+def payment_request(request):
+    user = request.user
+    applications = Applicant.objects.filter(user=user).order_by('-id')
+    if user.is_admin:
+        context = {
+            'user_type': UserType.ADMIN,
+            'user' : user,
+        }
+    elif user.is_agent:
+        context = {
+            'user_type': UserType.AGENT,
+            'user' : user,
+            'applications' : applications
+        }
+    elif user.is_exclusive_agent:
+        context = {
+            'user_type': UserType.EXCLUSIVE_AGENT,
+            'user' : user,
+            'applications' : applications
+        }
+    return render(request, 'portal/payment_request.html', context)
