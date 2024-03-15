@@ -39,8 +39,9 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="home-tab"> 
-                        <form action="{% url 'core:university' %}" method="post">
+                        <form action="{% url 'core:payment_request' %}" id="applicationForm" method="post">
                           {% csrf_token %}
+                          <input type="hidden" value="{{user.id}}" name="agent" />
                             <div class="row">
                               <div class="col-12 col-md-4">
                                 <div class="form-group mb-3">
@@ -71,7 +72,7 @@
                                   <label for="simpleinput">Currency</label>
                                   <select name="currency" id="" class="form-control">
                                     <option value="">Choose Currency</option>
-                                    <option value="">MYR</option>
+                                    <option value="MYR">MYR</option>
                                   </select>
                                 </div>
                               </div>
@@ -87,6 +88,28 @@
                               <div class="card">
                                 <div class="card-body py-4 mb-1">
                                   <h6 class="card-title">Bank Information</h6>
+
+                                  <div class="row">
+                                    <div class="col-12 col-md-6">
+                                      <div class="form-group mb-3">
+                                        <label for="simpleinput">Account Holder Name : </label>
+                                        <input type="text" name="account_holder_name" id="simpleinput" class="form-control">
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                      <div class="form-group mb-3">
+                                        <label for="simpleinput">Bank Name : </label>
+                                        <input type="text" name="bank_name" id="simpleinput" class="form-control">
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                      <div class="form-group mb-3">
+                                        <label for="simpleinput">Account Number : </label>
+                                        <input type="text" name="account_number" id="simpleinput" class="form-control">
+                                      </div>
+                                    </div>
+                                  </div>
+
                                   <div class="row">
                                     <div class="col-3">
                                       <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -97,75 +120,38 @@
                                     <div class="col-9">
                                       <div class="tab-content mb-4" id="v-pills-tabContent">
                                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                          <div class="row">
-                                            <div class="col-12 col-md-6">
-                                              <div class="form-group mb-3">
-                                                <label for="simpleinput">Account Holder Name : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
-                                              </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                              <div class="form-group mb-3">
-                                                <label for="simpleinput">Bank Name : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
-                                              </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                              <div class="form-group mb-3">
-                                                <label for="simpleinput">Account Number : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
-                                              </div>
-                                            </div>
-                                          </div>
+                                          
                                         </div>
                                         <div class="tab-pane fade mb-4" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"> 
                                           <div class="row">
                                             <div class="col-12 col-md-6">
                                               <div class="form-group mb-3">
-                                                <label for="simpleinput">Account Holder Name : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
-                                              </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                              <div class="form-group mb-3">
-                                                <label for="simpleinput">Bank Name : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
-                                              </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                              <div class="form-group mb-3">
-                                                <label for="simpleinput">Account Number : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
-                                              </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                              <div class="form-group mb-3">
                                                 <label for="simpleinput">Country Name : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
+                                                <input type="text" name="country" id="simpleinput" class="form-control">
                                               </div>
                                             </div>
                                             <div class="col-12">
                                               <div class="form-group mb-3">
                                                 <label for="simpleinput">Payee Address : </label>
-                                                <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                                                <textarea name="payee_address" class="form-control" id="" cols="30" rows="2"></textarea>
                                               </div>
                                             </div>
                                             <div class="col-12">
                                               <div class="form-group mb-3">
                                                 <label for="simpleinput">Bank Address : </label>
-                                                <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                                                <textarea name="bank_address" class="form-control" id="" cols="30" rows="2"></textarea>
                                               </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                               <div class="form-group mb-3">
                                                 <label for="simpleinput">SWIFT Code : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
+                                                <input type="text" name="swift_code" id="simpleinput" class="form-control">
                                               </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                               <div class="form-group mb-3">
                                                 <label for="simpleinput">IFSC Code : </label>
-                                                <input type="text" id="simpleinput" class="form-control">
+                                                <input type="text" name="ifsc_code" id="simpleinput" class="form-control">
                                               </div>
                                             </div>
                                           </div>
@@ -194,11 +180,11 @@
                               </thead>
                               <tbody>
                                 {% for applicant in applications %}
-                                  {% if applicant.status == "COMPLETE" %}
+                                  {% if applicant.status == "COMPLETE" and applicant.isPaymentClaim %}
                                   <tr>
                                     <td>
                                       <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="{{applicant.id}}">
+                                        <input type="checkbox" name="application_ids" value="{{applicant.id}}" class="custom-control-input" id="{{applicant.id}}">
                                         <label class="custom-control-label" for="{{applicant.id}}"></label>
                                       </div>
                                     </td>
@@ -224,20 +210,108 @@
                                 {% endfor %}
                               </tbody>
                             </table>
-                            <button type="submit" class="btn btn-dark btn-block text-light">Submit</button>
+                            <button type="button" onclick="submitForm()" class="btn btn-dark btn-block text-light">Submit</button>
                         </form>
                       </div>
                       <div class="tab-pane fade" id="claimed" role="tabpanel" aria-labelledby="profile-tab"> 
-
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr role="row">
+                              <th class="text-dark">Applicant</th>
+                              <th class="text-dark">Agreed Commission</th>
+                              <th class="text-dark">Currency</th>
+                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">Status</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for payment in payment_requests %}
+                                <tr>
+                                  <td>{{payment.applicant}}</td>
+                                  <td>{{payment.agreed_commission}}</td>
+                                  <td>{{payment.currency}}</td>
+                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.status}}</td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
                       </div>
                       <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="contact-tab"> 
-                        
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr role="row">
+                              <th class="text-dark">Applicant</th>
+                              <th class="text-dark">Agreed Commission</th>
+                              <th class="text-dark">Currency</th>
+                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">Status</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for payment in payment_requests %}
+                                <tr>
+                                  <td>{{payment.applicant}}</td>
+                                  <td>{{payment.agreed_commission}}</td>
+                                  <td>{{payment.currency}}</td>
+                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.status}}</td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
                       </div>
                       <div class="tab-pane fade" id="reject" role="tabpanel" aria-labelledby="contact-tab"> 
-                        
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr role="row">
+                              <th class="text-dark">Applicant</th>
+                              <th class="text-dark">Agreed Commission</th>
+                              <th class="text-dark">Currency</th>
+                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">Status</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for payment in payment_requests %}
+                                <tr>
+                                  <td>{{payment.applicant}}</td>
+                                  <td>{{payment.agreed_commission}}</td>
+                                  <td>{{payment.currency}}</td>
+                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.status}}</td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
                       </div>
                       <div class="tab-pane fade" id="paid" role="tabpanel" aria-labelledby="contact-tab"> 
-                        
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr role="row">
+                              <th class="text-dark">Applicant</th>
+                              <th class="text-dark">Agreed Commission</th>
+                              <th class="text-dark">Currency</th>
+                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">Status</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for payment in payment_requests %}
+                                <tr>
+                                  <td>{{payment.applicant}}</td>
+                                  <td>{{payment.agreed_commission}}</td>
+                                  <td>{{payment.currency}}</td>
+                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.status}}</td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
@@ -304,4 +378,15 @@
   </div>
 {% endif %}
 
+{% endblock %}
+
+
+{% block script %}
+<script>
+  function submitForm() {
+    var form = document.getElementById('applicationForm');
+    console.log(form)
+    form.submit()
+  }
+</script>
 {% endblock %}

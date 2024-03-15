@@ -450,6 +450,8 @@ def admin_manage_status(request, pk):
 def payment_request(request):
     user = request.user
     applications = Applicant.objects.filter(user=user).order_by('-id')
+    payment_requests = PaymentRequest.objects.filter(user=user)
+    print(payment_requests)
     if user.is_admin:
         context = {
             'user_type': UserType.ADMIN,
@@ -459,12 +461,94 @@ def payment_request(request):
         context = {
             'user_type': UserType.AGENT,
             'user' : user,
-            'applications' : applications
+            'applications' : applications,
+            'payment_requests': payment_requests
         }
     elif user.is_exclusive_agent:
         context = {
             'user_type': UserType.EXCLUSIVE_AGENT,
             'user' : user,
-            'applications' : applications
+            'applications' : applications,
+            'payment_requests': payment_requests
         }
+
+    if request.method == "POST":
+        agent = request.POST.get('agent')
+        agreed_commission = request.POST.get('agreed_commission')
+        currency = request.POST.get('currency')
+        comment = request.POST.get('comment')
+
+        account_holder_name = request.POST.get('account_holder_name')
+        bank_name = request.POST.get('bank_name')
+        account_number = request.POST.get('account_number')
+
+        payee_address = request.POST.get('payee_address')
+        bank_address = request.POST.get('bank_address')
+        swift_code = request.POST.get('swift_code')
+        ifsc_code = request.POST.get('ifsc_code')
+
+        application_ids = request.POST.getlist('application_ids')
+
+        required_fields = {
+            'Agreed Commission': agreed_commission,
+            'Currency': currency,
+            'Comment': comment,
+
+            'Account Holder Name': account_holder_name,
+            'Bank Name': bank_name,
+            'Account Number': account_number,
+
+            'Applications': application_ids,
+            
+        }
+
+        errors = []
+        
+        missing_fields = [field for field, value in required_fields.items() if value is None or value == '']
+        if missing_fields:
+            errors.append("The following fields are required: {}".format(', '.join(missing_fields)))
+        
+        if errors:
+            for error_message in errors:
+                messages.error(request, error_message)
+            return redirect('core:payment_request')
+
+        user = CustomUser.objects.get(id=int(agent))
+
+        if payee_address is None or payee_address == "" and bank_address is None or bank_address == "" and swift_code is None or swift_code == "":
+            bank_type = 'Local'
+        else:
+            bank_type = 'Foreign'
+
+        for application_id in application_ids:
+
+            application = Applicant.objects.get(id=int(application_id))
+
+            payment_request = PaymentRequest.objects.create(
+                user=user,
+                applicant=application,
+                agreed_commission = agreed_commission,
+                currency = currency,
+                comment = comment,
+
+                account_holder_name = account_holder_name,
+                bank_name = bank_name,
+                account_number = account_number,
+
+                bank_type = bank_type,
+
+                payee_address = payee_address,
+                bank_address = bank_address,
+                swift_code = swift_code,
+                ifsc_code = ifsc_code,
+            )
+            if payment_request:
+                application.isPaymentClaim = True
+                application.save()
+                messages.success(request, "Payment Request Added successfully!")
+            else:
+                messages.error(request, 'Something went wrong')
+
+
+
     return render(request, 'portal/payment_request.html', context)

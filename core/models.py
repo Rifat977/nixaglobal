@@ -27,7 +27,7 @@ class CommissionTier(models.Model):
 
 
 class Applicant(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     passport_number = models.CharField(max_length=20)
@@ -73,7 +73,7 @@ class PaymentRequest(models.Model):
         ('Paid', 'Paid'),
     )
 
-    AGENT_TYPE_CHOICES = (
+    BANK_TYPE_CHOICES = (
         ('Local', 'Local'),
         ('Foreign', 'Foreign'),
     )
@@ -84,17 +84,19 @@ class PaymentRequest(models.Model):
     currency = models.CharField(max_length=50)
     comment = models.TextField()
 
+    bank_type = models.CharField(max_length=10, choices=BANK_TYPE_CHOICES, default='Local')
+
     account_holder_name = models.CharField(max_length=100)
     bank_name = models.CharField(max_length=100)
     account_number = models.CharField(max_length=50)
 
-    country_name = models.CharField(max_length=100)
-    payee_address = models.TextField()
-    bank_address = models.TextField()
-    swift_code = models.CharField(max_length=50)
+    country_name = models.CharField(max_length=100, null=True, blank=True)
+    payee_address = models.TextField(null=True, blank=True)
+    bank_address = models.TextField(null=True, blank=True)
+    swift_code = models.CharField(max_length=50, null=True, blank=True)
     ifsc_code = models.CharField(max_length=50, blank=True, null=True)
 
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Claimed')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
