@@ -82,9 +82,107 @@
                                 </div>
                               </div>
                             </div>
+
+                            <div class="col-12 mb-4">
+                              <div class="card">
+                                <div class="card-body py-4 mb-1">
+                                  <h6 class="card-title">Bank Information</h6>
+                                  <div class="row">
+                                    <div class="col-3">
+                                      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Local</a>
+                                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Foreign</a>
+                                      </div>
+                                    </div>
+                                    <div class="col-9">
+                                      <div class="tab-content mb-4" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                          <div class="row">
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Account Holder Name : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Bank Name : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Account Number : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-pane fade mb-4" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"> 
+                                          <div class="row">
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Account Holder Name : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Bank Name : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Account Number : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Country Name : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Payee Address : </label>
+                                                <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                                              </div>
+                                            </div>
+                                            <div class="col-12">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">Bank Address : </label>
+                                                <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">SWIFT Code : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                              <div class="form-group mb-3">
+                                                <label for="simpleinput">IFSC Code : </label>
+                                                <input type="text" id="simpleinput" class="form-control">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                             <table class="table table-borderless table-striped">
                               <thead>
                                 <tr role="row">
+                                  <td>
+                                    
+                                  </td>
                                   <th>Name</th>
                                   <th>Passport Number</th>
                                   <th>Date of Birth</th>
@@ -92,13 +190,18 @@
                                   <th>Program</th>
                                   <th>Subject</th>
                                   <th>Status</th>
-                                  <th>Actioin</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {% for applicant in applications %}
                                   {% if applicant.status == "COMPLETE" %}
                                   <tr>
+                                    <td>
+                                      <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="{{applicant.id}}">
+                                        <label class="custom-control-label" for="{{applicant.id}}"></label>
+                                      </div>
+                                    </td>
                                     <th scope="col">{{applicant.first_name}} {{applicant.last_name}}</th>
                                     <td>{{applicant.passport_number}}</td>
                                     <td>{{applicant.dob}}</td>
@@ -115,12 +218,6 @@
                                       {% elif applicant.status == 'REJECT' %}
                                           <span class="badge badge-danger text-light">{{ applicant.status }}</span>
                                       {% endif %}
-                                    </td>
-                                  
-                                    <td>
-                                      <a href="{% url 'core:application_status' applicant.id %}">
-                                        <button class="btn btn-info btn-sm text-light" type="button">Add For Invoice</button>
-                                      </a>
                                     </td>
                                   </tr>
                                   {% endif %}
