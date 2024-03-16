@@ -9,6 +9,10 @@ from django.core.validators import DecimalValidator
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.db.models import OuterRef, Subquery
+
+from account import send_email
+
 import string, random
 
 # Create your views here.
@@ -181,6 +185,12 @@ def profile_manage(request, pk):
             user.is_verified = is_verified
             user.user_type = user_type
             user.save()
+
+            if user.is_active:
+                subject = f"Your profile approved as {user_type}"
+                body = f"Your profile approved as {user_type}"
+                send_email.send_email(subject, body, user)
+
             messages.success(request, 'Profile updated successfully.')
     return render(request, 'portal/profile_manage.html', {'user':user, 'documents': documents, 'trade_license': trade_license, 'referrals':referrals})
 
@@ -261,6 +271,21 @@ def comission_manage(request, pk):
 
 
         messages.success(request, "Commission tiers updated successfully.")
+
+        if request.user.user_type == 'Admin':
+            subject = f"Your commission tier updated"
+            body = f"Your commission tier updated"
+            send_email.send_email(subject, body, user)
+
+            subject = f"Your sub-agent {user.email} commission tier updated by admin"
+            body = f"Your sub-agent {user.email} commission tier updated by admin"
+            send_email.send_email(subject, body, user.referred_by)
+
+        else:
+            subject = f"Comission tier updated of {user.email}"
+            body = f"Exclusive agent {request.user.email} update his sub-agent {user.email} commission tier"
+            send_email.send_email_to_admin(subject, body)
+
         return redirect('core:comission_manage', user.id)
 
     universities = University.objects.all()
@@ -308,12 +333,6 @@ def university(request):
         universitys = University.objects.all().order_by('-id')
         context = {
             'user_type': UserType.AGENT,
-            'universitys': universitys
-        }
-    elif user.is_sub_agent:
-        universitys = University.objects.all().order_by('-id')
-        context = {
-            'user_type': UserType.SUB_AGENT,
             'universitys': universitys
         }
     elif user.is_exclusive_agent:
@@ -392,6 +411,10 @@ def application(request):
         )
         messages.success(request, "Application submitted successfully!")
 
+        subject = f"New application from {applicant.user.email}"
+        body = f"New application from {application.user.email} for {university}"
+        send_email.send_email_to_admin(subject, body)
+
     return render(request, 'portal/application.html', {'universitys':universitys, 'applicaitons': applications})
 
 def generate_unique_id():
@@ -437,41 +460,54 @@ def admin_manage_status(request, pk):
         if not (status and remark):
             messages.error(request, "Please fill in all required fields.")
             return redirect('core:admin_manage_status', application.id)
+
         application_status = ApplicationStatus.objects.create(
             status=status,
             remark=remark,
             application=application
         )
+
         messages.success(request, "Status Added successfully!")
+        subject = f"Your application {application.application_id} status {status}"
+        body = f"Your application {application.application_id} status {status} and {remark}"
+        send_email.send_email(subject, body, application.user)
     return render(request, 'portal/admin_manage_status.html', context)
 
 
 @login_required
 def payment_request(request):
     user = request.user
-    applications = Applicant.objects.filter(user=user).order_by('-id')
+
+    payment_request_applications = PaymentRequest.objects.values('applicant')
+
+    applications = Applicant.objects.filter(user=user, isPaymentClaim=True, status='COMPLETE').exclude(id__in=Subquery(payment_request_applications))
+
+    claimed = PaymentRequest.objects.filter(user=user, status='Claimed')
+    approved = PaymentRequest.objects.filter(user=user, status='Approved')
+    reject = PaymentRequest.objects.filter(user=user, status='Reject')
+    paid = PaymentRequest.objects.filter(user=user, status='Paid')
+
+
     payment_requests = PaymentRequest.objects.filter(user=user)
+    all_payment_requests = PaymentRequest.objects.all()
     print(payment_requests)
     if user.is_admin:
         context = {
             'user_type': UserType.ADMIN,
             'user' : user,
+            'all_payment_requests' : all_payment_requests
         }
-    elif user.is_agent:
+    else:
         context = {
             'user_type': UserType.AGENT,
             'user' : user,
             'applications' : applications,
-            'payment_requests': payment_requests
+            'payment_requests': payment_requests,
+            'claimed': claimed,
+            'approved': approved,
+            'reject': reject,
+            'paid': paid,
         }
-    elif user.is_exclusive_agent:
-        context = {
-            'user_type': UserType.EXCLUSIVE_AGENT,
-            'user' : user,
-            'applications' : applications,
-            'payment_requests': payment_requests
-        }
-
     if request.method == "POST":
         agent = request.POST.get('agent')
         agreed_commission = request.POST.get('agreed_commission')
@@ -546,9 +582,32 @@ def payment_request(request):
                 application.isPaymentClaim = True
                 application.save()
                 messages.success(request, "Payment Request Added successfully!")
+
+                subject = f"New payment request from Agent: {application.user.email}"
+                body = f"New payment request from Agent: {application.user.email} with {agreed_commission}{currency} Agreed Commission"
+                send_email.send_email_to_admin(subject, body)
+
             else:
                 messages.error(request, 'Something went wrong')
 
 
 
     return render(request, 'portal/payment_request.html', context)
+
+
+@login_required
+@admin_required
+def admin_manage_requests(request, pk):
+    payment_request = PaymentRequest.objects.get(id=pk)
+    context = {
+        'payment_request': payment_request
+    }
+    if request.method == "POST":
+        status = request.POST.get('status')
+        payment_request.status = status
+        payment_request.save()
+        messages.success(request, "Status updated successfully!")
+        subject = f"Your payment request {payment_request.applicant.application_id} updated to {status}"
+        body = f"Your payment request {payment_request.applicant.application_id} updated to {status}"
+        send_email.send_email(subject, body, payment_request.user)
+    return render(request, 'portal/manage_requests.html',  context)

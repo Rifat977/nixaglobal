@@ -180,7 +180,6 @@
                               </thead>
                               <tbody>
                                 {% for applicant in applications %}
-                                  {% if applicant.status == "COMPLETE" and applicant.isPaymentClaim %}
                                   <tr>
                                     <td>
                                       <div class="custom-control custom-checkbox">
@@ -206,7 +205,6 @@
                                       {% endif %}
                                     </td>
                                   </tr>
-                                  {% endif %}
                                 {% endfor %}
                               </tbody>
                             </table>
@@ -217,23 +215,29 @@
                         <table class="table table-bordered table-striped">
                           <thead>
                             <tr role="row">
-                              <th class="text-dark">Applicant</th>
-                              <th class="text-dark">Agreed Commission</th>
-                              <th class="text-dark">Currency</th>
-                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">SL. No</th>
+                              <th class="text-dark">Student ID</th>
+                              <th class="text-dark">Student Name</th>
+                              <th class="text-dark">Passport No</th>
+                              <th class="text-dark">Course Name</th>
+                              <th class="text-dark">Claimed Date</th>
                               <th class="text-dark">Status</th>
                               
                             </tr>
                           </thead>
                           <tbody>
-                            {% for payment in payment_requests %}
+                            {% for payment in claimed %}
+                            {% if payment.status == 'Claimed' %}
                                 <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{payment.applicant.application_id}}</td>
                                   <td>{{payment.applicant}}</td>
-                                  <td>{{payment.agreed_commission}}</td>
-                                  <td>{{payment.currency}}</td>
-                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.applicant.passport_number}}</td>
+                                  <td>{{payment.applicant.subject}}</td>
+                                  <td>{{payment.updated_at}}</td>
                                   <td>{{payment.status}}</td>
                                 </tr>
+                            {% endif %}
                             {% endfor %}
                           </tbody>
                         </table>
@@ -242,23 +246,29 @@
                         <table class="table table-bordered table-striped">
                           <thead>
                             <tr role="row">
-                              <th class="text-dark">Applicant</th>
-                              <th class="text-dark">Agreed Commission</th>
-                              <th class="text-dark">Currency</th>
-                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">SL. No</th>
+                              <th class="text-dark">Student ID</th>
+                              <th class="text-dark">Student Name</th>
+                              <th class="text-dark">Passport No</th>
+                              <th class="text-dark">Course Name</th>
+                              <th class="text-dark">Approved Date</th>
                               <th class="text-dark">Status</th>
                               
                             </tr>
                           </thead>
                           <tbody>
-                            {% for payment in payment_requests %}
+                            {% for payment in approved %}
+                            {% if payment.status == 'Approved' %}
                                 <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{payment.applicant.application_id}}</td>
                                   <td>{{payment.applicant}}</td>
-                                  <td>{{payment.agreed_commission}}</td>
-                                  <td>{{payment.currency}}</td>
-                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.applicant.passport_number}}</td>
+                                  <td>{{payment.applicant.subject}}</td>
+                                  <td>{{payment.updated_at}}</td>
                                   <td>{{payment.status}}</td>
                                 </tr>
+                            {% endif %}
                             {% endfor %}
                           </tbody>
                         </table>
@@ -267,23 +277,29 @@
                         <table class="table table-bordered table-striped">
                           <thead>
                             <tr role="row">
-                              <th class="text-dark">Applicant</th>
-                              <th class="text-dark">Agreed Commission</th>
-                              <th class="text-dark">Currency</th>
-                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">SL. No</th>
+                              <th class="text-dark">Student ID</th>
+                              <th class="text-dark">Student Name</th>
+                              <th class="text-dark">Passport No</th>
+                              <th class="text-dark">Course Name</th>
+                              <th class="text-dark">Paid Date</th>
                               <th class="text-dark">Status</th>
                               
                             </tr>
                           </thead>
                           <tbody>
-                            {% for payment in payment_requests %}
+                            {% for payment in reject %}
+                            {% if payment.status == 'Reject' %}
                                 <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{payment.applicant.application_id}}</td>
                                   <td>{{payment.applicant}}</td>
-                                  <td>{{payment.agreed_commission}}</td>
-                                  <td>{{payment.currency}}</td>
-                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.applicant.passport_number}}</td>
+                                  <td>{{payment.applicant.subject}}</td>
+                                  <td>{{payment.updated_at}}</td>
                                   <td>{{payment.status}}</td>
                                 </tr>
+                              {% endif %}
                             {% endfor %}
                           </tbody>
                         </table>
@@ -292,23 +308,29 @@
                         <table class="table table-bordered table-striped">
                           <thead>
                             <tr role="row">
-                              <th class="text-dark">Applicant</th>
-                              <th class="text-dark">Agreed Commission</th>
-                              <th class="text-dark">Currency</th>
-                              <th class="text-dark">Bank AC Type</th>
+                              <th class="text-dark">SL. No</th>
+                              <th class="text-dark">Student ID</th>
+                              <th class="text-dark">Student Name</th>
+                              <th class="text-dark">Passport No</th>
+                              <th class="text-dark">Course Name</th>
+                              <th class="text-dark">Paid Date</th>
                               <th class="text-dark">Status</th>
                               
                             </tr>
                           </thead>
                           <tbody>
-                            {% for payment in payment_requests %}
+                            {% for payment in paid %}
+                            {% if payment.status == 'Paid' %}
                                 <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{payment.applicant.application_id}}</td>
                                   <td>{{payment.applicant}}</td>
-                                  <td>{{payment.agreed_commission}}</td>
-                                  <td>{{payment.currency}}</td>
-                                  <td>{{payment.bank_type}}</td>
+                                  <td>{{payment.applicant.passport_number}}</td>
+                                  <td>{{payment.applicant.subject}}</td>
+                                  <td>{{payment.updated_at}}</td>
                                   <td>{{payment.status}}</td>
                                 </tr>
+                            {% endif %}
                             {% endfor %}
                           </tbody>
                         </table>
@@ -329,11 +351,9 @@
       <div class="col-12">
         <h2 class="mb-2 page-title">Payment Requests</h2>
         <div class="row my-4">
-          <!-- Small table -->
           <div class="col-md-12">
             <div class="card shadow">
               <div class="card-body">
-                <!-- table -->
                 <table class="table datatables" id="dataTable-1">
                   <thead>
                     <tr>
@@ -349,19 +369,19 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for application in applications %}
+                    {% for payment in all_payment_requests %}
                     <tr>
                       <td>{{forloop.counter}}</td>
-                      <td>{{application.user}}</td>
-                      <td>{{application.first_name}} {{application.last_name}}</td>
-                      <td>{{application.passport_number}}</td>
-                      <td>{{application.dob}}</td>
-                      <td>{{application.university}}</td>
-                      <td>{{application.subject}}</td>
-                      <td>{{application.program}}</td>
+                      <td>{{payment.user}}</td>
+                      <td>{{payment.applicant}}</td>
+                      <td>{{payment.applicant.passport_number}}</td>
+                      <td>{{payment.applicant.dob}}</td>
+                      <td>{{payment.applicant.university}}</td>
+                      <td>{{payment.applicant.subject}}</td>
+                      <td>{{payment.applicant.program}}</td>
                       <td>
-                        <a href="{% url 'core:admin_manage_status' application.id %}">
-                            <button class="btn btn-primary btn-sm">Manage Status</button>
+                        <a href="{% url 'core:admin_manage_requests' payment.id %}">
+                            <button class="btn btn-primary btn-sm">Manage Requests</button>
                         </a>
                       </td>
                     </tr>

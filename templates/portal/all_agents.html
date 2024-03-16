@@ -18,6 +18,7 @@
                 <thead>
                   <tr role="row">
                     <th>Name</th>
+                    <th>Agent Code</th>
                     <th>Account Type</th>
                     <th>User Type</th>
                     <th>Email</th>
@@ -33,6 +34,7 @@
                   {% for agent in agents %}
                   <tr>
                     <th scope="col">{{agent.first_name}} {{agent.last_name}}</th>
+                    <td>{{agent.referral_code}}</td>
                     <td>{{agent.account_type}}</td>
                     <td>{{agent.user_type}}</td>
                     <td>{{agent.email}}</td>

@@ -79,6 +79,7 @@
           <table class="table table-borderless table-striped">
             <thead>
               <tr role="row">
+                <th>Application ID</th>
                 <th>Name</th>
                 <th>Passport Number</th>
                 <th>Date of Birth</th>
@@ -92,7 +93,8 @@
             <tbody>
               {% for applicant in applicaitons %}
               <tr>
-                <th scope="col">{{applicant.first_name}} {{applicant.last_name}}</th>
+                <th scope="col">{{applicant.application_id}}</th>
+                <th>{{applicant.first_name}} {{applicant.last_name}}</th>
                 <td>{{applicant.passport_number}}</td>
                 <td>{{applicant.dob}}</td>
                 <td>{{applicant.university}}</td>

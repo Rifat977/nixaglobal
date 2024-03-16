@@ -23,5 +23,8 @@ urlpatterns = [
 
     path('payment_request/', views.payment_request, name="payment_request"),
 
+    path('admin-manage-requests/<int:pk>', views.admin_manage_requests, name="admin_manage_requests"),
+
+
 
 ]

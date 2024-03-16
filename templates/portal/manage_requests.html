@@ -1,0 +1,164 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Manage Application{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-12">
+      {% include 'portal/assets/message.html' %}
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <strong class="card-title">Payment Request Details</strong>
+        </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group mb-2">
+                    <strong class="card-title">Student Name :</strong>
+                    <span>{{payment_request.applicant}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Passport Number :</strong>
+                    <span>{{payment_request.applicant.passport_number}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Date of Birth :</strong>
+                    <span>{{payment_request.applicant.dob}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">University :</strong>
+                    <span>{{payment_request.applicant.university}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Subject :</strong>
+                    <span>{{payment_request.applicant.subject}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Program :</strong>
+                    <span>{{payment_request.applicant.program}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Appliaction Status :</strong>
+                    <span class="badge badge-success text-light">{{payment_request.applicant.status}}</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group mb-2">
+                  <strong class="card-title">Agent Email :</strong>
+                  <span>{{payment_request.user}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Agent Code :</strong>
+                    <span>{{payment_request.user.referral_code}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Agent Name :</strong>
+                    <span>{{payment_request.user.first_name}} {{payment_request.user.last_name}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Agent Type :</strong>
+                    <span>{{payment_request.user.user_type}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Application ID :</strong>
+                    <span>{{payment_request.applicant.application_id}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Agreed Commission :</strong>
+                    <span>{{payment_request.agreed_commission}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Currency :</strong>
+                    <span>{{payment_request.currency}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Comment :</strong>
+                    <span>{{payment_request.comment}}</span>
+                </div>
+                <div class="form-group mb-2">
+                  <strong class="card-title">Payment Request Status :</strong>
+                  <span>
+                      <span class="badge badge-success text-light">{{ payment_request.status }}</span>
+                  </span>
+              </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group mb-2">
+                    <strong class="card-title">Bank Type :</strong>
+                    <span>{{payment_request.bank_type}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Account Holder Name :</strong>
+                    <span>{{payment_request.account_holder_name}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Bank Name :</strong>
+                    <span>{{payment_request.bank_name}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Account Number :</strong>
+                    <span>{{payment_request.account_number}}</span>
+                </div>
+                {% if payment_request.bank_type == 'Foreign' %}
+                <div class="form-group mb-2">
+                    <strong class="card-title">Country Name :</strong>
+                    <span>{{payment_request.country_name}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Payee Address :</strong>
+                    <span>{{payment_request.payee_address}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">Bank Address :</strong>
+                    <span>{{payment_request.bank_address}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">SWIFT Code :</strong>
+                    <span>{{payment_request.swift_code}}</span>
+                </div>
+                <div class="form-group mb-2">
+                    <strong class="card-title">IFSC Code :</strong>
+                    <span>{{payment_request.ifsc_code}}</span>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-header">
+            <strong class="card-title">Manage Invoice</strong>
+          </div>
+          <form action="{% url 'core:admin_manage_requests' payment_request.id %}" method="post">
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group mb-3">
+                    <label for="simpleinput">Status</label>
+                    <select name="status" class="form-control" id="">
+                      <option value="Claimed" {% if payment_request.status == 'Claimed' %} selected {% endif %}>Claimed</option>
+                      <option value="Approved" {% if payment_request.status == 'Approved' %} selected {% endif %}>Approved</option>
+                      <option value="Reject" {% if payment_request.status == 'Reject' %} selected {% endif %}>Reject</option>
+                      <option value="Paid" {% if payment_request.status == 'Paid' %} selected {% endif %}>Paid</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-success text-light">Update Invoice</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+
+
+</div>
+
+{% endblock %}
