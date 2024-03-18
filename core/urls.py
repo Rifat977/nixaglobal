@@ -15,6 +15,8 @@ urlpatterns = [
     path('university/delete/<int:pk>', views.university_delete, name="university_delete"),
     path('university/edit/', views.university_edit, name="university_edit"),
 
+    path('university/details/<int:pk>', views.university_details, name="university_details"),
+
     path('application/', views.application, name="application"),
     path('application/status/<int:pk>', views.application_status, name="application_status"),
 
@@ -25,6 +27,5 @@ urlpatterns = [
 
     path('admin-manage-requests/<int:pk>', views.admin_manage_requests, name="admin_manage_requests"),
 
-
-
+    path('agent_applications/<int:pk>', views.agent_applications, name="agent_applications"),
 ]

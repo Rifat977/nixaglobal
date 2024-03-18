@@ -1,0 +1,44 @@
+{% extends 'portal/assets/base.html' %}
+
+{% block title %}Manage University{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-12">
+      <h2 class="page-title">{{ subject.university.name }}</h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-start">
+    <div class="col-12 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center">Subject Details</h4>
+          <p><strong>Subject Name:</strong> {{ subject.name }}</p>
+          <p><strong>Program Type:</strong> {{ subject.program_type }}</p>
+          <button class="btn btn-sm btn-danger">Download PDF</button>
+          <hr>
+          <h4>Fees Structure</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Field Name</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fee in subject.fee_set.all|dictsort:"id" %}
+                  <tr>
+                      <td>{{ fee.field_name }}</td>
+                      <td>{{ fee.value }}</td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

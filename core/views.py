@@ -38,10 +38,12 @@ def dashboard(request):
     if user.is_admin:
         pending_agents = CustomUser.objects.filter(is_active=False)
         total_agent = CustomUser.objects.all().count()
+        total_application = Applicant.objects.all().count()
         context = {
             'user_type': UserType.ADMIN,
             'pending_agents': pending_agents,
-            'total_agent': total_agent
+            'total_agent': total_agent,
+            'total_application': total_application,
         }
     elif user.is_agent:
         context = {
@@ -329,17 +331,14 @@ def university(request):
             'user_type': UserType.ADMIN,
             'universitys': universitys
         }
-    elif user.is_agent:
+    else:
         universitys = University.objects.all().order_by('-id')
+        subjects = Subject.objects.all().order_by('-id')
+        fees = Fee.objects.all().order_by('-id')
         context = {
-            'user_type': UserType.AGENT,
-            'universitys': universitys
-        }
-    elif user.is_exclusive_agent:
-        universitys = University.objects.all().order_by('-id')
-        context = {
-            'user_type': UserType.EXCLUSIVE_AGENT,
-            'universitys': universitys
+            'universitys': universitys,
+            'subjects' : subjects,
+            'fees' : fees,
         }
     return render(request, 'portal/university.html', context)
 
@@ -372,6 +371,14 @@ def university_delete(request, pk):
     if university.delete():
         messages.success(request, f"University '{name}' deleted successfully.")
     return redirect('core:university')
+
+@login_required
+def university_details(request, pk):
+    subject = Subject.objects.get(id=pk)
+    context = {
+        'subject' : subject
+    }
+    return render(request, 'portal/university_details.html', context)
 
 @login_required
 def application(request):
@@ -412,7 +419,7 @@ def application(request):
         messages.success(request, "Application submitted successfully!")
 
         subject = f"New application from {applicant.user.email}"
-        body = f"New application from {application.user.email} for {university}"
+        body = f"New application from {applicant.user.email} for {university}"
         send_email.send_email_to_admin(subject, body)
 
     return render(request, 'portal/application.html', {'universitys':universitys, 'applicaitons': applications})
@@ -611,3 +618,11 @@ def admin_manage_requests(request, pk):
         body = f"Your payment request {payment_request.applicant.application_id} updated to {status}"
         send_email.send_email(subject, body, payment_request.user)
     return render(request, 'portal/manage_requests.html',  context)
+
+
+@login_required
+@admin_required
+def agent_applications(request, pk):
+    user = User.objects.get(id=pk)
+    applications = Applicant.objects.filter(user=user)
+    return render(request, 'portal/agent_applications.html', {'applications':applications, 'user':user})

@@ -8,6 +8,10 @@ User = get_user_model()
 class University(models.Model):
     name = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name = "University"
+        verbose_name_plural = "      University"
+
     def __str__(self):
         return self.name
 
@@ -21,6 +25,10 @@ class CommissionTier(models.Model):
     phd_commission = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     research_based_commission = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     status = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "CommissionTier"
+        verbose_name_plural = "       CommissionTier"
 
     def __str__(self):
         return f"Commission Tier for {self.user.username} at {self.university.name}"
@@ -40,6 +48,7 @@ class Applicant(models.Model):
         ('BACHELOR', 'Bachelor'),
         ('MASTER', 'Master'),
         ('PHD', 'PhD'),
+        ("RESEARCH_BASED", 'Research Based')
     ])
     application_id = models.CharField(max_length=10, unique=True)
     STATUS_CHOICES = [
@@ -52,6 +61,12 @@ class Applicant(models.Model):
     isPaymentClaim = models.BooleanField(default=False)
 
 
+    class Meta:
+        verbose_name = "Applicant"
+        verbose_name_plural = "      Applicant"
+
+
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -60,6 +75,10 @@ class ApplicationStatus(models.Model):
     date = models.DateField(default=timezone.now)
     status = models.CharField(max_length=100)
     remark = models.TextField()
+
+    class Meta:
+        verbose_name = "ApplicationStatus"
+        verbose_name_plural = "      ApplicationStatus"
 
     def __str__(self):
         return f"{self.date} - {self.status}"
@@ -100,5 +119,46 @@ class PaymentRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "PaymentRequest"
+        verbose_name_plural = "   PaymentRequest"
+
     def __str__(self):
         return f"{self.user} - {self.status}"
+
+
+
+class Subject(models.Model):
+
+    PROGRAM_CHOICES = [
+        ('FOUNDATION', 'Foundation'),
+        ('DIPLOMA', 'Diploma'),
+        ('BACHELOR', 'Bachelor'),
+        ('MASTER', 'Master'),
+        ('PHD', 'PhD'),
+        ("RESEARCH_BASED", 'Research Based')
+    ]
+
+    name = models.CharField(max_length=255)
+    program_type = models.CharField(max_length=50, choices=PROGRAM_CHOICES)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Subject"
+        verbose_name_plural = "  Subject"
+
+    def __str__(self):
+        return f"{self.name} - {self.program_type}: {self.university}"
+
+
+class Fee(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    field_name = models.CharField(max_length=100)
+    value = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Fee"
+        verbose_name_plural = " Fee"
+
+    def __str__(self):
+        return f"{self.subject} - {self.field_name}: {self.value}"
