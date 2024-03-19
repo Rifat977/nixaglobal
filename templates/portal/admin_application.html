@@ -16,12 +16,11 @@
                 <table class="table datatables" id="dataTable-1">
                   <thead>
                     <tr>
-                      <th>No.</th>
                       <th>Agent</th>
                       <th>Student Name</th>
                       <th>Passport Number</th>
-                      <th>Date of Birth</th>
                       <th>University</th>
+                      <th>Program</th>
                       <th>Subject</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -30,13 +29,12 @@
                   <tbody>
                     {% for application in applications %}
                     <tr>
-                      <td>{{forloop.counter}}</td>
                       <td>{{application.user}}</td>
                       <td>{{application.first_name}} {{application.last_name}}</td>
                       <td>{{application.passport_number}}</td>
-                      <td>{{application.dob}}</td>
-                      <td>{{application.university}}</td>
-                      <td>{{application.subject}}</td>
+                      <td>{{application.subject.university.name}}</td>
+                      <td>{{application.subject.program_type}}</td>
+                      <td>{{application.subject.name}}</td>
                       <td>
                         {% if application.status == 'PENDING' %}
                             <span class="badge badge-warning text-light">{{ application.status }}</span>
@@ -50,7 +48,7 @@
                       </td>
                       <td>
                         <a href="{% url 'core:admin_manage_status' application.id %}">
-                            <button class="btn btn-primary btn-sm">Manage Status</button>
+                            <button class="btn btn-primary btn-sm">Manage</button>
                         </a>
                       </td>
                     </tr>

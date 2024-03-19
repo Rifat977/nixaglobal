@@ -36,33 +36,19 @@
                   <input type="date" name="dob" id="simpleinput" class="form-control">
                 </div>
               </div>
-              <div class="col-12 col-md-6">
-                <div class="form-group mb-3">
-                  <label for="simpleinput">University</label>
-                  <select name="university" id="" class="form-control">
-                    <option value="">Select University</option>
-                    {% for university in universitys %}
-                      <option value="{{university.id}}">{{university.name}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
+              <div class="col-12">
                 <div class="form-group mb-3">
                   <label for="simpleinput">Subject</label>
-                  <input type="text" name="subject" id="simpleinput" class="form-control">
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group mb-3">
-                <label for="simpleinput">Program</label>
-                <select name="program" id="" class="form-control">
-                  <option value="">Select Program</option>
-                  <option value="FOUNDATION">FOUNDATION</option>
-                  <option value="DIPLOMA">DIPLOMA</option>
-                  <option value="BACHELOR">BACHELOR</option>
-                  <option value="MASTER">MASTER</option>
-                  <option value="PHD">PHD</option>
-                  <option value="RESEARCH_BASED">RESEARCH BASED</option>
-                </select>
+                  <select name="subject" class="form-control select2" id="simple-select2">
+                      <option value="" >-- Select Subject --</option>
+                      {% for university, subjects in university_subjects %}
+                      <optgroup label="{{ university.name }}">
+                          {% for subject in subjects %}
+                          <option value="{{ subject.id }}">{{ subject.name }} : [ {{subject.program_type}} ]</option>
+                          {% endfor %}
+                      </optgroup>
+                      {% endfor %}
+                  </select>
               </div>
             </div>
             <div class="col-12 col-md-6">
@@ -98,9 +84,9 @@
                 <th>{{applicant.first_name}} {{applicant.last_name}}</th>
                 <td>{{applicant.passport_number}}</td>
                 <td>{{applicant.dob}}</td>
-                <td>{{applicant.university}}</td>
-                <td>{{applicant.program}}</td>
-                <td>{{applicant.subject}}</td>
+                <td>{{applicant.subject.university.name}}</td>
+                <td>{{applicant.subject.program_type}}</td>
+                <td>{{applicant.subject.name}}</td>
                 <td>
                   {% if applicant.status == 'PENDING' %}
                       <span class="badge badge-warning text-light">{{ applicant.status }}</span>
@@ -115,7 +101,7 @@
               
                 <td>
                   <a href="{% url 'core:application_status' applicant.id %}">
-                    <button class="btn btn-success text-light" type="button">View Status</button>
+                    <button class="btn btn-success text-light" type="button">View</button>
                   </a>
                 </td>
               </tr>

@@ -39,11 +39,15 @@ def dashboard(request):
         pending_agents = CustomUser.objects.filter(is_active=False)
         total_agent = CustomUser.objects.all().count()
         total_application = Applicant.objects.all().count()
+        total_universitys = University.objects.all().count()
+        total_subjects = Subject.objects.all().count()
         context = {
             'user_type': UserType.ADMIN,
             'pending_agents': pending_agents,
             'total_agent': total_agent,
             'total_application': total_application,
+            'total_universitys': total_universitys,
+            'total_subjects': total_subjects,
         }
     elif user.is_agent:
         context = {
@@ -279,9 +283,10 @@ def comission_manage(request, pk):
             body = f"Your commission tier updated"
             send_email.send_email(subject, body, user)
 
-            subject = f"Your sub-agent {user.email} commission tier updated by admin"
-            body = f"Your sub-agent {user.email} commission tier updated by admin"
-            send_email.send_email(subject, body, user.referred_by)
+            if user.referred_by:
+                subject = f"Your sub-agent {user.email} commission tier updated by admin"
+                body = f"Your sub-agent {user.email} commission tier updated by admin"
+                send_email.send_email(subject, body, user.referred_by)
 
         else:
             subject = f"Comission tier updated of {user.email}"
@@ -384,35 +389,32 @@ def university_details(request, pk):
 def application(request):
     universitys = University.objects.all()
     applications = Applicant.objects.filter(user=request.user).order_by('-id')
+    university_subjects = []
+    for university in universitys:
+        subjects = Subject.objects.filter(university=university)
+        university_subjects.append((university, subjects))
+
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         passport_number = request.POST.get('passport_number')
         dob = request.POST.get('dob')
-        university_id = request.POST.get('university')
         subject = request.POST.get('subject')
-        program = request.POST.get('program')
 
-        if not (first_name and last_name and passport_number and dob and university_id and subject and program):
+        if not (first_name and last_name and passport_number and dob and subject):
             messages.error(request, "Please fill in all required fields.")
             return redirect('core:application')
+
+        subject = Subject.objects.get(id=subject)
             
         application_id = generate_unique_id()
-
-        try:
-            university_obj = University.objects.get(pk=university_id)
-        except University.DoesNotExist:
-            messages.error(request, "Invalid university selected.")
-            return redirect('core:application')
 
         applicant = Applicant.objects.create(
             first_name=first_name,
             last_name=last_name,
             passport_number=passport_number,
             dob=dob,
-            university=university_obj,
             subject=subject,
-            program=program,
             application_id=application_id,
             user=request.user
         )
@@ -422,7 +424,13 @@ def application(request):
         body = f"New application from {applicant.user.email} for {university}"
         send_email.send_email_to_admin(subject, body)
 
-    return render(request, 'portal/application.html', {'universitys':universitys, 'applicaitons': applications})
+    context = {
+        'universitys':universitys, 
+        'applicaitons': applications, 
+        'university_subjects':university_subjects,
+    }
+
+    return render(request, 'portal/application.html', context)
 
 def generate_unique_id():
     length = 8
@@ -487,7 +495,7 @@ def payment_request(request):
 
     payment_request_applications = PaymentRequest.objects.values('applicant')
 
-    applications = Applicant.objects.filter(user=user, isPaymentClaim=True, status='COMPLETE').exclude(id__in=Subquery(payment_request_applications))
+    applications = Applicant.objects.filter(user=user, status='COMPLETE').exclude(id__in=Subquery(payment_request_applications))
 
     claimed = PaymentRequest.objects.filter(user=user, status='Claimed')
     approved = PaymentRequest.objects.filter(user=user, status='Approved')

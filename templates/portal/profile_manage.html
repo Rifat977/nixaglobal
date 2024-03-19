@@ -25,6 +25,12 @@
             <li class="nav-item">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'core:comission_manage' user.id|urlencode %}">Commission Tier</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'core:agent_applications' user.id|urlencode %}" >Work History</a>
+            </li>
           </ul>
           <form method="POST" action="{% url 'core:profile_manage' user.id %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -189,19 +195,24 @@
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Profile Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {% for item in referrals %}
-              <tr>
-                <th scope="col">{{item.first_name}} {{item.last_name}}</th>
-                <th>{{item.email}}</th>
-                <th>{{item.phone_number}}</th>
-                <th>
-                  <span class="badge badge-pill {% if user.is_active %}badge-success{% else %}badge-danger{% endif %}" >{% if user.is_active %}Active{% else %}Inactive{% endif %}</span>
-                </th>
-              </tr>
-    
+                <tr>
+                  <th scope="col">{{item.first_name}} {{item.last_name}}</th>
+                  <th>{{item.email}}</th>
+                  <th>{{item.phone_number}}</th>
+                  <th>
+                    <span class="badge badge-pill {% if user.is_active %}badge-success{% else %}badge-danger{% endif %}" >{% if user.is_active %}Active{% else %}Inactive{% endif %}</span>
+                  </th>
+                  <th>
+                    <a href="{% url 'core:profile_manage' item.id %}">
+                      <button class="btn btn-sm btn-info">View Profile</button>
+                    </a>
+                  </th>
+                </tr>
               {% endfor %}
             </tbody>
           </table>

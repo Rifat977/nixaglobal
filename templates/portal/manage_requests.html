@@ -30,15 +30,19 @@
                 </div>
                 <div class="form-group mb-2">
                     <strong class="card-title">University :</strong>
-                    <span>{{payment_request.applicant.university}}</span>
+                    <span>{{payment_request.applicant.subject.university.name}}</span>
                 </div>
+                <div class="form-group mb-2">
+                  <strong class="card-title">Program :</strong>
+                  <span>{{payment_request.applicant.subject.program_type}}</span>
+              </div>
                 <div class="form-group mb-2">
                     <strong class="card-title">Subject :</strong>
-                    <span>{{payment_request.applicant.subject}}</span>
-                </div>
-                <div class="form-group mb-2">
-                    <strong class="card-title">Program :</strong>
-                    <span>{{payment_request.applicant.program}}</span>
+                    <span>
+                      <a href="{% url 'core:university_details' payment_request.applicant.subject.id %}">
+                        {{payment_request.applicant.subject.name}}
+                      </a>
+                    </span>
                 </div>
                 <div class="form-group mb-2">
                     <strong class="card-title">Appliaction Status :</strong>
@@ -47,8 +51,12 @@
               </div>
               <div class="col-4">
                 <div class="form-group mb-2">
-                  <strong class="card-title">Agent Email :</strong>
-                  <span>{{payment_request.user}}</span>
+                  <strong class="card-title">Agent :</strong>
+                  <span>
+                    <a href="{% url 'core:profile_manage' payment_request.user.id %}">
+                      {{payment_request.user.first_name}} {{payment_request.user.last_name}}
+                    </a>
+                  </span>
                 </div>
                 <div class="form-group mb-2">
                     <strong class="card-title">Agent Code :</strong>

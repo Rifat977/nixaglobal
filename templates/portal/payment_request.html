@@ -172,7 +172,6 @@
                                   <th>Name</th>
                                   <th>Passport Number</th>
                                   <th>Date of Birth</th>
-                                  <th>University</th>
                                   <th>Program</th>
                                   <th>Subject</th>
                                   <th>Status</th>
@@ -190,9 +189,8 @@
                                     <th scope="col">{{applicant.first_name}} {{applicant.last_name}}</th>
                                     <td>{{applicant.passport_number}}</td>
                                     <td>{{applicant.dob}}</td>
-                                    <td>{{applicant.university}}</td>
-                                    <td>{{applicant.program}}</td>
-                                    <td>{{applicant.subject}}</td>
+                                    <td>{{applicant.subject.program_type}}</td>
+                                    <td>{{applicant.subject.name}}</td>
                                     <td>
                                       {% if applicant.status == 'PENDING' %}
                                           <span class="badge badge-warning text-light">{{ applicant.status }}</span>
@@ -362,9 +360,7 @@
                       <th>Student Name</th>
                       <th>Passport Number</th>
                       <th>Date of Birth</th>
-                      <th>University</th>
                       <th>Subject</th>
-                      <th>Program</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -376,9 +372,7 @@
                       <td>{{payment.applicant}}</td>
                       <td>{{payment.applicant.passport_number}}</td>
                       <td>{{payment.applicant.dob}}</td>
-                      <td>{{payment.applicant.university}}</td>
-                      <td>{{payment.applicant.subject}}</td>
-                      <td>{{payment.applicant.program}}</td>
+                      <td>{{payment.applicant.subject.name}}</td>
                       <td>
                         <a href="{% url 'core:admin_manage_requests' payment.id %}">
                             <button class="btn btn-primary btn-sm">Manage Requests</button>

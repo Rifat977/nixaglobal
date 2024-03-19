@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
+from django.core.validators import FileExtensionValidator
+
 User = get_user_model()
 
 # Create your models here.
@@ -33,6 +35,42 @@ class CommissionTier(models.Model):
     def __str__(self):
         return f"Commission Tier for {self.user.username} at {self.university.name}"
 
+class Subject(models.Model):
+
+    PROGRAM_CHOICES = [
+        ('FOUNDATION', 'Foundation'),
+        ('DIPLOMA', 'Diploma'),
+        ('BACHELOR', 'Bachelor'),
+        ('MASTER', 'Master'),
+        ('PHD', 'PhD'),
+        ("RESEARCH_BASED", 'Research Based')
+    ]
+
+    name = models.CharField(max_length=255)
+    program_type = models.CharField(max_length=50, choices=PROGRAM_CHOICES)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    pdf = models.FileField(upload_to='subject_pdfs/', validators=[FileExtensionValidator(['pdf'])], blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Subject"
+        verbose_name_plural = "  Subject"
+
+    def __str__(self):
+        return f"{self.name} - {self.program_type}: {self.university}"
+
+
+class Fee(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    field_name = models.CharField(max_length=100)
+    value = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Fee"
+        verbose_name_plural = " Fee"
+
+    def __str__(self):
+        return f"{self.subject} - {self.field_name}: {self.value}"
+
 
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -40,16 +78,7 @@ class Applicant(models.Model):
     last_name = models.CharField(max_length=50)
     passport_number = models.CharField(max_length=20)
     dob = models.DateField()
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=100)
-    program = models.CharField(max_length=20, choices=[
-        ('FOUNDATION', 'Foundation'),
-        ('DIPLOMA', 'Diploma'),
-        ('BACHELOR', 'Bachelor'),
-        ('MASTER', 'Master'),
-        ('PHD', 'PhD'),
-        ("RESEARCH_BASED", 'Research Based')
-    ])
+    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
     application_id = models.CharField(max_length=10, unique=True)
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
@@ -126,39 +155,3 @@ class PaymentRequest(models.Model):
     def __str__(self):
         return f"{self.user} - {self.status}"
 
-
-
-class Subject(models.Model):
-
-    PROGRAM_CHOICES = [
-        ('FOUNDATION', 'Foundation'),
-        ('DIPLOMA', 'Diploma'),
-        ('BACHELOR', 'Bachelor'),
-        ('MASTER', 'Master'),
-        ('PHD', 'PhD'),
-        ("RESEARCH_BASED", 'Research Based')
-    ]
-
-    name = models.CharField(max_length=255)
-    program_type = models.CharField(max_length=50, choices=PROGRAM_CHOICES)
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = "Subject"
-        verbose_name_plural = "  Subject"
-
-    def __str__(self):
-        return f"{self.name} - {self.program_type}: {self.university}"
-
-
-class Fee(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    field_name = models.CharField(max_length=100)
-    value = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name = "Fee"
-        verbose_name_plural = " Fee"
-
-    def __str__(self):
-        return f"{self.subject} - {self.field_name}: {self.value}"

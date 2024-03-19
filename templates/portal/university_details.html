@@ -17,7 +17,11 @@
           <h4 class="text-center">Subject Details</h4>
           <p><strong>Subject Name:</strong> {{ subject.name }}</p>
           <p><strong>Program Type:</strong> {{ subject.program_type }}</p>
-          <button class="btn btn-sm btn-danger">Download PDF</button>
+          {% if subject.pdf %}
+            <a href="{{ subject.pdf.url }}">
+              <button class="btn btn-sm btn-danger">View PDF</button>
+            </a>
+          {% endif %}
           <hr>
           <h4>Fees Structure</h4>
           <table class="table">

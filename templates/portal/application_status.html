@@ -33,11 +33,36 @@
                 </div>
                 <div class="form-group mb-3">
                   <strong class="font-weight-bold" for="simpleinput">Application Status: </strong>
-                  {% for status in latest_status %}
-                    <span>{{status.status}}</span>
-                  {% endfor %}
+                  {% if application.status == 'PENDING' %}
+                      <span class="badge badge-warning text-light">{{ application.status }}</span>
+                  {% elif application.status == 'PROCESSING' %}
+                      <span class="badge badge-primary text-light">{{ application.status }}</span>
+                  {% elif application.status == 'COMPLETE' %}
+                      <span class="badge badge-success text-light">{{ application.status }}</span>
+                  {% elif application.status == 'REJECT' %}
+                      <span class="badge badge-danger text-light">{{ application.status }}</span>
+                  {% endif %}
                 </div>
             </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group mb-3">
+                <strong class="font-weight-bold" for="simpleinput">University:</strong>
+                <span>{{application.subject.university}}</span>
+              </div>
+              <div class="form-group mb-3">
+                <strong class="font-weight-bold" for="simpleinput">Program Type: </strong>
+                <span>{{application.subject.program_type}}</span>
+              </div>
+              <div class="form-group mb-3">
+                <strong class="font-weight-bold" for="simpleinput">Subject:</strong>
+                <span>{{application.subject.name}}</span>
+              </div>
+              <div class="form-group mb-3">
+                <a href="{% url 'core:university_details' application.subject.id %}">
+                  <button class="btn btn-sm btn-info">Subject Details</button>
+                </a>
+              </div>
+          </div>
             </div>
           </div>
       </div>
