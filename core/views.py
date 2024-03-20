@@ -24,8 +24,6 @@ def index(request):
 def dashboard(request):
     user = request.user
 
-    print(user.user_type)
-
     universities = University.objects.all()
     commission_tiers = {}
     for university in universities:
@@ -49,19 +47,19 @@ def dashboard(request):
             'total_universitys': total_universitys,
             'total_subjects': total_subjects,
         }
-    elif user.is_agent:
+    else:
+        total_agent = CustomUser.objects.filter(referred_by=user).count()
+        total_application = Applicant.objects.filter(user=user).count()
+        total_universitys = University.objects.all().count()
+        total_subjects = Subject.objects.all().count()
         context = {
-            'user_type': UserType.AGENT,
             'commission_tiers': commission_tiers,
             'universities': universities,
-            'agent': user
-        }
-    elif user.is_exclusive_agent:
-        context = {
-            'user_type': UserType.EXCLUSIVE_AGENT,
-            'commission_tiers': commission_tiers,
-            'universities': universities,
-            'agent': user
+            'agent': user,
+            'total_agent': total_agent,
+            'total_application': total_application,
+            'total_universitys': total_universitys,
+            'total_subjects': total_subjects,
         }
     return render(request, 'portal/dashboard.html', context)
 
@@ -634,3 +632,24 @@ def agent_applications(request, pk):
     user = User.objects.get(id=pk)
     applications = Applicant.objects.filter(user=user)
     return render(request, 'portal/agent_applications.html', {'applications':applications, 'user':user})
+
+
+@login_required
+def commission_tier(request):
+    user = request.user
+
+    universities = University.objects.all()
+    commission_tiers = {}
+    for university in universities:
+        try:
+            commission_tier = CommissionTier.objects.get(user=user, university=university)
+            commission_tiers[university.pk] = commission_tier
+        except CommissionTier.DoesNotExist:
+            commission_tiers[university.pk] = None
+
+    context = {
+            'commission_tiers': commission_tiers,
+            'universities': universities,
+            'agent': user,
+    }
+    return render(request, 'portal/commission_tier.html', context)

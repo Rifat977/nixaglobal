@@ -9,6 +9,8 @@ urlpatterns = [
     path('my_agents/', views.my_agents, name="my_agents"),
     path('profile_settings/', views.profile_settings, name="profile_settings"),
     path('profile_manage/<int:pk>', views.profile_manage, name="profile_manage"),
+
+    path('commission_tier/', views.commission_tier, name="commission_tier"),
     path('comission_manage/<int:pk>', views.comission_manage, name="comission_manage"),
 
     path('university/', views.university, name="university"),
