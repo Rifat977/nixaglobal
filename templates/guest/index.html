@@ -59,7 +59,11 @@
                 </div>
                 <div class="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
 
-                    <button class="btn text-uppercase px-3" style="background-color: #ff7800; color: #fff;"><i class="fa-solid fa-right-from-bracket"></i> Register</button>
+                <a href="{% url 'account:register' %}">
+                    <button class="btn text-uppercase px-3" style="color: #fff; font-size: small; font-weight:500; background-color: #ff7800; border-radius: 25px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Register
+                    </button>
+                </a>
 
                     <!-- <div class="btn px-3" style="background-color: #ff7800; border-radius: 100px;"><a href="{% url 'account:register' %}" style="color: #fff;"> <i
                                 class="fa-solid fa-right-from-bracket"></i> Register</a></div> -->

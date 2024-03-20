@@ -78,11 +78,14 @@ def register(request):
         errors = []
 
 
-        if referred_by != "":
-            if not CustomUser.objects.filter(referral_code=referred_by).exists():
+        if referred_by:
+            try:
+                referred_user = CustomUser.objects.get(referral_code=referred_by)
+            except CustomUser.DoesNotExist:
                 errors.append('Referral Code not valid')
-            else:
-                referred_by = CustomUser.objects.get(referral_code=referred_by)
+        else:
+            referred_user = None
+
 
         if account_type == 'Individual' and not profession:
             errors.append('Profession is required for Individual account.')
