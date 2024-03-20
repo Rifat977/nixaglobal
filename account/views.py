@@ -73,7 +73,7 @@ def register(request):
         post_code = request.POST.get('post_code')
         document_type = request.POST.get('document_type')
         identification_documents = request.FILES.getlist('identification_document')
-        referred_by = request.POST.get('referred_by', '')
+        referred_by = request.POST.get('referred_by')
 
         errors = []
 
@@ -138,9 +138,11 @@ def register(request):
             company_name=company_name,
             profession=profession,
             account_type=account_type,
-            referred_by=referred_by,
             is_active=False
         )
+
+        user.referred_by = referred_user
+        user.save()
 
         if account_type == 'Company':
             company = Company.objects.create(
