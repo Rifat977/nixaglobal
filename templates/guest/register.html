@@ -4,115 +4,96 @@
 <html lang="en">
 
     <head>
-        <title>Nixa Global - B2B</title>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Dr PRO template project">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/bootstrap-4.1.2/bootstrap.min.css' %}">
-        <link href="{% static 'assets/guest/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/animate.css' %}">
-        <link href="{% static 'guest/assets/plugins/jquery-datepicker/jquery-ui.css' %}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/main_styles.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/responsive.css' %}">
+  <title>Nixa Global</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <!-- Favicons -->
+  <link href="{% static 'images/logo1.png' %}" rel="icon">
+  <link href="{% static 'assets/guest/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-        <style>
-            .body {
-                font-family: 'Inter', sans-serif;
-            }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-            .nav-tabs .nav-link.active {
-                background-color: #ff7800;
-                color: #fff;
-                border-color: transparent;
-                border-radius: 0;
-            }
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/guest/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-            .nav-tabs .nav-link {
-                color: #000;
-            }
-
-            .nav-tabs .nav-item {
-                margin-bottom: 0;
-            }
-
-            .tab-pane {
-                padding: 20px 0;
-            }
-
-            .form-group label {
-                font-weight: bold;
-            }
-
-            .btn-info {
-                background-color: #17a2b8;
-                border-color: #17a2b8;
-            }
-
-            .btn-info:hover {
-                background-color: #138496;
-                border-color: #138496;
-            }
-
-            .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-            }
-
-            .alert-success {
-                color: #155724;
-                background-color: #d4edda;
-                border-color: #c3e6cb;
-            }
-
-            .alert-error {
-                color: #721c24;
-                background-color: #f8d7da;
-                border-color: #f5c6cb;
-            }
-        </style>
-
-    </head>
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/guest/assets/css/style.css' %}" rel="stylesheet">
+</head>
 
     <body>
 
-        <div
-            class="super_container">
+        <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">b2b@nixaglobal.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+60 11-2302 2129</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <!-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> -->
+        <a href="https://www.facebook.com/NixaGlobalB2BHub?mibextid=LQQJ4d" class="facebook"><i class="bi bi-facebook"></i></a>
+        <!-- <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> -->
+        <!-- <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
+      </div>
+    </div>
+  </section>
 
-            <!-- Header -->
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
 
-            <header class="header trans_400 shadow-sm">
-                <div class="header_content d-flex flex-row align-items-center jusity-content-start trans_400">
-                    <div class="logo">
-                        <a href="{% url 'core:index' %}">
-                            <img src="{% static 'images/logo1.png' %}" class="img-fluid" style="width: 200px; height: 70px;" alt="">
-                            <!-- <div>A concern of US Bangla Group</div> -->
-                        </a>
-                    </div>
+      <div class="">
+        <a href="{% url 'core:index' %}">
+            <img src="{% static 'images/logo1.png' %}" alt="" style="width: 180px;">
+        </a>        
+      </div>
 
-                    <div class="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
-                        <div class="button button_1 header_button">
-                            <a href="{% url 'core:index' %}">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                Login</a>
-                        </div>
-                    </div>
-                </div>
-            </header>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="active" href="{% url 'core:index' %}">
+            <button class="btn rounded-pill px-3" style="background-color: #ff7800; color: #fff;">
+                <i class="bi bi-box-arrow-right" style="font-size: 1rem;"></i>
+                 Login
+            </button>
+          </a></li>
+        </ul>
+      </nav>
 
-            <div class="home2">
-                <div class="mx-md-5 mx-lg-5">
-                    <div class="card my-5 mx-md-5 mx-lg-5">
-                        <h4 class="card-header text-light" style="background-color: #ff7800;">Get Started - Register as B2B Agent</h4>
+    </div>
+  </header><!-- End Header -->
+
+        <div class="container">
+            <div class="">
+                <div class="">
+                    <div class="card my-5">
+                        <h4 class="card-header text-light bg-dark">Get Started - Register as B2B Agent</h4>
                         <div class="card-body">
                             <h5 class="card-title">Account Information</h5>
+
+                            {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                                    <strong>{% if message.tags == 'error' %}Error:{% elif message.tags == 'success' %}Success:{% endif %}</strong> 
+                                    <span class="alert-text {% if message.tags == 'error' %}text-sm{% endif %}">{{ message }}</span>
+                                    <button type="button" class="close btn btn-sm" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+
+                            
                             <hr>
                             <div class="">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -128,96 +109,86 @@
                                         <form action="{% url 'account:register' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <input type="hidden" name="account_type" value="Individual">
-                                            <div class="form-row text-dark">
-                                                <div class="form-group col-md-4">
+                                            <div class="row mt-3 text-dark">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputProfession">Profession</label>
                                                     <input type="text" name="profession" class="form-control" id="inputProfession" placeholder="Profession">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputFirstName">First Name</label>
                                                     <input type="text" name="first_name" class="form-control" id="inputFirstName" placeholder="First Name">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputLastName">Last Name</label>
                                                     <input type="text" name="last_name" class="form-control" id="inputLastName" placeholder="Last Name">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputEmail">Email Address</label>
                                                     <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email Address">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputPhone">Phone Number</label>
                                                     <input type="text" name="phone_number" class="form-control" id="inputPhone" placeholder="Phone Number">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputPhone">Referral code</label>
                                                     <input type="text" name="referred_by" class="form-control" id="inputPhone" placeholder="Referral code">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputPassword">Password</label>
                                                     <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputConfirmPassword">Confirm Password</label>
                                                     <input type="password" name="confirm_password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6 p-2">
                                                     <label for="inputAddress">Address</label>
                                                     <input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-3 p-2">
                                                     <label for="inputCountry">Country</label>
                                                     <input type="text" name="country" class="form-control" id="inputCountry" placeholder="Country">
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-3 p-2">
                                                     <label for="inputCity">City</label>
                                                     <input type="text" name="city" class="form-control" id="inputCity" placeholder="City">
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-3 p-2">
                                                     <label for="inputPostCode">Post Code</label>
                                                     <input type="text" name="post_code" class="form-control" id="inputPostCode" placeholder="Post Code">
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="inputPostCode">Document Type</label>
-                                                    <select name="document_type" id="" class="form-control">
-                                                        <option value="National ID Card">National ID Card</option>
-                                                        <option value="Birth Certificate">Birth Certificate</option>
-                                                        <option value="Passport">Passport</option>
-                                                        <option value="MyKad">MyKad</option>
-                                                        <option value="iKad">iKad</option>
-                                                    </select>
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-4 p-2">
+                                                        <label for="inputPostCode">Document Type</label>
+                                                        <select name="document_type" id="" class="form-control">
+                                                            <option value="National ID Card">National ID Card</option>
+                                                            <option value="Birth Certificate">Birth Certificate</option>
+                                                            <option value="Passport">Passport</option>
+                                                            <option value="MyKad">MyKad</option>
+                                                            <option value="iKad">iKad</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-8 p-2">
+                                                        <label for="inputDocument">Choose File (National ID Card/Birth Certificate/Passport/MyKad/iKad)</label>
+                                                        <input type="file" multiple name="identification_document" class="form-control" id="inputDocument">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="inputDocument">Choose File (National ID Card/Birth
-                                                                                                            Certificate/Passport/MyKad/iKad)</label>
-                                                    <input type="file" multiple name="identification_document" class="form-control" id="inputDocument">
-                                                </div>
-                                                <div class="form-group form-check">
+                                                
+                                                <div class="form-group p-2">
                                                     <input type="checkbox" class="form-check-input" id="agreeCheck">
                                                     <label class="form-check-label" for="agreeCheck">I agree to share the above-mentioned information with Nixa Global</label>
                                                 </div>
                                             </div>
                                             <div class="text-center">
-                                                <button type="submit" class="btn text-light" style="background-color: #ff7800;">Submit</button>
+                                                <button type="submit" class="btn text-light px-5" style="background-color: #ff7800;">Submit</button>
                                             </div>
 
-                                            {% if messages %}
-                                                {% for message in messages %}
-                                                    <div class="mt-3 alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
-                                                        {% if message.tags == 'error' %}
-                                                            <div class="alert-error">
-                                                                {{ message }}
-                                                            </div>
-                                                        {% else %}
-                                                            {{ message }}
-                                                        {% endif %}
-                                                    </div>
-                                                {% endfor %}
-                                            {% endif %}
+                                            
 
 
-                                            <div class="form-group form-check text-dark mt-3 text-center">
-                                                <input type="checkbox" class="form-check-input" id="loginCheck">
+                                            <div class="form-group text-dark mt-3 text-center">
                                                 <label class="form-check-label" for="loginCheck">Already a Partner?
                                                     <a href="{% url 'core:index' %}">Login now</a>
                                                 </label>
@@ -230,56 +201,56 @@
                                         <form action="{% url 'account:register' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <input type="hidden" name="account_type" value="Company">
-                                            <div class="form-row text-dark">
-                                                <div class="form-group col-md-4">
+                                            <div class="row mt-3 text-dark">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputCompanyName">Company Name</label>
                                                     <input type="text" class="form-control" name="company_name" id="inputCompanyName" placeholder="Company Name">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputFirstName">First Name</label>
                                                     <input type="text" class="form-control" name="first_name" id="inputFirstName" placeholder="First Name">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputLastName">Last Name</label>
                                                     <input type="text" class="form-control" name="last_name" id="inputLastName" placeholder="Last Name">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputEmail">Email Address</label>
                                                     <input type="email" class="form-control" name="email" id="inputEmail" placeholder="Email Address">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputPhone">Phone Number</label>
                                                     <input type="text" class="form-control" name="phone_number" id="inputPhone" placeholder="Phone Number">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputPhone">Referral code</label>
                                                     <input type="text" name="referred_by" class="form-control" id="inputPhone" placeholder="Referral code">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4" p-2>
                                                     <label for="inputPassword">Password</label>
                                                     <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputConfirmPassword">Confirm Password</label>
                                                     <input type="password" class="form-control" name="confirm_password" id="inputConfirmPassword" placeholder="Confirm Password">
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6 p-2">
                                                     <label for="inputAddress">Address</label>
                                                     <input type="text" class="form-control" name="address" id="inputAddress" placeholder="1234 Main St">
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-3 p-2">
                                                     <label for="inputCountry">Country</label>
                                                     <input type="text" class="form-control" name="country" id="inputCountry" placeholder="Country">
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-3 p-2">
                                                     <label for="inputCity">City</label>
                                                     <input type="text" class="form-control" name="city" id="inputCity" placeholder="City">
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6 p-2">
                                                     <label for="inputPostCode">Post Code</label>
                                                     <input type="text" class="form-control" name="post_code" id="inputPostCode" placeholder="Post Code">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputPostCode">Document Type</label>
                                                     <select name="document_type" id="" class="form-control">
                                                         <option value="National ID Card">National ID Card</option>
@@ -289,15 +260,15 @@
                                                         <option value="iKad">iKad</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputDocument1">Choose File (National ID Card/Passport/MyCard/iKad)</label>
                                                     <input type="file" class="form-control" name="identification_document" id="inputDocument1"  multiple />
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-4 p-2">
                                                     <label for="inputDocument2">Choose File (Trade License)</label>
                                                     <input type="file" class="form-control" name="trade_license" id="inputDocument2"  />
                                                 </div>
-                                                <div class="form-group form-check">
+                                                <div class="form-group p-2">
                                                     <input type="checkbox" class="form-check-input" id="agreeCheck">
                                                     <label class="form-check-label" for="agreeCheck">I agree to share the above-mentioned information with Nixa Global</label>
                                                 </div>
@@ -305,7 +276,7 @@
                                             <div class="text-center">
                                                 <button type="submit" class="btn text-light" style="background-color: #ff7800;">Register</button>
                                             </div>
-                                            <div class="form-group form-check text-dark mt-3 text-center">
+                                            <div class="form-group text-dark mt-3 text-center">
                                                 <label class="form-check-label" for="loginCheck">Already a Partner?
                                                     <a href="#">Login now</a>
                                                 </label>
@@ -321,101 +292,94 @@
                     </div>
                 </div>
             </div>
-
-            <footer class="footer">
-                <div class="footer_content">
-                    <div class="container">
-                        <div
-                            class="row">
-
-                            <!-- Footer About -->
-                            <div class="col-lg-4 footer_col">
-                                <div class="footer_about">
-                                    <div class="footer_logo">
-                                        <a href="#">
-                                            <img src="{% static 'images/logo2.jpg' %}" class="img-fluid" style="width: 150px;" alt="">
-                                            <div>A concern of US Bangla Group</div>
-                                        </a>
-                                    </div>
-                                    <div class="footer_about_text">
-                                        <p>Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis, orci eleme ntum
-                                                                                    eleifend tempor, nunc libero porttitor tellus.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Footer Contact Info -->
-                            <div class="col-lg-4 footer_col">
-                                <div class="footer_contact">
-                                    <div class="footer_title">Contact Info</div>
-                                    <ul class="contact_list">
-                                        <li>+53 345 7953 32453</li>
-                                        <li>yourmail@gmail.com</li>
-                                        <li>contact@gmail.com</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Footer Locations -->
-                            <div class="col-lg-4 footer_col">
-                                <div class="footer_location">
-                                    <div class="footer_title">Our Locations</div>
-                                    <ul class="locations_list">
-                                        <li>
-                                            <div class="location_title">Miami</div>
-                                            <div class="location_text">45 Creekside Av FL 931</div>
-                                        </li>
-                                        <li>
-                                            <div class="location_title">Los Angeles</div>
-                                            <div class="location_text">1481 Creekside Lane Avila Beach, CA 931</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="footer_bar">
-                    <div class="container">
-                        <div class="row justify-content-center text-center">
-                            <div class="justify-content-center">
-                                <div class="footer_bar_content  d-flex flex-md-row flex-column align-items-md-center justify-content-center">
-                                    <div class="copyright">
-                                        Copyright &copy;
-                                        <script>
-                                            document.write(new Date().getFullYear());
-                                        </script>
-                                        All rights reserved
-                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                        by Nixa Global
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
+
+    <footer id="footer">
+
+
+        <div class="footer-top">
+            <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+                </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                <h4>Contact Us</h4>
+                <p>
+                    Level 41 Of Vista Tower, <br>
+                    Ther Intermark, JLN Tun Razak<br>
+                    Kuala Lampur, Malaysia <br><br>
+                    <strong>Phone:</strong> +60 11-2302 2129<br>
+                    <strong>Email:</strong> b2b@nixaglobal.com<br>
+                </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-info">
+                <h3>About Nixa Global</h3>
+                <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                <div class="social-links mt-3">
+                    <!-- <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> -->
+                    <a href="https://www.facebook.com/NixaGlobalB2BHub?mibextid=LQQJ4d" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <!-- <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> -->
+                </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+            &copy; Copyright <strong><span>Nixa Global</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+            
+            </div>
+        </div>
+    </footer>
 
 
         <script src="{% static 'assets/guest/js/jquery-3.2.1.min.js' %}"></script>
-        <script src="{% static 'assets/guest/styles/bootstrap-4.1.2/popper.js' %}"></script>
         <script src="{% static 'assets/guest/styles/bootstrap-4.1.2/bootstrap.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/greensock/TweenMax.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/greensock/TimelineMax.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/greensock/animation.gsap.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/easing/easing.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/parallax-js-master/parallax.min.js' %}"></script>
-        <script src="{% static 'assets/guest/plugins/jquery-datepicker/jquery-ui.js' %}"></script>
-        <script src="{% static 'assets/guest/js/custom.js' %}"></script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <!-- Vendor JS Files -->
+        <script src="{% static 'assets/guest/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+        <script src="{% static 'assets/guest/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/guest/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'assets/guest/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'assets/guest/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'assets/guest/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+        <script src="{% static 'assets/guest/assets/vendor/php-email-form/validate.js' %}"></script>
+
+        <!-- Template Main JS File -->
+        <script src="{% static 'assets/guest/assets/js/main.js' %}"></script>
+
+
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() {

@@ -22,6 +22,12 @@
                     <span class="ml-3 item-text">University</span><span class="sr-only">(current)</span>
                 </a>
             </li>
+            <li class="nav-item dropdown">
+                <a href="{% url 'core:search_program' %}" class="nav-link">
+                    <i class="fe fe-search fe-16"></i>
+                    <span class="ml-3 item-text">Search Program</span><span class="sr-only">(current)</span>
+                </a>
+            </li>
             {% if request.user.user_type == 'Admin' %}
             <li class="nav-item dropdown">
                 <a href="{% url 'core:all_agent' %}" class="nav-link">

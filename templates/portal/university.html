@@ -113,7 +113,7 @@
 <div class="container-fluid">
   <div class="row justify-content-start">
     <div class="col-12 col-md-4">
-      <h2 class="page-title">Universities Subject List</h2>
+      <h2 class="page-title">Choose University Wise</h2>
     </div>
   </div>
 
@@ -147,7 +147,7 @@
                   {% endwith %}
                 </th>
                 <td>
-                  <a href="{% url 'core:university_details' item.id %}">
+                  <a href="{% url 'core:program_details' item.id %}">
                     <button class="btn btn-primary btn-sm">View Details</button>
                   </a>
                 </td>

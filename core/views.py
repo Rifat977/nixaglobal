@@ -313,6 +313,28 @@ def comission_manage(request, pk):
 
 
 @login_required
+def search_program(request):
+    user = request.user
+    universitys = University.objects.all().order_by('-id')
+    subjects = Subject.objects.all().order_by('-id')
+    fees = Fee.objects.all().order_by('-id')
+    context = {
+        'universitys': universitys,
+        'subjects' : subjects,
+        'fees' : fees,
+    }
+    return render(request, 'portal/search_program.html', context)
+
+@login_required
+def program_details(request, pk):
+    subject = Subject.objects.get(id=pk)
+    context = {
+        'subject' : subject
+    }
+    return render(request, 'portal/university_details.html', context)
+
+
+@login_required
 @any_user_required
 def university(request):
     user = request.user
@@ -374,14 +396,6 @@ def university_delete(request, pk):
     if university.delete():
         messages.success(request, f"University '{name}' deleted successfully.")
     return redirect('core:university')
-
-@login_required
-def university_details(request, pk):
-    subject = Subject.objects.get(id=pk)
-    context = {
-        'subject' : subject
-    }
-    return render(request, 'portal/university_details.html', context)
 
 @login_required
 def application(request):

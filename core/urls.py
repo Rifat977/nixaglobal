@@ -14,10 +14,12 @@ urlpatterns = [
     path('comission_manage/<int:pk>', views.comission_manage, name="comission_manage"),
 
     path('university/', views.university, name="university"),
+
     path('university/delete/<int:pk>', views.university_delete, name="university_delete"),
     path('university/edit/', views.university_edit, name="university_edit"),
 
-    path('university/details/<int:pk>', views.university_details, name="university_details"),
+    path('program/search/', views.search_program, name="search_program"),
+    path('program/details/<int:pk>', views.program_details, name="program_details"),
 
     path('application/', views.application, name="application"),
     path('application/status/<int:pk>', views.application_status, name="application_status"),
