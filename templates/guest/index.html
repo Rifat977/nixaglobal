@@ -4,391 +4,365 @@
 <html lang="en">
 
 <head>
-    <title>Nixa Global - B2B</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Dr PRO template project">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/bootstrap-4.1.2/bootstrap.min.css' %}">
-    <link href="{% static 'assets/guest/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/animate.css' %}">
-    <link href="{% static 'guest/assets/plugins/jquery-datepicker/jquery-ui.css' %}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/main_styles.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/responsive.css' %}">
+  <title>Nixa Global</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Favicons -->
+  <link href="{% static 'images/logo1.png' %}" rel="icon">
+  <link href="{% static 'assets/guest/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-    <style>
-        .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-            }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-            .alert-success {
-                color: #155724;
-                background-color: #d4edda;
-                border-color: #c3e6cb;
-            }
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/guest/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/guest/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-            .alert-error {
-                color: #721c24;
-                background-color: #f8d7da;
-                border-color: #f5c6cb;
-            }
-    </style>
-
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/guest/assets/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="super_container">
-        <header class="header trans_400 shadow-sm">
-            <div class="header_content d-flex flex-row align-items-center jusity-content-start trans_400">
-                <div class="logo">
-                    <a href="{% url 'core:index' %}">
-                        <img src="{% static 'images/logo1.png' %}" class="img-fluid" style="width: 200px; height: 70px;" alt="">
-                        <!-- <div>A concern of US Bangla Group</div> -->
-                    </a>
-                </div>
-                <div class="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">b2b@nixaglobal.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+60 11-2302 2129</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <!-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> -->
+        <a href="https://www.facebook.com/NixaGlobalB2BHub?mibextid=LQQJ4d" class="facebook"><i class="bi bi-facebook"></i></a>
+        <!-- <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> -->
+        <!-- <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
+      </div>
+    </div>
+  </section>
 
-                <a href="{% url 'account:register' %}">
-                    <button class="btn text-uppercase px-3" style="color: #fff; font-size: small; font-weight:500; background-color: #ff7800; border-radius: 25px;">
-                        <i class="fa-solid fa-right-from-bracket"></i> Register
-                    </button>
-                </a>
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
 
-                    <!-- <div class="btn px-3" style="background-color: #ff7800; border-radius: 100px;"><a href="{% url 'account:register' %}" style="color: #fff;"> <i
-                                class="fa-solid fa-right-from-bracket"></i> Register</a></div> -->
-                </div>
+      <div class="">
+        <!-- <h1><a href="index.html">Nixa Global</a></h1> -->
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <a href="{% url 'core:index' %}">
+            <img src="{% static 'images/logo1.png' %}" alt="" style="width: 180px;">
+        </a>        
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="active" href="{% url 'account:register' %}">
+            <button class="btn rounded-pill px-3" style="background-color: #ff7800; color: #fff;">
+                <i class="bi bi-box-arrow-right" style="font-size: 1rem;"></i>
+                 Register
+            </button>
+          </a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active" style="background-image:url({% static 'images/banner1.jpg' %})">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Nixa Global</span></h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+              </div>
             </div>
-        </header>
-
-        <div class="home">
-            <div class="home_slider_container container">
-                <div class="owl-carousel owl-theme home_slider">
-                    <div class="owl-item">
-                        <div class="background_image mt-3" style="border-radius: 5px; background-image:url({% static 'images/banner1.jpg' %})">
-                        </div>
-                    </div>
-                    <div class="owl-item">
-                        <div class="background_image mt-3" style="border-radius: 5px; background-image:url({% static 'images/banner2.jpg' %})">
-                        </div>
-                    </div>
-                    <div class="owl-item">
-                        <div class="background_image mt-3" style="border-radius: 5px; background-image:url({% static 'images/banner3.jpg' %})">
-                        </div>
-                    </div>
-                </div>
-                <div class="home_slider_dots">
-                    <ul id="home_slider_custom_dots"
-                        class="home_slider_custom_dots d-flex flex-row align-items-center justify-content-start">
-                        <li class="home_slider_custom_dot trans_200 active"></li>
-                        <li class="home_slider_custom_dot trans_200"></li>
-                        <li class="home_slider_custom_dot trans_200"></li>
-                    </ul>
-                </div>
+          </div>
+          <div class="carousel-item" style="background-image:url({% static 'images/banner2.jpg' %})">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Eterna</span></h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+              </div>
             </div>
+          </div>
+          <div class="carousel-item" style="background-image:url({% static 'images/banner3.jpg' %})">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Eterna</span></h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="intro">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 intro_col">
-                        <div class="intro_form_container">
-                            <div class="intro_form_title" style="background-color: #ff7800;">Already Using Nixa Global?</div>
-                            <form action="{% url 'account:login' %}" method="POST" class="intro_form" id="intro_form">
-                                {% csrf_token %}
-                                <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
-                                    <input type="text" name="email" class="intro_input" placeholder="Your E-mail"
-                                        required="required">
-                                </div>
-                                <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
-                                    <input type="password" name="password" class="intro_input" placeholder="Password"
-                                        required="required">
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="rememberMe">
-                                        <label class="form-check-label" for="rememberMe">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                    <a href="#" class="forget-password" style="color: #ff7800;">Forget password?</a>
-                                </div>
-                                <div class="d-flex justify-content-center mt-3">
-                                    <p class="register-text">Do you want to register? <a href="{% url 'account:register' %}" class="" style="color: #ff7800;">Register here</a>.</p>
-                                </div>
-                                <button class="button button_1 intro_button trans_200 mt-3" style="background-color: #ff7800;">Login</button>
-                            </form>
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div class="mt-3 alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
-                                        {% if message.tags == 'error' %}
-                                            <div class="alert-error">
-                                                {{ message }}
-                                            </div>
-                                        {% else %}
-                                            {{ message }}
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Featured Section ======= -->
+    <section id="featured" class="featured">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-3">
+          </div>
+          <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="icon-box">
+                <h3><a href="#">Login To Nixa Global</a></h3>
+                <form action="{% url 'account:login' %}" method="post" role="form">
+                  {% csrf_token %}
+                    <div class="form-group mt-3">
+                        <input type="text" name="email" class="form-control" name="subject" id="subject" placeholder="Email or username" required>
                     </div>
-
-                    <div class="col-lg-6 intro_col">
-                        <div class="intro_content">
-                            <div class="section_title_container">
-                                <div class="section_title">
-                                    <h2>Welcome to our Nixa Global</h2>
-                                </div>
-                            </div>
-                            <div class="intro_text">
-                                <p>Integer aliquet congue libero, eu gravida odio ultrices ut. Etiam ac erat ut enim
-                                    maximus accumsan vel ac nisl. Duis feugiat bibendum orci, non elementum urna
-                                    vestibulum in. Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis,
-                                    orci elementum eleifend tempor, nunc libero porttitor tellus, vel pharetra metus
-                                    dolor.</p>
-                            </div>
-                            <div class="milestones">
-                                <div class="row milestones_row">
-
-
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-group mt-3">
+                        <input type="password" name="password" class="form-control" name="subject" id="subject" placeholder="Password" required>
                     </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <section>
-            <div class="intro">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <hr class="my-3">
-                        </div>
-                        <div class="col-auto">
-                            <h4 class="text-center">Key Airlines Partner</h4>
-                        </div>
-                        <div class="col-md-4">
-                            <hr class="my-3">
-                        </div>
-                    </div>
-                    <div class="marquee mt-5">
-                        <marquee direction="left" behavior="scroll" scrollamount="5">
-                            <img class="img-fluid mr-3" style="height:50px" src="{% static 'images/logo-mmu.png' %}" alt="Logo">
-                            <img class="img-fluid mr-3" style="height:50px" src="{% static 'images/logo-apu.png' %}" alt="Logo">
-                            <img class="img-fluid mr-3" style="height:50px" src="{% static 'images/logo-uniten.png' %}" alt="Logo">
-                            <img class="img-fluid mr-3" style="height:50px" src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" alt="Logo">
-                            <img class="img-fluid mr-3" style="height:50px" src="https://www.segi.edu.my/wp-content/uploads/2023/09/Group-header-logo_rev.png" alt="Logo">
-                            <img class="img-fluid mr-3" style="height:50px" src="https://www.southern.edu.my/wp-content/uploads/elementor/thumbs/SUC-logo-q3vruiv7s57rb8dyspp6vusnktmb9bg5pxb2em4cca.png" alt="Logo">
-
-                        </marquee>
-                    </div>
-                    <hr class="my-5">
-                </div>
-            </div>
-        </section>
-        
-        
-        
-        
-        
-
-
-
-        <!-- Why Choose Us -->
-
-        <div class="why">
-            <div class="container">
-                <div class="row row-eq-height justify-content-center text-center">
-
-                    <!-- Why Choose Us Content -->
-                    <div class="col-lg-12 order-lg-2 order-1">
-                        <div class="why_content">
-                            <div class="section_title_container">
-                                <div class="section_title">
-                                    <h2><span style="color: rgb(8, 58, 31);">Why</span> <img
-                                            src="{% static 'images/logo1.png' %}" class="img-fluid"
-                                            style="width: 290px; height: 100px;" alt=""></h2>
-                                </div>
-                            </div>
-                            <div class="why_text">
-                                <p>Odio ultrices ut. Etiam ac erat ut enim maximus accumsan vel ac nisl. Duis feugiat
-                                    bibendum orci, non elementum urna vestibulum in. Nulla facilisi. Nulla egestas vel
-                                    lacus sed interdum. Sed mollis, orci elementum eleifend tempor, nunc libero
-                                    porttitor tellus, vel pharetra metus dolor.</p>
-                            </div>
-                            <div class="row mt-5">
-                                <!-- Cards -->
-                                <div class="col-lg-3 col-md-6 ">
-                                    <div class="card mb-5 mb-lg-0"
-                                        style="border-radius: 10px; background-color: #77767b; border-color: transparent; border-width: 0;">
-                                        <div class="card-body">
-                                            <div>
-                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
-                                            </div>
-                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="card mb-5 mb-lg-0"
-                                        style="border-radius: 10px; background-color: rgb(8, 58, 31); border-color: transparent; border-width: 0;">
-                                        <div class="card-body">
-                                            <div>
-                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
-                                            </div>
-                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="card mb-5 mb-lg-0"
-                                        style="border-radius: 10px; background-color: #f5c211; border-color: transparent; border-width: 0;">
-                                        <div class="card-body">
-                                            <div>
-                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
-                                            </div>
-                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="card mb-5 mb-lg-0"
-                                        style="border-radius: 10px; background-color: #2ec27e; border-color: transparent; border-width: 0;">
-                                        <div class="card-body">
-                                            <div>
-                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
-                                            </div>
-                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <!-- Footer -->
-
-        <footer class="footer">
-            <div class="footer_content">
-                <div class="container">
                     <div class="row">
-
-                        <!-- Footer About -->
-                        <div class="col-lg-4 footer_col">
-                            <div class="footer_about">
-                                <div class="footer_logo">
-                                    <a href="#">
-                                        <img src="{% static 'images/logo2.jpg' %}" class="img-fluid"
-                                            style="width: 150px;" alt="">
-                                        <div>A concern of US Bangla Group</div>
-                                    </a>
-                                </div>
-                                <div class="footer_about_text">
-                                    <p>Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis, orci eleme ntum
-                                        eleifend tempor, nunc libero porttitor tellus.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Footer Contact Info -->
-                        <div class="col-lg-4 footer_col">
-                            <div class="footer_contact">
-                                <div class="footer_title">Contact Info</div>
-                                <ul class="contact_list">
-                                    <li>+60 11-2302 2129</li>
-                                    <li>b2b@nixaglobal.com</li>
-                                    <li>contact@gmail.com</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Footer Locations -->
-                        <div class="col-lg-4 footer_col">
-                            <div class="footer_location">
-                                <div class="footer_title">Our Locations</div>
-                                <ul class="locations_list">
-                                    <li>
-                                        <div class="location_title">Kuala Lampur, Malaysia</div>
-                                        <div class="location_text">Level 41 Of Vista Tower, Ther Intermark, JLN Tunrazak</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-
+                      <div class="col-6 form-check mt-3">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                      </div>
+                      <div class="col-6 mt-3">
+                          <a href="#" style="color: #000;">Forgot password?</a>
+                      </div>
                     </div>
-                </div>
+                    <div class="mt-3"><button type="submit" class="btn px-5" style="background-color: #ff7800; border-radius: 20px; color: #fff;">Login</button></div>
+                </form>
+                <p class="mt-3">Don't have an account? <a href="{% url 'account:register' %}">Register here</a></p>
             </div>
-            <div class="footer_bar">
-                <div class="container">
-                    <div class="row justify-content-center text-center">
-                        <div class="justify-content-center">
-                            <div
-                                class="footer_bar_content  d-flex flex-md-row flex-column align-items-md-center justify-content-center">
-                                <div class="copyright">
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved <i
-                                        class="fa fa-heart-o" aria-hidden="true"></i> by Nixa Global
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        
+          <div class="col-lg-3 mt-4 mt-lg-0">
+        </div>
+
+      </div>
+    </section><!-- End Featured Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="{% static 'assets/guest/assets/img/about.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content">
+            <h3>Welcome to our Nixa Global</h3>
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum
+            </p>
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4><a href="">Lorem Ipsum</a></h4>
+              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
             </div>
-        </footer>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a href="">Sed ut perspiciatis</a></h4>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4><a href="">Magni Dolores</a></h4>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-world"></i></div>
+              <h4><a href="">Nemo Enim</a></h4>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-slideshow"></i></div>
+              <h4><a href="">Dele cardo</a></h4>
+              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-arch"></i></div>
+              <h4><a href="">Divera don</a></h4>
+              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Our Partners</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="clients-slider swiper">
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="{% static 'images/logo-mmu.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'images/logo-apu.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'images/logo-uniten.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://www.segi.edu.my/wp-content/uploads/2023/09/Group-header-logo_rev.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://www.southern.edu.my/wp-content/uploads/elementor/thumbs/SUC-logo-q3vruiv7s57rb8dyspp6vusnktmb9bg5pxb2em4cca.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'images/logo-apu.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'images/logo-uniten.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://www.segi.edu.my/wp-content/uploads/2023/09/Group-header-logo_rev.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://www.southern.edu.my/wp-content/uploads/elementor/thumbs/SUC-logo-q3vruiv7s57rb8dyspp6vusnktmb9bg5pxb2em4cca.png" class="img-fluid" alt=""></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Clients Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              Level 41 Of Vista Tower, <br>
+              Ther Intermark, JLN Tun Razak<br>
+              Kuala Lampur, Malaysia <br><br>
+              <strong>Phone:</strong> +60 11-2302 2129<br>
+              <strong>Email:</strong> b2b@nixaglobal.com<br>
+            </p>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>About Nixa Global</h3>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+            <div class="social-links mt-3">
+              <!-- <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> -->
+              <a href="https://www.facebook.com/NixaGlobalB2BHub?mibextid=LQQJ4d" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <!-- <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> -->
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <script src="{% static 'assets/guest/js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'assets/guest/styles/bootstrap-4.1.2/popper.js' %}"></script>
-    <script src="{% static 'assets/guest/styles/bootstrap-4.1.2/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/greensock/TweenMax.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/greensock/TimelineMax.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/greensock/animation.gsap.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/easing/easing.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/parallax-js-master/parallax.min.js' %}"></script>
-    <script src="{% static 'assets/guest/plugins/jquery-datepicker/jquery-ui.js' %}"></script>
-    <script src="{% static 'assets/guest/js/custom.js' %}"></script>
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Nixa Global</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        
+      </div>
+    </div>
+  </footer><!-- End Footer -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-        gtag('config', 'UA-23581568-13');
-    </script>
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/guest/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/guest/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/guest/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/guest/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/guest/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/guest/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'assets/guest/assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/guest/assets/js/main.js' %}"></script>
 
 </body>
 

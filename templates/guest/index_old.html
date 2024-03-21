@@ -1,0 +1,395 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nixa Global - B2B</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Dr PRO template project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/bootstrap-4.1.2/bootstrap.min.css' %}">
+    <link href="{% static 'assets/guest/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+    <link href="{% static 'guest/assets/plugins/jquery-datepicker/jquery-ui.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/guest/styles/responsive.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+
+            .alert-error {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="super_container">
+        <header class="header trans_400 shadow-sm">
+            <div class="header_content d-flex flex-row align-items-center jusity-content-start trans_400">
+                <div class="logo">
+                    <a href="{% url 'core:index' %}">
+                        <img src="{% static 'images/logo1.png' %}" class="img-fluid" style="width: 200px; height: 70px;" alt="">
+                        <!-- <div>A concern of US Bangla Group</div> -->
+                    </a>
+                </div>
+                <div class="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
+
+                <a href="{% url 'account:register' %}">
+                    <button class="btn text-uppercase px-3" style="color: #fff; font-size: small; font-weight:500; background-color: #ff7800; border-radius: 25px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Register
+                    </button>
+                </a>
+
+                    <!-- <div class="btn px-3" style="background-color: #ff7800; border-radius: 100px;"><a href="{% url 'account:register' %}" style="color: #fff;"> <i
+                                class="fa-solid fa-right-from-bracket"></i> Register</a></div> -->
+                </div>
+            </div>
+        </header>
+
+        <div class="home">
+            <div class="home_slider_container container">
+                <div class="owl-carousel owl-theme home_slider">
+                    <div class="owl-item">
+                        <div class="background_image mt-3" style="border-radius: 5px; background-image:url({% static 'images/banner1.jpg' %})">
+                        </div>
+                    </div>
+                    <div class="owl-item">
+                        <div class="background_image mt-3" style="border-radius: 5px; background-image:url({% static 'images/banner2.jpg' %})">
+                        </div>
+                    </div>
+                    <div class="owl-item">
+                        <div class="background_image mt-3" style="border-radius: 5px; background-image:url({% static 'images/banner3.jpg' %})">
+                        </div>
+                    </div>
+                </div>
+                <div class="home_slider_dots">
+                    <ul id="home_slider_custom_dots"
+                        class="home_slider_custom_dots d-flex flex-row align-items-center justify-content-start">
+                        <li class="home_slider_custom_dot trans_200 active"></li>
+                        <li class="home_slider_custom_dot trans_200"></li>
+                        <li class="home_slider_custom_dot trans_200"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 intro_col">
+                        <div class="intro_form_container">
+                            <div class="intro_form_title" style="background-color: #ff7800;">Already Using Nixa Global?</div>
+                            <form action="{% url 'account:login' %}" method="POST" class="intro_form" id="intro_form">
+                                {% csrf_token %}
+                                <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
+                                    <input type="text" name="email" class="intro_input" placeholder="Your E-mail"
+                                        required="required">
+                                </div>
+                                <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
+                                    <input type="password" name="password" class="intro_input" placeholder="Password"
+                                        required="required">
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="#" class="forget-password" style="color: #ff7800;">Forget password?</a>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <p class="register-text">Do you want to register? <a href="{% url 'account:register' %}" class="" style="color: #ff7800;">Register here</a>.</p>
+                                </div>
+                                <button class="button button_1 intro_button trans_200 mt-3" style="background-color: #ff7800;">Login</button>
+                            </form>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="mt-3 alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                                        {% if message.tags == 'error' %}
+                                            <div class="alert-error">
+                                                {{ message }}
+                                            </div>
+                                        {% else %}
+                                            {{ message }}
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 intro_col">
+                        <div class="intro_content">
+                            <div class="section_title_container">
+                                <div class="section_title">
+                                    <h2>Welcome to our Nixa Global</h2>
+                                </div>
+                            </div>
+                            <div class="intro_text">
+                                <p>Integer aliquet congue libero, eu gravida odio ultrices ut. Etiam ac erat ut enim
+                                    maximus accumsan vel ac nisl. Duis feugiat bibendum orci, non elementum urna
+                                    vestibulum in. Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis,
+                                    orci elementum eleifend tempor, nunc libero porttitor tellus, vel pharetra metus
+                                    dolor.</p>
+                            </div>
+                            <div class="milestones">
+                                <div class="row milestones_row">
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <section>
+            <div class="intro">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <hr class="my-3">
+                        </div>
+                        <div class="col-auto">
+                            <h4 class="text-center">Key Airlines Partner</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <hr class="my-3">
+                        </div>
+                    </div>
+                    <div class="marquee mt-5">
+                        <marquee direction="left" behavior="scroll" scrollamount="5">
+                            <img class="img-fluid mr-3" style="height:50px" src="{% static 'images/logo-mmu.png' %}" alt="Logo">
+                            <img class="img-fluid mr-3" style="height:50px" src="{% static 'images/logo-apu.png' %}" alt="Logo">
+                            <img class="img-fluid mr-3" style="height:50px" src="{% static 'images/logo-uniten.png' %}" alt="Logo">
+                            <img class="img-fluid mr-3" style="height:50px" src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" alt="Logo">
+                            <img class="img-fluid mr-3" style="height:50px" src="https://www.segi.edu.my/wp-content/uploads/2023/09/Group-header-logo_rev.png" alt="Logo">
+                            <img class="img-fluid mr-3" style="height:50px" src="https://www.southern.edu.my/wp-content/uploads/elementor/thumbs/SUC-logo-q3vruiv7s57rb8dyspp6vusnktmb9bg5pxb2em4cca.png" alt="Logo">
+
+                        </marquee>
+                    </div>
+                    <hr class="my-5">
+                </div>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+
+
+
+        <!-- Why Choose Us -->
+
+        <div class="why">
+            <div class="container">
+                <div class="row row-eq-height justify-content-center text-center">
+
+                    <!-- Why Choose Us Content -->
+                    <div class="col-lg-12 order-lg-2 order-1">
+                        <div class="why_content">
+                            <div class="section_title_container">
+                                <div class="section_title">
+                                    <h2><span style="color: rgb(8, 58, 31);">Why</span> <img
+                                            src="{% static 'images/logo1.png' %}" class="img-fluid"
+                                            style="width: 290px; height: 100px;" alt=""></h2>
+                                </div>
+                            </div>
+                            <div class="why_text">
+                                <p>Odio ultrices ut. Etiam ac erat ut enim maximus accumsan vel ac nisl. Duis feugiat
+                                    bibendum orci, non elementum urna vestibulum in. Nulla facilisi. Nulla egestas vel
+                                    lacus sed interdum. Sed mollis, orci elementum eleifend tempor, nunc libero
+                                    porttitor tellus, vel pharetra metus dolor.</p>
+                            </div>
+                            <div class="row mt-5">
+                                <!-- Cards -->
+                                <div class="col-lg-3 col-md-6 ">
+                                    <div class="card mb-5 mb-lg-0"
+                                        style="border-radius: 10px; background-color: #77767b; border-color: transparent; border-width: 0;">
+                                        <div class="card-body">
+                                            <div>
+                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
+                                            </div>
+                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card mb-5 mb-lg-0"
+                                        style="border-radius: 10px; background-color: rgb(8, 58, 31); border-color: transparent; border-width: 0;">
+                                        <div class="card-body">
+                                            <div>
+                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
+                                            </div>
+                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card mb-5 mb-lg-0"
+                                        style="border-radius: 10px; background-color: #f5c211; border-color: transparent; border-width: 0;">
+                                        <div class="card-body">
+                                            <div>
+                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
+                                            </div>
+                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card mb-5 mb-lg-0"
+                                        style="border-radius: 10px; background-color: #2ec27e; border-color: transparent; border-width: 0;">
+                                        <div class="card-body">
+                                            <div>
+                                                <i class="fa-regular fa-comments fa-3x text-light"></i>
+                                            </div>
+                                            <h5 class="card-title mt-3 text-light">24/7 Support</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Footer -->
+
+        <footer class="footer">
+            <div class="footer_content">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Footer About -->
+                        <div class="col-lg-4 footer_col">
+                            <div class="footer_about">
+                                <div class="footer_logo">
+                                    <a href="#">
+                                        <img src="{% static 'images/logo2.jpg' %}" class="img-fluid"
+                                            style="width: 150px;" alt="">
+                                        <div>A concern of US Bangla Group</div>
+                                    </a>
+                                </div>
+                                <div class="footer_about_text">
+                                    <p>Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis, orci eleme ntum
+                                        eleifend tempor, nunc libero porttitor tellus.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Contact Info -->
+                        <div class="col-lg-4 footer_col">
+                            <div class="footer_contact">
+                                <div class="footer_title">Contact Info</div>
+                                <ul class="contact_list">
+                                    <li>+60 11-2302 2129</li>
+                                    <li>b2b@nixaglobal.com</li>
+                                    <li>contact@gmail.com</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Footer Locations -->
+                        <div class="col-lg-4 footer_col">
+                            <div class="footer_location">
+                                <div class="footer_title">Our Locations</div>
+                                <ul class="locations_list">
+                                    <li>
+                                        <div class="location_title">Kuala Lampur, Malaysia</div>
+                                        <div class="location_text">Level 41 Of Vista Tower, Ther Intermark, JLN Tunrazak</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bar">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="justify-content-center">
+                            <div
+                                class="footer_bar_content  d-flex flex-md-row flex-column align-items-md-center justify-content-center">
+                                <div class="copyright">
+                                    Copyright &copy;
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved <i
+                                        class="fa fa-heart-o" aria-hidden="true"></i> by Nixa Global
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{% static 'assets/guest/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'assets/guest/styles/bootstrap-4.1.2/popper.js' %}"></script>
+    <script src="{% static 'assets/guest/styles/bootstrap-4.1.2/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/greensock/TweenMax.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/greensock/TimelineMax.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/greensock/animation.gsap.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/easing/easing.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/parallax-js-master/parallax.min.js' %}"></script>
+    <script src="{% static 'assets/guest/plugins/jquery-datepicker/jquery-ui.js' %}"></script>
+    <script src="{% static 'assets/guest/js/custom.js' %}"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+
+</body>
+
+</html>
