@@ -1,45 +1,60 @@
 {% extends 'portal/assets/base.html' %}
 
-{% block title %}Manage University{% endblock %}
+{% block title %}University Details{% endblock %}
+
+{% load custom_filters %}
 
 {% block content %}
 <div class="container-fluid">
-  <div class="row justify-content-start">
-    <div class="col-12 col-md-12">
-      <h2 class="page-title">{{ subject.university.name }}</h2>
-    </div>
-  </div>
 
   <div class="row justify-content-start">
     <div class="col-12 col-md-12">
       <div class="card">
         <div class="card-body">
-          <h4 class="text-center">Subject Details</h4>
-          <p><strong>Subject Name:</strong> {{ subject.name }}</p>
-          <p><strong>Program Type:</strong> {{ subject.program_type }}</p>
-          {% if subject.pdf %}
-            <a href="{{ subject.pdf.url }}">
-              <button class="btn btn-sm btn-danger">View PDF</button>
-            </a>
-          {% endif %}
+          <h4 class="text-center">{{ university.name }}</h4>
           <hr>
-          <h4>Fees Structure</h4>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Field Name</th>
-                <th scope="col">Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for fee in subject.fee_set.all|dictsort:"id" %}
-                  <tr>
-                      <td>{{ fee.field_name }}</td>
-                      <td>{{ fee.value }}</td>
-                  </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="row">
+            {% regroup subjects by program_type as subjects_by_program %}
+            {% for program_type, subjects_group in subjects_by_program %}
+              <div class="col-md-6 my-4">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ program_type }}</h5>
+                    <table class="table table-hover">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Subject Name</th>
+                          <th>Total Fees</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for subject in subjects_group %}
+                          <tr>
+                            <td>{{ subject.name }}</td>
+                            <th scope="col">
+                              {% with subject.fee_set.all as fees %}
+                                {% if fees %}
+                                  {{ fees|get_total_fee_value }}
+                                {% else %}
+                                  No fees available
+                                {% endif %}
+                              {% endwith %}
+                            </th>
+                            <td>
+                              <a href="{% url 'core:program_details' subject.id %}">
+                                <button class="btn btn-sm btn-info">Details</button>
+                              </a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>

@@ -13,9 +13,13 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.urls import reverse
-
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+
+import pycountry
+from country_list import countries_for_language
+
+from . import country_codes
 
 User = get_user_model()
 DOMAIN_NAME = "http://127.0.0.1:8000"
@@ -65,6 +69,7 @@ def register(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         phone_number = request.POST.get('phone_number')
+        country_code = request.POST.get('country_code')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         address = request.POST.get('address')
@@ -153,7 +158,7 @@ def register(request):
         token = default_token_generator.make_token(user)
         user.email_verification_token = token
         user.email_verification_sent_at = timezone.now()
-        user.phone_number = phone_number
+        user.phone_number = str(country_code) + str(phone_number)
         user.address = address
         user.country = country
         user.city = city
@@ -171,7 +176,15 @@ def register(request):
 
         messages.success(request, 'Account created successfully, waiting for admin approval')
         
-    return render(request, 'guest/register.html')
+    countries_list = []
+    for code, name in dict(countries_for_language('en')).items():
+        country = pycountry.countries.get(alpha_2=code)
+        if country:
+            phone_code = '+' + str(country.numeric)
+            countries_list.append({'name': name, 'code': code, 'phone_code': phone_code})
+
+    phone_codes = country_codes.sortedphonecodes
+    return render(request, 'guest/register.html', {'countries_list':countries_list, 'phone_codes':phone_codes})
 
 def login_view(request):
     if request.method == 'POST':

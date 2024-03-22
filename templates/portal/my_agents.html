@@ -11,11 +11,17 @@
     <div class="col-12">
       <div class="row">
         <div class="col-md-12">
-          <h6 class="mb-3">My Agents</h6>
+          <h5 class="mb-2">Manage Referrals</h5>
+          <div class="text-center mb-3">
+            <h6>
+              Referral Code: {{request.user.referral_code}}
+            </h6>
+          </div>
           <div class="card">
             <div class="card-body">
-              <table class="table table-bordered table-striped">
-                <thead>
+              <div class="card-title">My Refferal Agents</div>
+              <table class="table  table-striped">
+                <thead class="thead-dark">
                   <tr role="row">
                     <th>Name</th>
                     <th>Account Type</th>

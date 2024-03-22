@@ -14,6 +14,8 @@ urlpatterns = [
     path('comission_manage/<int:pk>', views.comission_manage, name="comission_manage"),
 
     path('university/', views.university, name="university"),
+    path('university/details/<int:pk>', views.university_details, name="university_details"),
+
 
     path('university/delete/<int:pk>', views.university_delete, name="university_delete"),
     path('university/edit/', views.university_edit, name="university_edit"),

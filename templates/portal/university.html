@@ -124,31 +124,17 @@
           <table class="table datatables" id="dataTable-1" >
             <thead>
               <tr role="row">
-                <th>Subject</th>
                 <th>University</th>
-                <th>Program Type</th>
-                <th>Total Fee</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {% for item in subjects %}
+              {% for item in universitys %}
               <tr>
                 <th scope="col">{{item.name}}</th>
-                <th scope="col">{{item.university.name}}</th>
-                <th scope="col">{{item.program_type}}</th>
-                <th scope="col">
-                  {% with item.fee_set.all as fees %}
-                    {% if fees %}
-                      {{ fees|get_total_fee_value }}
-                    {% else %}
-                      No fees available
-                    {% endif %}
-                  {% endwith %}
-                </th>
                 <td>
-                  <a href="{% url 'core:program_details' item.id %}">
-                    <button class="btn btn-primary btn-sm">View Details</button>
+                  <a href="{% url 'core:university_details' item.id %}">
+                    <button class="btn btn-info btn-sm">View Details</button>
                   </a>
                 </td>
               </tr>

@@ -126,10 +126,23 @@
                                                     <label for="inputEmail">Email Address</label>
                                                     <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email Address">
                                                 </div>
-                                                <div class="form-group col-md-4 p-2">
+                                                
+                                                <div class="form-group col-md-6 p-2">
                                                     <label for="inputPhone">Phone Number</label>
-                                                    <input type="text" name="phone_number" class="form-control" id="inputPhone" placeholder="Phone Number">
+                                                    <div class="input-group">
+                                                        <select class="form-control" id="countryCodeSelect" name="country_code">
+                                                            <option value="" data-phone-code="">Country Code</option>
+                                                            {% for country, code in phone_codes %}
+                                                                <option value="{{ code }}">+{{code}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        <input type="text" name="phone_number" class="form-control" id="inputPhone" placeholder="Enter your phone number">
+                                                    </div>
+                                                    <small class="form-text text-muted">Please select your country code and enter your phone number.</small>
                                                 </div>
+                                                
+                                                
+                                                                                               
                                                 <div class="form-group col-md-4 p-2">
                                                     <label for="inputPhone">Referral code</label>
                                                     <input type="text" name="referred_by" class="form-control" id="inputPhone" placeholder="Referral code">
@@ -148,7 +161,12 @@
                                                 </div>
                                                 <div class="form-group col-md-3 p-2">
                                                     <label for="inputCountry">Country</label>
-                                                    <input type="text" name="country" class="form-control" id="inputCountry" placeholder="Country">
+                                                    <select name="country" class="form-control" id="inputCountry">
+                                                        <option value="">Select Country</option>
+                                                        {% for item in countries_list %}
+                                                            <option value="{{item.name}}">{{item.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-3 p-2">
                                                     <label for="inputCity">City</label>
@@ -218,9 +236,18 @@
                                                     <label for="inputEmail">Email Address</label>
                                                     <input type="email" class="form-control" name="email" id="inputEmail" placeholder="Email Address">
                                                 </div>
-                                                <div class="form-group col-md-4 p-2">
+                                                <div class="form-group col-md-6 p-2">
                                                     <label for="inputPhone">Phone Number</label>
-                                                    <input type="text" class="form-control" name="phone_number" id="inputPhone" placeholder="Phone Number">
+                                                    <div class="input-group">
+                                                        <select class="form-control" id="countryCodeSelect" name="country_code">
+                                                            <option value="" data-phone-code="">Country Code</option>
+                                                            {% for country, code in phone_codes %}
+                                                                <option value="{{ code }}">+{{code}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        <input type="text" name="phone_number" class="form-control" id="inputPhone" placeholder="Enter your phone number">
+                                                    </div>
+                                                    <small class="form-text text-muted">Please select your country code and enter your phone number.</small>
                                                 </div>
                                                 <div class="form-group col-md-4 p-2">
                                                     <label for="inputPhone">Referral code</label>
@@ -240,7 +267,12 @@
                                                 </div>
                                                 <div class="form-group col-md-3 p-2">
                                                     <label for="inputCountry">Country</label>
-                                                    <input type="text" class="form-control" name="country" id="inputCountry" placeholder="Country">
+                                                    <select name="country" class="form-control" id="inputCountry">
+                                                        <option value="">Select Country</option>
+                                                        {% for item in countries_list %}
+                                                            <option value="{{item.name}}">{{item.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-3 p-2">
                                                     <label for="inputCity">City</label>

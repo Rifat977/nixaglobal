@@ -331,7 +331,7 @@ def program_details(request, pk):
     context = {
         'subject' : subject
     }
-    return render(request, 'portal/university_details.html', context)
+    return render(request, 'portal/program_details.html', context)
 
 
 @login_required
@@ -358,14 +358,26 @@ def university(request):
         }
     else:
         universitys = University.objects.all().order_by('-id')
-        subjects = Subject.objects.all().order_by('-id')
         fees = Fee.objects.all().order_by('-id')
         context = {
             'universitys': universitys,
-            'subjects' : subjects,
             'fees' : fees,
         }
     return render(request, 'portal/university.html', context)
+
+
+@login_required
+def university_details(request, pk):
+    university = University.objects.get(id=pk)
+    subjects = Subject.objects.filter(university=university)
+    context = {
+        'university' : university,
+        'subjects' : subjects
+    }
+    return render(request, 'portal/university_details.html', context)
+
+
+
 
 @login_required
 @admin_required
