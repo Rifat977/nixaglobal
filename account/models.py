@@ -96,3 +96,11 @@ class Referral(models.Model):
     class Meta:
         verbose_name = "Referral"
         verbose_name_plural = "Referrals"
+
+class Notification(models.Model):
+    message = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message

@@ -52,6 +52,7 @@ def dashboard(request):
         total_application = Applicant.objects.filter(user=user).count()
         total_universitys = University.objects.all().count()
         total_subjects = Subject.objects.all().count()
+        notification = Notification.objects.first()
         context = {
             'commission_tiers': commission_tiers,
             'universities': universities,
@@ -60,6 +61,7 @@ def dashboard(request):
             'total_application': total_application,
             'total_universitys': total_universitys,
             'total_subjects': total_subjects,
+            'notification' : notification
         }
     return render(request, 'portal/dashboard.html', context)
 

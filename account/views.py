@@ -22,7 +22,8 @@ from country_list import countries_for_language
 from . import country_codes
 
 User = get_user_model()
-DOMAIN_NAME = "http://127.0.0.1:8000"
+# DOMAIN_NAME = "http://127.0.0.1:8000"
+DOMAIN_NAME = "https://b2b.nixaglobal.com/"
 
 # Create your views here.
 def generate_referral_code():
