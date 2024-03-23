@@ -267,7 +267,11 @@
                                     <td>{{payment.applicant}}</td>
                                     <td>{{payment.applicant.passport_number}}</td>
                                     <td>
-                                        {{payment.applicant.subject.name}}
+                                      {% if payment.applicant.subject.id %}
+                                        <a href="{% url 'core:program_details' payment.applicant.subject.id %}">
+                                          {{payment.applicant.subject.name}}
+                                        </a>
+                                      {% endif %}
                                     </td>
                                     <td>{{payment.updated_at}}</td>
                                     <td>{{payment.status}}</td>
