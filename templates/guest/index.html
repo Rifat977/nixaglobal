@@ -137,6 +137,17 @@
           </div>
           <div class="col-lg-6 mt-4 mt-lg-0">
             <div class="icon-box">
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                          <strong>{% if message.tags == 'error' %}Error:{% elif message.tags == 'success' %}Success:{% endif %}</strong> 
+                          <span class="alert-text {% if message.tags == 'error' %}text-sm{% endif %}">{{ message }}</span>
+                          <button type="button" class="close btn btn-sm" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                  {% endfor %}
+              {% endif %}
                 <h3><a href="#">Login To Nixa Global</a></h3>
                 <form action="{% url 'account:login' %}" method="post" role="form">
                   {% csrf_token %}

@@ -193,8 +193,12 @@ def login_view(request):
         password = request.POST.get('password')
 
         if '@' in identifier:
+            try:
                 user = CustomUser.objects.get(email=identifier)
                 identifier = user.username
+            except CustomUser.DoesNotExist:
+               messages.error(request, 'Invalid username, email, or password.')
+               return redirect('core:index')
 
         user = authenticate(request, username=identifier, password=password)
         print(user)
