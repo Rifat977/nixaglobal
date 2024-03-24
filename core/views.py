@@ -670,7 +670,7 @@ def commission_tier(request):
     commission_tiers = {}
     for university in universities:
         try:
-            commission_tier = CommissionTier.objects.get(user=user, university=university)
+            commission_tier = CommissionTier.objects.filter(user=user, university=university).first()
             commission_tiers[university.pk] = commission_tier
         except CommissionTier.DoesNotExist:
             commission_tiers[university.pk] = None
