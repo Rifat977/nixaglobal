@@ -13,14 +13,14 @@
             {% url 'core:dashboard' as dashboard_url %}
             <li class="nav-item {% if request.path == dashboard_url %}bg-light{% endif %}">
                 <a href="{% url 'core:dashboard' %}" class="nav-link">
-                    <i class="fe fe-home fe-16"></i>
+                    <i class="fe fe-home fe-16 {% if request.path == dashboard_url %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == dashboard_url %}text-primary{% endif %}">Dashboard</span><span class="sr-only">(current)</span>
                 </a>
             </li>
             {% url 'core:university' as university_url %}
             <li class="nav-item {% if request.path == university_url %}bg-light{% endif %}">
                 <a href="{% url 'core:university' %}" class="nav-link">
-                    <i class="fe fe-book fe-16"></i>
+                    <i class="fe fe-book fe-16 {% if request.path == university_url %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == university_url %}text-primary{% endif %}">University</span><span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -28,7 +28,7 @@
             {% url 'core:search_program' as search_program_url %}
             <li class="nav-item {% if request.path == search_program_url %}bg-light{% endif %}">
                 <a href="{% url 'core:search_program' %}" class="nav-link">
-                    <i class="fe fe-search fe-16"></i>
+                    <i class="fe fe-search fe-16 {% if request.path == search_program_url %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == search_program_url %}text-primary{% endif %}">Search Program</span><span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -37,14 +37,14 @@
             {% url 'core:all_agent' as all_agent_url %}
             <li class="nav-item {% if request.path == all_agent_url %}bg-light{% endif %}">
                 <a href="{% url 'core:all_agent' %}" class="nav-link">
-                    <i class="fe fe-users fe-16"></i>
+                    <i class="fe fe-users fe-16 {% if request.path == all_agent_url %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == all_agent_url %}text-primary{% endif %}">All Agents</span><span class="sr-only">(current)</span>
                 </a>
             </li>
             {% url 'core:admin_application' as admin_application %}
             <li class="nav-item dropdown {% if request.path == admin_application %}bg-light{% endif %}">
                 <a href="{% url 'core:admin_application' %}" class="nav-link">
-                    <i class="fe fe-send fe-16"></i>
+                    <i class="fe fe-send fe-16 {% if request.path == admin_application %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == admin_application %}text-primary{% endif %}">Application</span><span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -53,21 +53,21 @@
             {% url 'core:commission_tier' as commission_tier %}
             <li class="nav-item dropdown {% if request.path == commission_tier %}bg-light{% endif %}">
                 <a href="{% url 'core:commission_tier' %}" class="nav-link">
-                    <i class="fe fe-award fe-16"></i>
+                    <i class="fe fe-award fe-16 {% if request.path == commission_tier %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == commission_tier %}text-primary{% endif %}">Commission Tier</span><span class="sr-only">(current)</span>
                 </a>
             </li>
             {% url 'core:application' as application %}
             <li class="nav-item dropdown {% if request.path == application %}bg-light{% endif %}">
                 <a href="{% url 'core:application' %}" class="nav-link">
-                    <i class="fe fe-send fe-16"></i>
+                    <i class="fe fe-send fe-16 {% if request.path == application %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == application %}text-primary{% endif %}">Application</span><span class="sr-only">(current)</span>
                 </a>
             </li>
             {% url 'core:my_agents' as my_agents %}
             <li class="nav-item dropdown {% if request.path == my_agents %}bg-light{% endif %}">
                 <a href="{% url 'core:my_agents' %}" class="nav-link">
-                    <i class="fe fe-users fe-16"></i>
+                    <i class="fe fe-users fe-16 {% if request.path == my_agents %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == my_agents %}text-primary{% endif %}">Manage Referrals</span><span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -75,7 +75,7 @@
             {% url 'core:payment_request' as payment_request %}
             <li class="nav-item dropdown {% if request.path == payment_request %}bg-light{% endif %}">
                 <a href="{% url 'core:payment_request' %}" class="nav-link">
-                    <i class="fe  fe-dollar-sign fe-16"></i>
+                    <i class="fe  fe-dollar-sign fe-16 {% if request.path == payment_request %}text-primary{% endif %}"></i>
                     <span class="ml-3 item-text {% if request.path == payment_request %}text-primary{% endif %}">Payment Request</span><span class="sr-only">(current)</span>
                 </a>
             </li>
