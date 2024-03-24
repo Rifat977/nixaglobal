@@ -159,7 +159,7 @@ def register(request):
         token = default_token_generator.make_token(user)
         user.email_verification_token = token
         user.email_verification_sent_at = timezone.now()
-        user.phone_number = str(country_code) + str(phone_number)
+        user.phone_number = str(country_code) + ' ' + str(phone_number)
         user.address = address
         user.country = country
         user.city = city
