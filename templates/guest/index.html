@@ -128,6 +128,23 @@
 
   <main id="main">
 
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="messageModalLabel">Message</h5>              
+              </div>
+              <div class="modal-body">
+                  <div id="messageContent"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger close" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+          </div>
+      </div>
+  </div>
+  
+
     <!-- ======= Featured Section ======= -->
     <section id="featured" class="featured">
       <div class="container">
@@ -137,14 +154,7 @@
           </div>
           <div class="col-lg-6 mt-4 mt-lg-0">
             <div class="icon-box">
-              {% if messages %}
-                  {% for message in messages %}
-                      <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
-                          <strong>{% if message.tags == 'error' %}Error:{% elif message.tags == 'success' %}Success:{% endif %}</strong> 
-                          <span class="alert-text {% if message.tags == 'error' %}text-sm{% endif %}">{{ message }}</span>
-                      </div>
-                  {% endfor %}
-              {% endif %}
+              
                 <h3><a href="#">Login To Nixa Global</a></h3>
                 <form action="{% url 'account:login' %}" method="post" role="form">
                   {% csrf_token %}
@@ -160,7 +170,7 @@
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
                       <div class="col-md-6 form-group mt-3 mt-md-0">
-                        <a href="#" style="color: #000;">Forgot password?</a>
+                        <a href="{% url 'account:forgot_password' %}" style="color: #000;">Forgot password?</a>
                       </div>
                     </div>
                     <div class="mt-3"><button type="submit" class="btn px-5" style="background-color: #ff7800; border-radius: 20px; color: #fff;">Login</button></div>
@@ -357,6 +367,51 @@
       </div>
     </div>
   </footer><!-- End Footer -->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Function to show the message modal with provided content
+    function showMessageModal(content, type) {
+        var modal = $('#messageModal');
+        var modalTitle = modal.find('.modal-title');
+        var modalBody = modal.find('.modal-body');
+        
+        // Set modal title and content based on message type
+        if (type === 'error') {
+            modalTitle.text('Error');
+            modalBody.html('<div class="alert alert-danger">' + content + '</div>');
+        } else if (type === 'success') {
+            modalTitle.text('Success');
+            modalBody.html('<div class="alert alert-success">' + content + '</div>');
+        }
+        
+        // Show the modal
+        modal.modal('show');
+    }
+
+    // Close modal when close button is clicked
+    $(document).ready(function() {
+        $('.modal-content .close').click(function() {
+            $('#messageModal').modal('hide');
+        });
+    });
+
+    // Check if there are messages to display
+    $(document).ready(function() {
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    showMessageModal('{{ message }}', 'error');
+                {% elif message.tags == 'success' %}
+                    showMessageModal('{{ message }}', 'success');
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    });
+</script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

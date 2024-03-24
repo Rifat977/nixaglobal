@@ -130,7 +130,7 @@ def register(request):
         if errors:
             for error_message in errors:
                 messages.error(request, error_message)
-            return render(request, 'guest/register.html')
+            return redirect('account:register')
 
         referral_code = generate_referral_code()
 
@@ -223,3 +223,61 @@ def logout(request):
     if request.method=="POST":
         auth.logout(request)
         return redirect('account:login')
+
+def forgot_password(request):
+    if request.user.is_authenticated:
+        return redirect('core:dashboard')
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = CustomUser.objects.get(email=email)
+        except User.DoesNotExist:
+            user = None
+        
+        if user is not None:
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+            reset_link = reset_url = request.build_absolute_uri(f"/account/new-password/{uid}/{token}/")
+            send_mail(
+                'Password Reset',
+                f'Click the following link to reset your password: {reset_link}',
+                'from@example.com',
+                [email],
+                fail_silently=False,
+            )
+            messages.success(request, 'A password reset link has been sent to your email.')
+            return redirect('account:forgot_password')
+        else:
+            messages.error(request, 'No user found with that email address.')
+    return render(request, 'guest/forgot_password.html')
+
+
+def new_password(request, uidb64, token):
+    if request.user.is_authenticated:
+        return redirect('core:home')
+
+    uid = force_str(urlsafe_base64_decode(uidb64))
+    try:
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password1')
+            confirm_new_password = request.POST.get('new_password2')
+            if new_password == confirm_new_password:
+                user.set_password(new_password)
+                user.save()
+
+                messages.success(request, 'Your password has been successfully updated.')
+                return redirect('account:login')
+            else:
+                messages.error(request, 'Passwords do not match.')
+                return redirect('account:new_password', uidb64=uidb64, token=token)
+    else:
+        messages.error(request, 'The password reset link is invalid.')
+        return redirect('account:new_password')
+
+    return render(request, 'guest/new_password.html', {'uidb64': uidb64, 'token': token})
