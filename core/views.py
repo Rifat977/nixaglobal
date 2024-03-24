@@ -530,7 +530,7 @@ def payment_request(request):
 
 
     payment_requests = PaymentRequest.objects.filter(user=user)
-    all_payment_requests = PaymentRequest.objects.all()
+    all_payment_requests = PaymentRequest.objects.all().order_by('-id')
     print(payment_requests)
     if user.is_admin:
         context = {
