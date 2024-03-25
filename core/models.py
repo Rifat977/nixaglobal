@@ -77,6 +77,7 @@ class Applicant(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     passport_number = models.CharField(max_length=20)
+    intake = models.CharField(max_length=50, null=True, blank=True)
     dob = models.DateField()
     subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
     application_id = models.CharField(max_length=10, unique=True)

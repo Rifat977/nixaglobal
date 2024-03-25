@@ -15,6 +15,8 @@ from account import send_email
 
 import string, random
 
+from django.http import JsonResponse
+
 # Create your views here.
 def index(request):
     return render(request, 'guest/index.html')
@@ -424,11 +426,24 @@ def application(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         passport_number = request.POST.get('passport_number')
+        intake = request.POST.get('intake')
         dob = request.POST.get('dob')
         subject = request.POST.get('subject')
 
-        if not (first_name and last_name and passport_number and dob and subject):
-            messages.error(request, "Please fill in all required fields.")
+        if not all([first_name, last_name, passport_number, intake, dob, subject]):
+            if not first_name:
+                messages.error(request, "First Name field must be required.")
+            if not last_name:
+                messages.error(request, "Last Name field must be required.")
+            if not passport_number:
+                messages.error(request, "Passport field must be required.")
+            if not intake:
+                messages.error(request, "Intake field must be required.")
+            if not dob:
+                messages.error(request, "Please enter your date of birth.")
+            if not subject:
+                messages.error(request, "Please select a subject.")
+
             return redirect('core:application')
 
         subject = Subject.objects.get(id=subject)
@@ -439,6 +454,7 @@ def application(request):
             first_name=first_name,
             last_name=last_name,
             passport_number=passport_number,
+            intake=intake,
             dob=dob,
             subject=subject,
             application_id=application_id,
@@ -531,7 +547,7 @@ def payment_request(request):
 
     payment_requests = PaymentRequest.objects.filter(user=user)
     all_payment_requests = PaymentRequest.objects.all().order_by('-id')
-    print(payment_requests)
+
     if user.is_admin:
         context = {
             'user_type': UserType.ADMIN,
@@ -551,7 +567,6 @@ def payment_request(request):
         }
     if request.method == "POST":
         agent = request.POST.get('agent')
-        agreed_commission = request.POST.get('agreed_commission')
         currency = request.POST.get('currency')
         comment = request.POST.get('comment')
 
@@ -567,7 +582,6 @@ def payment_request(request):
         application_ids = request.POST.getlist('application_ids')
 
         required_fields = {
-            'Agreed Commission': agreed_commission,
             'Currency': currency,
             'Comment': comment,
 
@@ -590,8 +604,6 @@ def payment_request(request):
                 messages.error(request, error_message)
             return redirect('core:payment_request')
 
-        user = CustomUser.objects.get(id=int(agent))
-
         if payee_address is None or payee_address == "" and bank_address is None or bank_address == "" and swift_code is None or swift_code == "":
             bank_type = 'Local'
         else:
@@ -600,6 +612,28 @@ def payment_request(request):
         for application_id in application_ids:
 
             application = Applicant.objects.get(id=int(application_id))
+
+            program_type = application.subject.program_type
+
+            commission = CommissionTier.objects.filter(user=request.user, university=application.subject.university).first()
+
+
+            agreed_commission = None
+            if program_type == 'DIPLOMA':
+                agreed_commission = commission.diploma_commission
+            elif program_type == 'FOUNDATION':
+                agreed_commission = commission.foundation_commission
+            elif program_type == 'BACHELOR':
+                agreed_commission = commission.bachelor_commission
+            elif program_type == 'MASTER':
+                agreed_commission = commission.masters_commission
+            elif program_type == 'PHD':
+                agreed_commission = commission.phd_commission
+            elif program_type == 'RESEARCH_BASED':
+                agreed_commission = commission.research_based_commission
+
+
+
 
             payment_request = PaymentRequest.objects.create(
                 user=user,
@@ -681,3 +715,11 @@ def commission_tier(request):
             'agent': user,
     }
     return render(request, 'portal/commission_tier.html', context)
+
+@login_required
+def get_subjects(request, university_id):
+    subjects = Subject.objects.filter(university=university_id)
+
+    subjects_data = [{'id': subject.id, 'name': subject.name, 'program_type': subject.program_type} for subject in subjects]
+
+    return JsonResponse(subjects_data, safe=False)

@@ -2,6 +2,8 @@
 
 {% block title %}Payment Request{% endblock %}
 
+{% load custom_filters %}
+
 {% block css %}
 <style>
   
@@ -59,12 +61,6 @@
                                 <div class="form-group mb-3">
                                   <label for="simpleinput">Address</label>
                                   <input type="text" disabled value="{{user.address}}" id="simpleinput" class="form-control">
-                                </div>
-                              </div>
-                              <div class="col-12 col-md-4">
-                                <div class="form-group mb-3">
-                                  <label for="simpleinput">Agreed Commission</label>
-                                  <input type="number" name="agreed_commission" id="simpleinput" class="form-control">
                                 </div>
                               </div>
                               <div class="col-12 col-md-4">
@@ -172,8 +168,8 @@
                                   <th>Name</th>
                                   <th>Passport Number</th>
                                   <th>Date of Birth</th>
-                                  <th>Program</th>
                                   <th>Subject</th>
+                                  <th>Agreed Commission</th>
                                   <th>Status</th>
                                 </tr>
                               </thead>
@@ -189,8 +185,32 @@
                                     <th scope="col">{{applicant.first_name}} {{applicant.last_name}}</th>
                                     <td>{{applicant.passport_number}}</td>
                                     <td>{{applicant.dob}}</td>
-                                    <td>{{applicant.subject.program_type}}</td>
-                                    <td>{{applicant.subject.name}}</td>
+                                    <td>
+                                      {% if applicant.subject.id %}
+                                        <a href="{% url 'core:program_details' applicant.subject.id %}">
+                                          {{applicant.subject.name}}
+                                        </a>
+                                      {% endif %}
+                                    </td>
+                                    <td>
+                                      {% with commission_tier=applicant|get_agreed_commission:user %}
+                                        {% if commission_tier %}
+                                            {% if applicant.subject.program_type == 'FOUNDATION' %}
+                                                {{ commission_tier.foundation_commission }}
+                                            {% elif applicant.subject.program_type == 'DIPLOMA' %}
+                                                {{ commission_tier.diploma_commission }}
+                                            {% elif applicant.subject.program_type == 'BACHELOR' %}
+                                                {{ commission_tier.bachelor_commission }}
+                                            {% elif applicant.subject.program_type == 'MASTER' %}
+                                                {{ commission_tier.masters_commission }}
+                                            {% elif applicant.subject.program_type == 'PHD' %}
+                                                {{ commission_tier.phd_commission }}
+                                            {% elif applicant.subject.program_type == 'RESEARCH_BASED' %}
+                                                {{ commission_tier.research_based_commission }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endwith %}
+                                    </td>
                                     <td>
                                       {% if applicant.status == 'PENDING' %}
                                           <span class="badge badge-warning text-light">{{ applicant.status }}</span>
@@ -218,6 +238,7 @@
                               <th class="text-dark">Student Name</th>
                               <th class="text-dark">Passport No</th>
                               <th class="text-dark">Course Name</th>
+                              <th class="text-dark">Agreed Commission</th>
                               <th class="text-dark">Claimed Date</th>
                               <th class="text-dark">Status</th>
                               
@@ -236,8 +257,9 @@
                                         <a href="{% url 'core:program_details' payment.applicant.subject.id %}">
                                           {{payment.applicant.subject.name}}
                                         </a>
-                                      {% endif %}
+                                    {% endif %}
                                   </td>
+                                  <td>{{payment.agreed_commission}}</td>
                                   <td>{{payment.updated_at}}</td>
                                   <td>{{payment.status}}</td>
                                 </tr>

@@ -27,8 +27,9 @@ DOMAIN_NAME = "https://b2b.nixaglobal.com/"
 
 # Create your views here.
 def generate_referral_code():
-    letters_and_digits = string.ascii_letters + string.digits
-    return ''.join(random.choice(letters_and_digits) for i in range(10))
+    prefix = "NG"
+    numbers = ''.join(random.choice(string.digits) for _ in range(6))
+    return prefix + numbers
 
 def send_verification_email(user):
     subject = 'Verify your email address'

@@ -25,7 +25,7 @@
                   <label for="simpleinput">Passport Number</label>
                   <input type="text" name="passport_number" id="simpleinput" class="form-control">
                 </div>
-              </div>
+                </div>
               <div class="col-12 col-md-6">
                 <div class="form-group mb-3">
                   <label for="simpleinput">Last Name</label>
@@ -33,24 +33,34 @@
                 </div>
                 <div class="form-group mb-3">
                   <label for="simpleinput">Date of Birth</label>
-                  <input type="date" name="dob" id="simpleinput" class="form-control">
+                  <input type="date" name="dob" id="dob" class="form-control">
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-md-6">
                 <div class="form-group mb-3">
-                  <label for="simpleinput">Subject</label>
-                  <select name="subject" class="form-control select2" id="simple-select2">
-                      <option value="" >-- Select Subject --</option>
-                      {% for university, subjects in university_subjects %}
-                      <optgroup label="{{ university.name }}">
-                          {% for subject in subjects %}
-                          <option value="{{ subject.id }}">{{ subject.name }} : [ {{subject.program_type}} ]</option>
-                          {% endfor %}
-                      </optgroup>
-                      {% endfor %}
-                  </select>
+                  <label for="simpleinput">Intake</label>
+                  <input type="text" name="intake" id="simpleinput" class="form-control">
+                </div>
               </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group mb-3">
+                    <label for="simpleinput">University</label>
+                    <select name="university" class="form-control select2" id="universitySelect" onchange="getSubjects()">
+                        <option value="">Select University</option>
+                        {% for university in universitys %}
+                            <option value="{{ university.id }}">{{ university.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
+            <div class="col-12">
+                <div class="form-group mb-3">
+                    <label for="simpleinput">Subject</label>
+                    <select name="subject" class="form-control select2" id="subject-select">
+                        <option value="">Select Subject</option>
+                    </select>
+                </div>
+            </div>          
             <div class="col-12 col-md-6">
               <div class="form-group mb-3">
                 <button type="submit" class="btn btn-primary text-light">Apply Now</button>
@@ -66,12 +76,11 @@
           <table class="table table-borderless table-responsive table-striped">
             <thead>
               <tr role="row">
+                <th>ID</th>
                 <th>Application ID</th>
                 <th>Name</th>
                 <th>Passport Number</th>
                 <th>Date of Birth</th>
-                <th>University</th>
-                <th>Program</th>
                 <th>Subject</th>
                 <th>Status</th>
                 <th>Actioin</th>
@@ -80,13 +89,16 @@
             <tbody>
               {% for applicant in applicaitons %}
               <tr>
+                <th scope="col">{{applicant.id}}</th>
                 <th scope="col">{{applicant.application_id}}</th>
                 <th>{{applicant.first_name}} {{applicant.last_name}}</th>
                 <td>{{applicant.passport_number}}</td>
                 <td>{{applicant.dob}}</td>
-                <td>{{applicant.subject.university.name}}</td>
-                <td>{{applicant.subject.program_type}}</td>
-                <td>{{applicant.subject.name}}</td>
+                <td>
+                  <a href="{% url 'core:program_details' applicant.subject.id %}">
+                    {{applicant.subject.name}}
+                  </a>
+                </td>
                 <td>
                   {% if applicant.status == 'PENDING' %}
                       <span class="badge badge-warning text-light">{{ applicant.status }}</span>
@@ -116,4 +128,32 @@
 
 </div>
 
+{% endblock %}
+
+
+{% block script %}
+<script>
+  function getSubjects(){
+    var universityId = document.getElementById('universitySelect').value;
+    var subjectSelect = document.getElementById('subject-select');
+    if (universityId) {
+            fetch('/get_subjects/' + universityId)
+                .then(response => response.json())
+                .then(data => {
+                    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+                    data.forEach(subject => {
+                        var option = document.createElement('option');
+                        option.value = subject.id;
+                        option.text = subject.name + ': [' + subject.program_type + ']';
+                        subjectSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching subjects:', error);
+                });
+        } else {
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+        }
+  }
+</script>
 {% endblock %}

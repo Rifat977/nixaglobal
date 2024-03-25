@@ -2,6 +2,7 @@
 
 {% block title %}Home - Nixaglobal{% endblock %}
 
+{% load custom_filters %}
 
 {% block content %}
 
@@ -28,10 +29,9 @@
                     <th>User Type</th>
                     <th>Email</th>
                     <th>Phone Number</th>
-                    <th>Country</th>
-                    <th>City</th>
                     <th>Email Verify</th>
                     <th>AC Status</th>
+                    <th>Application</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -43,17 +43,19 @@
                     <td>{{agent.user_type}}</td>
                     <td>{{agent.email}}</td>
                     <td>{{agent.phone_number}}</td>
-                    <td>{{agent.country}}</td>
-                    <td>{{agent.city}}</td>
                     <td><span class="badge badge-pill {% if agent.is_verified %} badge-success {% else %} badge-warning {% endif %}">{% if agent.is_verified %} Verified {% else %} Not Verified {% endif %}</span></td>
                     <td><span class="badge badge-pill {% if agent.is_active %} badge-success {% else %} badge-warning {% endif %}">{% if agent.is_active %} Approved {% else %} Pending {% endif %}</span></td>
+                    <td>
+                      {% with count=agent|count_applications %}
+                          {{ count }}
+                      {% endwith %}
+                    </td>
                     <td>
                       <div class="dropdown">
                         <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="{% url 'core:comission_manage' agent.id|urlencode %}">View Profile</a>
                           {% if request.user.user_type == 'Exclusive Agent' %}
                           <a class="dropdown-item" href="{% url 'core:comission_manage' agent.id|urlencode %}">Comission Tier</a>
                           {% endif %}

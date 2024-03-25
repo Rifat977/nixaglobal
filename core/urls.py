@@ -34,4 +34,6 @@ urlpatterns = [
     path('admin-manage-requests/<int:pk>', views.admin_manage_requests, name="admin_manage_requests"),
 
     path('agent_applications/<int:pk>', views.agent_applications, name="agent_applications"),
+
+    path('get_subjects/<int:university_id>/', views.get_subjects, name='get_subjects'),
 ]

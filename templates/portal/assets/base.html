@@ -164,7 +164,6 @@
     </div> <!-- .wrapper -->
 
 
-
     <script src="{% static 'assets/portal/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/portal/js/popper.min.js' %}"></script>
     <script src="{% static 'assets/portal/js/moment.min.js' %}"></script>
@@ -401,9 +400,7 @@
       }
     </script>
     <script src="{% static 'assets/portal/js/apps.js' %}"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    {% block script %}{% endblock %}  
+     
     <script>
       window.dataLayer = window.dataLayer || [];
 
@@ -426,5 +423,6 @@
         ]
       });
     </script>
+    {% block script %}{% endblock %} 
   </body>
 </html>

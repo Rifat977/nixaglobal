@@ -16,6 +16,7 @@
                 <table class="table datatables table-responsive" id="dataTable-1">
                   <thead>
                     <tr>
+                      <th>ID</th>
                       <th>Agent</th>
                       <th>Student Name</th>
                       <th>Passport Number</th>
@@ -29,6 +30,7 @@
                   <tbody>
                     {% for application in applications %}
                     <tr>
+                      <td>{{application.id}}</td>
                       <td>{{application.user}}</td>
                       <td>{{application.first_name}} {{application.last_name}}</td>
                       <td>{{application.passport_number}}</td>
