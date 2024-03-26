@@ -29,7 +29,7 @@ def get_commission_tier(university, user):
 #             if match:
 #                 total_fee_value = match.group()
 #             break
-#     return total_fee_value
+#     return int(total_fee_value)
 
 @register.filter
 def get_total_fee_value(fees):
