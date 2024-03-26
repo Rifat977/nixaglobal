@@ -36,4 +36,6 @@ urlpatterns = [
     path('agent_applications/<int:pk>', views.agent_applications, name="agent_applications"),
 
     path('get_subjects/<int:university_id>/', views.get_subjects, name='get_subjects'),
+
+    path('search_application/', views.search_application, name="search_application"),
 ]

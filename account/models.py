@@ -30,6 +30,8 @@ class CustomUser(AbstractUser):
     avatar = models.ImageField(upload_to='avatars/', blank=True)
     company_name = models.CharField(max_length=200, null=True, blank=True)
     profession = models.CharField(max_length=100, null=True, blank=True)
+    balance =models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    reffer_commission =models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def is_email_verification_token_expired(self):
         if self.email_verification_sent_at:

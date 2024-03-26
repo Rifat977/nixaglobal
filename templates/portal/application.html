@@ -71,9 +71,9 @@
         </form>
       </div>
 
-      <div class="card">
+      <div class="">
         <div class="card-body">
-          <table class="table table-borderless table-responsive table-striped">
+          <table class="table datatables table-responsive table-striped" id="dataTable-1">
             <thead>
               <tr role="row">
                 <th>ID</th>
@@ -113,7 +113,7 @@
               
                 <td>
                   <a href="{% url 'core:application_status' applicant.id %}">
-                    <button class="btn btn-success text-light" type="button">View</button>
+                    <button class="btn btn-success text-light btn-sm" type="button">View</button>
                   </a>
                 </td>
               </tr>

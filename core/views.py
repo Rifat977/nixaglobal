@@ -9,13 +9,14 @@ from django.core.validators import DecimalValidator
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.exceptions import ObjectDoesNotExist
 
-from django.db.models import OuterRef, Subquery
-
 from account import send_email
 
 import string, random
 
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.db.models import OuterRef, Subquery
+
 
 # Create your views here.
 def index(request):
@@ -168,7 +169,7 @@ def profile_manage(request, pk):
     except Company.DoesNotExist:
         trade_license = None
     if request.method == 'POST':
-        post_code = request.POST.get('post_code')
+        reffer_commission = request.POST.get('reffer_commission')
         is_verified = request.POST.get('is_verified')
         is_active = request.POST.get('is_active')
         user_type = request.POST.get('user_type')
@@ -192,6 +193,7 @@ def profile_manage(request, pk):
             user.is_active = is_active
             user.is_verified = is_verified
             user.user_type = user_type
+            user.reffer_commission = reffer_commission
             user.save()
 
             if user.is_active:
@@ -723,3 +725,18 @@ def get_subjects(request, university_id):
     subjects_data = [{'id': subject.id, 'name': subject.name, 'program_type': subject.program_type} for subject in subjects]
 
     return JsonResponse(subjects_data, safe=False)
+
+@require_POST
+@login_required
+def search_application(request):
+    passport_number = request.POST.get('search_application')
+    if passport_number:
+        try:
+            application = Applicant.objects.get(passport_number=passport_number)
+            return redirect('core:application_status', application.id)
+        except Applicant.DoesNotExist:
+            messages.error(request, "Application not found with the given passport number")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        messages.error(request, "Passport number not provided")
+        return redirect(request.META.get('HTTP_REFERER', '/'))

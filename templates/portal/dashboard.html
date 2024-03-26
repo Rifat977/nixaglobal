@@ -38,6 +38,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12">
+        {% include 'portal/assets/message.html' %}
         <div class="row">
           <div class="col-md-6 col-xl-3 mb-4">
             <div class="card shadow border-0">
@@ -171,16 +172,17 @@
 
     <div class="row">
         <div class="col-12 mb-4">
-            <div class="card bg-success shadow border-0">
+          {% include 'portal/assets/message.html' %}
+            <div class="card  shadow border-0">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col pr-0">
-                            <div class="notification text-light">
+                            <div class="notification text-dark">
                                 <span>
                                     <i class="fe fe-24 fe-bell"></i>
                                 </span>
                                 <div class="notification-content ml-3">
-                                    <marquee class="notification-text text-light">{{notification.message}}</marquee>
+                                    <marquee class="notification-text text-dark">{{notification.message}}</marquee>
                                 </div>
                             </div>
                         </div>
