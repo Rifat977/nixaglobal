@@ -194,7 +194,7 @@
             <img src="{% static 'assets/guest/assets/img/about.jpg' %}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 content">
-            <div class="partner-program">
+            <div class="partner-program justify-content-center">
               <h3>Unlock Opportunities with Our University Partner Program</h3>
               <p>
                 Are you an ambitious agent seeking to thrive in the dynamic education sector? Your journey to success begins here! Nixa Global proudly presents our University Partner Program, meticulously crafted to offer exclusive benefits tailored specifically for agents like you.
@@ -266,20 +266,25 @@
           <h2>Our Partners</h2>
           <p>Partnering with Nixa Global expands your reach and visibility on a global scale. Reach new audiences, attract diverse talent, and tap into new markets as we work together to make quality education accessible to all.</p>
         </div>
-
+        
+      
         <div class="clients-slider swiper">
           <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><img src="{% static 'images/logo-mmu.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://newinti.edu.my/wp-content/uploads/2020/01/INTI-YourFutureBuiltToday-LOGO_2020.png" class="img-fluid" alt="newinti"></div>
+            <div class="swiper-slide"><img src="https://city.edu.my/wp-content/uploads/2023/04/cu-1.png" class="img-fluid" alt="city"></div>
+            <div class="swiper-slide"><img src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" class="img-fluid" alt="uniter"></div>
+            <div class="swiper-slide"><img src="https://iukl.edu.my/wp-content/uploads/2023/06/logo-iukl-1.png" class="img-fluid" alt="iukl"></div>
+            <div class="swiper-slide"><img src="https://www.ucsiuniversity.edu.my/sites/default/files/ucsi_uni_logo.png" class="img-fluid" alt="ucsiuniversity"></div>
+            <div class="swiper-slide"><img src="https://lincoln.edu.my/wp-content/uploads/2021/06/cropped-logoLincoln.png" class="img-fluid" alt="linkcoln"></div>
+            <div class="swiper-slide"><img src="https://i0.wp.com/www.geomatika.edu.my/wp-content/uploads/2022/10/Logo-UGM-2022-TRANSPARENT-01.png" class="img-fluid" alt="ugm"></div>
+            <div class="swiper-slide"><img src="https://mahsa.edu.my/images/logo.png" class="img-fluid" alt="masha"></div>
+            <div class="swiper-slide"><img src="https://alfa.edu.my/storage/ALFA-Logo-BBG.png" class="img-fluid" alt="alfa"></div>
+            <div class="swiper-slide"><img src="https://www.nilai.edu.my/sites/default/files/logo.png" class="img-fluid" alt="nilai"></div>
+            <div class="swiper-slide"><img src="{% static 'images/logo-mmu.png' %}" class="img-fluid" alt="mmu"></div>
             <div class="swiper-slide"><img src="{% static 'images/logo-apu.png' %}" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="{% static 'images/logo-uniten.png' %}" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="https://www.segi.edu.my/wp-content/uploads/2023/09/Group-header-logo_rev.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://www.southern.edu.my/wp-content/uploads/elementor/thumbs/SUC-logo-q3vruiv7s57rb8dyspp6vusnktmb9bg5pxb2em4cca.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="{% static 'images/logo-apu.png' %}" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="{% static 'images/logo-uniten.png' %}" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://cdn.unitar.my/wp-content/uploads/2021/06/UNITAR-Logo.svg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://www.segi.edu.my/wp-content/uploads/2023/09/Group-header-logo_rev.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://www.southern.edu.my/wp-content/uploads/elementor/thumbs/SUC-logo-q3vruiv7s57rb8dyspp6vusnktmb9bg5pxb2em4cca.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="https://cyberjaya.edu.my/wp-content/uploads/2022/10/University-of-Cyberjaya-Logo.png" class="img-fluid" alt="cyberjaya"></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -300,22 +305,19 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'core:index' %}">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'account:register' %}">Register</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Visa Processing</a></li>
+              <li><i class="bx bx-chevron-right"></i> Student Visa Application</li>
+              <li><i class="bx bx-chevron-right"></i> Agent Commission Tier</li>
+              <li><i class="bx bx-chevron-right"></i> Search Program</li>
+              <li><i class="bx bx-chevron-right"></i> Application Status Check</li>
+              <li><i class="bx bx-chevron-right"></i> Exclusive Agent Facilities</li>
             </ul>
           </div>
 
